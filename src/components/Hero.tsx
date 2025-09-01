@@ -17,7 +17,7 @@ const Hero: React.FC = () => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 pt-20"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 pt-20 particle-section"
     >
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -119,7 +119,7 @@ const Hero: React.FC = () => {
               <img
                 src={profileImage}
                 alt="Saikat Bishal - Full Stack Web Developer"
-                className="rounded-2xl"
+                className="rounded-2xl transition-transform duration-300 ease-in-out hover:scale-110 cursor-pointer"
                 style={{
                   width: '400px',
                   height: '400px',

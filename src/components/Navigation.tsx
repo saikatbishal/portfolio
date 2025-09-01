@@ -56,7 +56,7 @@ const Navigation: React.FC = () => {
           {/* Logo */}
           <div className="group cursor-pointer">
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 inline-block">
-              Portfolio
+              Saikat's Portfolio
             </span>
             <div className="h-0.5 w-0 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 group-hover:w-full" />
           </div>
