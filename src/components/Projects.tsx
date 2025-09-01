@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import ArrowOutwardOutlinedIcon from '@mui/icons-material/ArrowOutwardOutlined';
 import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 
@@ -15,10 +15,157 @@ interface Project {
   githubUrl: string;
 }
 
+// Memoized filter button component to prevent unnecessary re-renders
+const FilterButton = React.memo<{
+  category: string;
+  isActive: boolean;
+  onClick: (category: string) => void;
+}>(({ category, isActive, onClick }) => {
+  const handleClick = useCallback(() => {
+    onClick(category);
+  }, [category, onClick]);
+
+  return (
+    <button
+      onClick={handleClick}
+      className={`px-6 py-3 rounded-full transition-all duration-300 ${
+        isActive ? 'btn-primary' : 'btn-glass'
+      }`}
+      style={{
+        fontSize: '1rem',
+        fontWeight: 500,
+      }}
+    >
+      {category}
+    </button>
+  );
+});
+
+FilterButton.displayName = 'FilterButton';
+
+// Memoized project card component to prevent unnecessary re-renders
+const ProjectCard = React.memo<{
+  project: Project;
+  index: number;
+}>(({ project, index }) => {
+  return (
+    <div
+      className={`card-glass group animate-fade-in ${
+        index % 2 === 0 ? 'md:mt-0' : 'md:mt-12'
+      }`}
+      style={{
+        animationDelay: `${index * 0.2}s`,
+        borderRadius: 'var(--radius-xl)',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Project Image */}
+      <div className="relative overflow-hidden mb-6" style={{ borderRadius: 'var(--radius-lg)' }}>
+        <img
+          src={project.image}
+          alt={`${project.title} - ${project.attribution}`}
+          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+          style={{
+            width: '100%',
+            height: '256px',
+          }}
+          loading="lazy" // Add lazy loading for better performance
+        />
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        />
+        
+        {/* Project Links */}
+        <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <a
+            href={project.liveUrl}
+            className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+            }}
+          >
+            <ArrowOutwardOutlinedIcon style={{ fontSize: '1.25rem' }} />
+          </a>
+          <a
+            href={project.githubUrl}
+            className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+            }}
+          >
+            <LinkOutlinedIcon style={{ fontSize: '1.25rem' }} />
+          </a>
+        </div>
+      </div>
+
+      {/* Project Content */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h3 
+            className="text-heading"
+            style={{
+              fontSize: '1.5rem',
+              fontWeight: 600,
+              color: 'var(--text-primary)',
+            }}
+          >
+            {project.title}
+          </h3>
+          <span 
+            className="text-caption px-3 py-1 rounded-full"
+            style={{
+              background: 'rgba(99, 102, 241, 0.1)',
+              color: 'var(--primary)',
+              fontSize: '0.875rem',
+            }}
+          >
+            {project.category}
+          </span>
+        </div>
+        
+        <p 
+          className="text-body mb-4"
+          style={{
+            color: 'var(--text-secondary)',
+            lineHeight: 1.6,
+          }}
+        >
+          {project.description}
+        </p>
+        
+        {/* Technologies */}
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <span
+              key={tech}
+              className="text-caption px-3 py-1 rounded-full"
+              style={{
+                background: 'rgba(6, 182, 212, 0.1)',
+                color: 'var(--accent)',
+                fontSize: '0.75rem',
+                fontWeight: 500,
+              }}
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+});
+
+ProjectCard.displayName = 'ProjectCard';
+
 const Projects: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('All');
 
-  const projects: Project[] = [
+  // Move projects data outside component or memoize to prevent recreation on every render
+  const projects: Project[] = useMemo(() => [
     {
       id: 1,
       title: 'Analytics Dashboard',
@@ -67,13 +214,24 @@ const Projects: React.FC = () => {
       liveUrl: '#',
       githubUrl: '#',
     },
-  ];
+  ], []);
 
-  const categories = ['All', 'Web App', 'Mobile App', 'UI/UX'];
+  // Memoize categories to prevent recreation on every render
+  const categories = useMemo(() => ['All', 'Web App', 'Mobile App', 'UI/UX'], []);
 
-  const filteredProjects = activeFilter === 'All' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  // Memoize filtered projects to prevent unnecessary recalculations
+  const filteredProjects = useMemo(() => {
+    return activeFilter === 'All' 
+      ? projects 
+      : projects.filter(project => project.category === activeFilter);
+  }, [projects, activeFilter]);
+
+  // Memoize the filter handler to prevent unnecessary re-renders of FilterButton components
+  const handleFilterChange = useCallback((category: string) => {
+    if (category !== activeFilter) {
+      setActiveFilter(category);
+    }
+  }, [activeFilter]);
 
   return (
     <section 
@@ -118,134 +276,23 @@ const Projects: React.FC = () => {
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category) => (
-            <button
+            <FilterButton
               key={category}
-              onClick={() => setActiveFilter(category)}
-              className={`px-6 py-3 rounded-full transition-all duration-300 ${
-                activeFilter === category 
-                  ? 'btn-primary' 
-                  : 'btn-glass'
-              }`}
-              style={{
-                fontSize: '1rem',
-                fontWeight: 500,
-              }}
-            >
-              {category}
-            </button>
+              category={category}
+              isActive={activeFilter === category}
+              onClick={handleFilterChange}
+            />
           ))}
         </div>
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {filteredProjects.map((project, index) => (
-            <div
+            <ProjectCard
               key={project.id}
-              className={`card-glass group animate-fade-in ${
-                index % 2 === 0 ? 'md:mt-0' : 'md:mt-12'
-              }`}
-              style={{
-                animationDelay: `${index * 0.2}s`,
-                borderRadius: 'var(--radius-xl)',
-                overflow: 'hidden',
-              }}
-            >
-              {/* Project Image */}
-              <div className="relative overflow-hidden mb-6" style={{ borderRadius: 'var(--radius-lg)' }}>
-                <img
-                  src={project.image}
-                  alt={`${project.title} - ${project.attribution}`}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                  style={{
-                    width: '100%',
-                    height: '256px',
-                  }}
-                />
-                <div 
-                  className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-                
-                {/* Project Links */}
-                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <a
-                    href={project.liveUrl}
-                    className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.2)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                    }}
-                  >
-                    <ArrowOutwardOutlinedIcon style={{ fontSize: '1.25rem' }} />
-                  </a>
-                  <a
-                    href={project.githubUrl}
-                    className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.2)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                    }}
-                  >
-                    <LinkOutlinedIcon style={{ fontSize: '1.25rem' }} />
-                  </a>
-                </div>
-              </div>
-
-              {/* Project Content */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 
-                    className="text-heading"
-                    style={{
-                      fontSize: '1.5rem',
-                      fontWeight: 600,
-                      color: 'var(--text-primary)',
-                    }}
-                  >
-                    {project.title}
-                  </h3>
-                  <span 
-                    className="text-caption px-3 py-1 rounded-full"
-                    style={{
-                      background: 'rgba(99, 102, 241, 0.1)',
-                      color: 'var(--primary)',
-                      fontSize: '0.875rem',
-                    }}
-                  >
-                    {project.category}
-                  </span>
-                </div>
-                
-                <p 
-                  className="text-body mb-4"
-                  style={{
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {project.description}
-                </p>
-                
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-caption px-3 py-1 rounded-full"
-                      style={{
-                        background: 'rgba(6, 182, 212, 0.1)',
-                        color: 'var(--accent)',
-                        fontSize: '0.75rem',
-                        fontWeight: 500,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+              project={project}
+              index={index}
+            />
           ))}
         </div>
       </div>
