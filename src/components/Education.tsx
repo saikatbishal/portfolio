@@ -1,7 +1,10 @@
 import React from "react";
 import { education, skills } from "../data/skills";
+import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 
 const Education: React.FC = () => {
+  useGSAPAnimations();
+
   const skillCategories = {
     frontend: { name: "Frontend", color: "#6366f1" }, // Indigo color
     backend: { name: "Backend", color: "#8b5cf6" }, // Purple color
