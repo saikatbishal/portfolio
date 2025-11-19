@@ -16,14 +16,15 @@ const Navigation: React.FC = () => {
     const filteredDesktopRefs = desktopNavRefs.current.filter(
       (ref) => ref != null
     );
-    // gsap.set(filteredDesktopRefs, { y: 50, opacity: 1 });
-    gsap.from(filteredDesktopRefs, {
-      y: -50,
+    gsap.set(filteredDesktopRefs, { y: -50, opacity: 0 });
+    gsap.to(filteredDesktopRefs, {
+      y: 8,
       opacity: 1,
-      duration: 0.7,
-      // stagger: 0.1,
-      // yoyo: true,
-      ease: "power3.out",
+      delay:1,
+      duration: 1,
+      stagger: 0.2,
+      yoyo: true,
+      ease: "sine.inOut",
       // clearProps: "transform,opacity"
     });
   }, [isMobileMenuOpen]);
@@ -112,6 +113,7 @@ const Navigation: React.FC = () => {
             <div className="flex items-center space-x-1">
               {navItems.map((item, index) => (
                 <button
+                style={{opacity:0}}
                   ref={(el) => (desktopNavRefs.current[index] = el)}
                   key={item.label}
                   onClick={() => handleNavClick(item.href)}
