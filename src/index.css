@@ -4,24 +4,26 @@
 @tailwind utilities;
 
 :root {
-  /* Color Palette - Light Mode */
-  --primary: #6366f1;
-  --secondary: #8b5cf6;
-  --accent: #06b6d4;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --background-light: #f8fafc;
-  --background-dark: #0f172a;
+  /* Color Palette - Pastel Minimal */
+  --primary: #4c8061;        /* muted emerald */
+  --secondary: #e3879e;      /* soft rose */
+  --accent: #88b4d4;         /* pastel blue */
+  --success: #6cbf6c;
+  --warning: #e8b86b;
+  --error: #d96b6b;
+
+  --background-light: #faf7f2; /* warm cream */
+  --background-dark: #1a1b1d;
   --surface: #ffffff;
-  --surface-dark: #1e293b;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --text-light: #9ca3af;
-  --border: #e5e7eb;
+  --surface-dark: #2b2d31;
+
+  --text-primary: #373737;
+  --text-secondary: #6d6d6d;
+  --text-light: #9b9b9b;
+  --border: #e7e3de;
 
   /* Typography */
-  --font-primary: "Inter", system-ui, -apple-system, sans-serif;
+  --font-primary: "Inter", system-ui, sans-serif;
   --font-display: "Playfair Display", serif;
 
   /* Spacing */
@@ -34,48 +36,42 @@
   --spacing-3xl: 6rem;
 
   /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-    0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 3px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 20px rgba(76, 128, 97, 0.15);
+  --shadow-xl: 0 16px 35px rgba(228, 135, 158, 0.14);
+  --shadow-glass: 0 8px 25px rgba(100, 100, 100, 0.15);
 
   /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.25);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-backdrop: blur(20px);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(150, 150, 150, 0.15);
+  --glass-backdrop: blur(22px);
 }
 
-/* Dark Mode Variables */
 :root.dark {
-  --background-light: #0f172a;
-  --surface: #1e293b;
-  --surface-dark: #334155;
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-light: #94a3b8;
-  --border: #334155;
-  --glass-bg: rgba(30, 41, 59, 0.25);
-  --glass-border: rgba(148, 163, 184, 0.18);
+  --background-light: #1a1b1d;
+  --surface: #2b2d31;
+  --surface-dark: #3a3c41;
+  --text-primary: #f5f5f5;
+  --text-secondary: #cfcfcf;
+  --text-light: #9a9a9a;
+  --border: #494949;
+  --glass-bg: rgba(40, 40, 40, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
+/* RESET + BASE — unchanged */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
 }
 
 body {
@@ -84,8 +80,11 @@ body {
   color: var(--text-primary);
   background: var(--background-light);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* ----- The rest of your utilities remain the same ------ */
+/* paste your full utilities below this line unchanged */
+
 
 #root {
   margin: 0;
@@ -279,7 +278,7 @@ html {
 }
 
 .card-glass:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(168, 255, 223, 0.204);
   transform: translateY(-8px);
   box-shadow: var(--shadow-glass);
 }
