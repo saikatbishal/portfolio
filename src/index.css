@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,11 +19,11 @@
   --text-secondary: #6b7280;
   --text-light: #9ca3af;
   --border: #e5e7eb;
-  
+
   /* Typography */
-  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Playfair Display', serif;
-  
+  --font-primary: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display", serif;
+
   /* Spacing */
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -32,25 +32,27 @@
   --spacing-xl: 3rem;
   --spacing-2xl: 4rem;
   --spacing-3xl: 6rem;
-  
+
   /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
   --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  
+
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.25);
   --glass-border: rgba(255, 255, 255, 0.18);
   --glass-backdrop: blur(20px);
-  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -172,7 +174,8 @@ html {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -288,7 +291,7 @@ html {
     --spacing-2xl: 3rem;
     --spacing-3xl: 4rem;
   }
-  
+
   .text-display {
     font-size: 2.5rem;
   }
@@ -329,18 +332,24 @@ html {
 
 /* Theme transition animations */
 * {
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Smooth theme transitions for specific elements */
-.card, .card-glass, .btn, .btn-glass, .btn-primary, .btn-secondary {
+.card,
+.card-glass,
+.btn,
+.btn-glass,
+.btn-primary,
+.btn-secondary {
   transition: all 0.3s ease;
 }
 
 /* Skill progress bar animations */
 .skill-item {
-  opacity: 0;
-  animation: fadeInUp 0.6s /-out forwards;
+  opacity: 1;
+  animation: fadeInUp 0.6s ease-out forwards;
 }
 
 .skill-progress {
@@ -376,13 +385,18 @@ html {
 }
 
 .experience-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   transition: left 0.5s ease;
 }
 
@@ -404,7 +418,7 @@ html {
 }
 
 .custom-cursor::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -15px;
   left: -15px;
@@ -437,7 +451,12 @@ html {
     cursor: none;
   }
 
-  a, button, input, textarea, select, [role='button'] {
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
     cursor: none;
   }
 }
@@ -447,7 +466,7 @@ html {
   body {
     cursor: auto;
   }
-  
+
   .custom-cursor {
     display: none;
   }
@@ -493,13 +512,19 @@ html {
 }
 
 /* Navigation and other fixed elements should be above particles */
-nav, header, .navigation {
+nav,
+header,
+.navigation {
   position: relative;
   z-index: 100;
 }
 
 /* Ensure buttons and interactive elements are clickable */
-button, a, input, textarea, select {
+button,
+a,
+input,
+textarea,
+select {
   position: relative;
   z-index: 50;
 }

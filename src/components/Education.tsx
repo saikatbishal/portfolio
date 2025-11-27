@@ -157,16 +157,22 @@ const Education: React.FC = () => {
                       .map((skill, skillIndex) => (
                         <div key={skill.name} className="skill-item">
                           <div className="flex justify-between items-center mb-2">
-                            <span className="text-gray-900 dark:text-gray-100 text-sm font-medium">
+                            <span
+                              className="text-sm font-medium"
+                              style={{ color: "var(--text-primary)" }}
+                            >
                               {skill.name}
                             </span>
-                            <span className="text-gray-600 dark:text-gray-400 text-sm font-semibold">
+                            <span
+                              className="text-sm font-semibold"
+                              style={{ color: "var(--text-secondary)" }}
+                            >
                               {skill.level}%
                             </span>
                           </div>
 
                           {/* Progress Bar */}
-                          <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                          <div className="w-full h-3 rounded-full overflow-hidden" style={{ backgroundColor: "var(--border)" }}>
                             <div
                               className="h-full rounded-full transition-all duration-1000 ease-out skill-progress"
                               style={{
