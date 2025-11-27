@@ -6,10 +6,10 @@ const Education: React.FC = () => {
   useGSAPAnimations();
 
   const skillCategories = {
-    frontend: { name: "Frontend", color: "#6366f1" }, // Indigo color
-    backend: { name: "Backend", color: "#8b5cf6" }, // Purple color
-    tools: { name: "Tools & DevOps", color: "#06b6d4" }, // Cyan color
-    design: { name: "Design", color: "#10b981" }, // Emerald color
+    frontend: { name: "Frontend", color: "#FFB5A7" }, // Indigo color
+    backend: { name: "Backend", color: "#FCD5CE" }, // Purple color
+    tools: { name: "Tools & DevOps", color: "#A0E7E5" }, // Cyan color
+    design: { name: "Design", color: "#FEE1A8" }, // Emerald color
   };
 
   return (

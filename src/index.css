@@ -190,14 +190,21 @@ html {
 .gradient-accent {
   background: linear-gradient(135deg, var(--accent) 0%, var(--success) 100%);
 }
-
 .gradient-text {
+  @apply bg-gradient-to-r from-pink-400 via-rose-400 to-sky-300 bg-clip-text text-transparent;
+}
+.dark .gradient-text {
+  @apply bg-gradient-to-r from-pink-300 via-rose-300 to-sky-200 bg-clip-text text-transparent;
+}
+
+
+/* .gradient-text {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 4rem !important;
   background-clip: text;
-}
+} */
 
 /* Button styles */
 .btn {
@@ -319,15 +326,34 @@ html {
   color-scheme: dark;
 }
 
-.dark .gradient-text {
-  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
-  /* opacity: 0;
-  visibility: hidden;
-  display: inline-block; */
+/* Pastel Gradient Text */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    #f8b4d9 0%,   /* pastel pink */
+    #c1d3fe 40%,  /* pastel baby blue */
+    #c4f1be 80%,  /* pastel mint green */
+    #ffe9a3 100%  /* pastel soft yellow */
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Dark Mode – richer but still pastel */
+.dark .gradient-text {
+  background: linear-gradient(
+    135deg,
+    #ff9acb 0%,   /* vivid pastel pink */
+    #9bb8ff 40%,  /* pastel blue (slightly bolder for contrast) */
+    #9ff0b4 80%,  /* pastel mint */
+    #ffe38a 100%  /* pastel soft yellow */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 
 /* Theme transition animations */
 * {

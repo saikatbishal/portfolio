@@ -56,35 +56,33 @@ export const education: EducationItem[]= [
   }
 ];
 
+
+
+  const skillCategories = {
+    frontend: { name: "Frontend", color: "#FFB5A7" }, // Indigo color
+    backend: { name: "Backend", color: "#FCD5CE" }, // Purple color
+    tools: { name: "Tools & DevOps", color: "#A0E7E5" }, // Cyan color
+    design: { name: "Design", color: "#FEE1A8" }, // Emerald color
+  };
 export const skills: Skill[]= [
   // Frontend
   { name: "React", level: 90, category: "frontend" },
   { name: "Next.js", level: 85, category: "frontend" },
-  { name: "Redux", level: 85, category: "frontend" },
-  { name: "Redux Toolkit", level: 80, category: "frontend" },
   { name: "Tailwind CSS", level: 85, category: "frontend" },
-  { name: "Styled Components", level: 75, category: "frontend" },
   { name: "JavaScript", level: 90, category: "frontend" },
   { name: "TypeScript", level: 85, category: "frontend" },
-  { name: "CSS3", level: 90, category: "frontend" },
-  { name: "HTML5", level: 95, category: "frontend" },
+  { name: "HTML5/CSS3", level: 90, category: "frontend" },
 
   // Backend
   { name: "Node.js", level: 90, category: "backend" },
   { name: "Express.js", level: 85, category: "backend" },
-  { name: "NestJS", level: 85, category: "backend" },
   { name: "RESTful APIs", level: 90, category: "backend" },
   { name: "GraphQL", level: 70, category: "backend" },
 
   // Tools
   { name: "Docker", level: 85, category: "tools" },
   { name: "PM2", level: 80, category: "tools" },
-  { name: "RabbitMQ", level: 75, category: "tools" },
   { name: "AWS Lambda", level: 80, category: "tools" },
-  { name: "API Gateway", level: 75, category: "tools" },
-  { name: "DynamoDB", level: 75, category: "tools" },
-  { name: "AWS S3", level: 75, category: "tools" },
-  { name: "ELK Stack", level: 75, category: "tools" },
   { name: "Keycloak", level: 70, category: "tools" },
   { name: "Git", level: 90, category: "tools" },
 
