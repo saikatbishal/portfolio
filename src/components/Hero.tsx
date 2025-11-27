@@ -82,7 +82,7 @@ const Hero = () => {
                 <span
                   className="text"
                   key={i}
-                  ref={el => heroSpans.current[i] = el}
+                  ref={el => {return heroSpans.current[i] = el}}
                   style={{
                     display: "inline-block",
                     // Allows GSAP to animate vertically

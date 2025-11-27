@@ -73,14 +73,15 @@ export const useGSAPAnimations = () => {
       gsap.from(skill, {
         scrollTrigger: {
           trigger: skill,
-          start: "top center+=150",
+          start: "top bottom-=50",
+          end: "top center",
           toggleActions: "play none none reverse",
         },
-        scale: 0.5,
+        x: -50,
         opacity: 0,
-        duration: 0.5,
-        delay: i * 0.1,
-        ease: "back.out(1.7)",
+        duration: 0.6,
+        delay: i * 0.05,
+        ease: "power2.out",
       });
     });
 

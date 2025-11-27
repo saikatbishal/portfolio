@@ -1,6 +1,9 @@
 import React, { useState, useMemo, useCallback } from "react";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import CloseIcon from "@mui/icons-material/Close";
+import ledgerflow from "../assets/ledgerflow.png";
 import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 
 interface Project {
@@ -9,11 +12,12 @@ interface Project {
   description: string;
   image: string;
   attribution: string;
-  photographerUrl: string;
+  photographerUrl?: string;
   technologies: string[];
   category: string;
   liveUrl: string;
   githubUrl: string;
+  videoUrl?: string;
 }
 
 // Memoized filter button component to prevent unnecessary re-renders
@@ -48,7 +52,8 @@ FilterButton.displayName = "FilterButton";
 const ProjectCard = React.memo<{
   project: Project;
   index: number;
-}>(({ project, index }) => {
+  onVideoClick: (videoUrl: string) => void;
+}>(({ project, index, onVideoClick }) => {
   return (
     <div
       className={`project-card card-glass group animate-fade-in ${
@@ -79,8 +84,23 @@ const ProjectCard = React.memo<{
 
         {/* Project Links */}
         <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {project.videoUrl && (
+            <button
+              onClick={() => onVideoClick(project.videoUrl!)}
+              className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
+              style={{
+                background: "rgba(255, 255, 255, 0.2)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+              }}
+            >
+              <PlayCircleOutlineIcon style={{ fontSize: "1.25rem" }} />
+            </button>
+          )}
           <a
             href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
             style={{
               background: "rgba(255, 255, 255, 0.2)",
@@ -92,6 +112,8 @@ const ProjectCard = React.memo<{
           </a>
           <a
             href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
             style={{
               background: "rgba(255, 255, 255, 0.2)",
@@ -166,6 +188,7 @@ ProjectCard.displayName = "ProjectCard";
 const Projects: React.FC = () => {
   useGSAPAnimations();
   const [activeFilter, setActiveFilter] = useState("All");
+  const [videoModalUrl, setVideoModalUrl] = useState<string | null>(null);
 
   // Memoize categories to prevent recreation on every render
   const categories = useMemo(
@@ -178,17 +201,23 @@ const Projects: React.FC = () => {
     () => [
       {
         id: 1,
-        title: "Analytics Dashboard",
+        title: "Ledgerflow",
         description:
-          "A comprehensive analytics dashboard with real-time data visualization, interactive charts, and customizable widgets for business intelligence.",
-        image:
-          "https://images.unsplash.com/photo-1486927181919-3ac1fc3a8082?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxkYXNoYm9hcmQlMjBpbnRlcmZhY2UlMjB3ZWIlMjBhcHBsaWNhdGlvbnxlbnwwfDB8fGJsdWV8MTc1NjY0Njg5MXww&ixlib=rb-4.1.0&q=85",
-        attribution: "Luca Bravo on Unsplash",
-        photographerUrl: "https://unsplash.com/@lucabravo",
-        technologies: ["React", "TypeScript", "D3.js", "Node.js", "PostgreSQL"],
+          "A comprehensive financial management platform with real-time tracking, interactive dashboards, and powerful analytics for business intelligence.",
+        image: ledgerflow,
+        attribution: "Ledgerflow Screenshot",
+        technologies: [
+          "React",
+          "TypeScript",
+          "Tailwind CSS",
+          "Node.js",
+          "PostgreSQL",
+        ],
+
         category: "Web App",
-        liveUrl: "#",
+        liveUrl: "https://folio-one-brown.vercel.app",
         githubUrl: "#",
+        videoUrl: "https://www.loom.com/embed/c6a640fe96a9428f9ab49bac36315d86",
       },
       {
         id: 2,
@@ -203,6 +232,7 @@ const Projects: React.FC = () => {
         category: "Mobile App",
         liveUrl: "#",
         githubUrl: "#",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       },
       {
         id: 3,
@@ -217,6 +247,7 @@ const Projects: React.FC = () => {
         category: "Web App",
         liveUrl: "#",
         githubUrl: "#",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       },
       {
         id: 4,
@@ -231,6 +262,7 @@ const Projects: React.FC = () => {
         category: "Web App",
         liveUrl: "#",
         githubUrl: "#",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       },
     ],
     []
@@ -252,6 +284,15 @@ const Projects: React.FC = () => {
     },
     [activeFilter]
   );
+
+  // Video modal handlers
+  const handleVideoClick = useCallback((videoUrl: string) => {
+    setVideoModalUrl(videoUrl);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setVideoModalUrl(null);
+  }, []);
 
   return (
     <section
@@ -311,10 +352,48 @@ const Projects: React.FC = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onVideoClick={handleVideoClick}
+            />
           ))}
         </div>
       </div>
+
+      {/* Video Modal */}
+      {videoModalUrl && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={handleCloseModal}
+        >
+          <div
+            className="relative w-full max-w-4xl mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={handleCloseModal}
+              className="absolute -top-12 right-0 p-2 text-white hover:text-gray-300 transition-colors"
+              aria-label="Close video"
+            >
+              <CloseIcon style={{ fontSize: "2rem" }} />
+            </button>
+            <div
+              className="relative w-full"
+              style={{ paddingBottom: "56.25%" }}
+            >
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                src={videoModalUrl}
+                title="Project video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

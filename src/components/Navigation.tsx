@@ -114,7 +114,7 @@ const Navigation: React.FC = () => {
               {navItems.map((item, index) => (
                 <button
                 style={{opacity:0}}
-                  ref={(el) => (desktopNavRefs.current[index] = el)}
+                  ref={(el) => {(desktopNavRefs.current[index] = el)}}
                   key={item.label}
                   onClick={() => handleNavClick(item.href)}
                   className={`nav-item relative px-4 py-2 ${
@@ -197,7 +197,7 @@ const Navigation: React.FC = () => {
             <div className="relative z-10 px-6 py-6 space-y-2">
               {navItems.map((item, index) => (
                 <button
-                  ref={(el) => (mobileNavRefs.current[index] = el)}
+                  ref={(el) => {(mobileNavRefs.current[index] = el)}}
                   key={item.label}
                   onClick={() => handleNavClick(item.href)}
                   className={`nav-item block w-full text-left px-4 py-3 ${
