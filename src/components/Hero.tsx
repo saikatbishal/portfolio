@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import profileImage from "../assets/saikatbishal-portfolio_image.jpeg";
+import profileImage from "../assets/profile.png";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 // Remove the custom hook for now for clarity
