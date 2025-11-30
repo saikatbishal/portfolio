@@ -10,6 +10,7 @@ import Oneko from './components/interactive/Oneko';
 import './index.css';
 import ThemeTransition from './components/interactive/ThemeTransition';
 import Games from './components/Games';
+import Chatbot from './components/Chatbot';
 
 // Lazy load components - Critical path optimization
 const ParticleBackground = React.lazy(() => import('./components/interactive/ParticleBackground'));
@@ -55,7 +56,6 @@ const Home = () => (
         <Contact />
       </Suspense>
     </main>
-// ...existing code...
     <Suspense fallback={<MinimalLoader />}>
       <Footer />
     </Suspense>
@@ -92,6 +92,7 @@ function App() {
         <div><AppContent />
           {/* Oneko positioned at the very end to ensure highest z-index */}
           <Oneko />
+          <Chatbot />
         </div>
       </ThemeProvider>
     </BrowserRouter>

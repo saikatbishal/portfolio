@@ -15,16 +15,16 @@ const Navigation: React.FC = () => {
 
   useEffect(() => {
     const filteredDesktopRefs = desktopNavRefs.current.filter((ref) => ref != null);
-    gsap.set(filteredDesktopRefs, { y: -50, opacity: 0 });
+    gsap.set(filteredDesktopRefs, { y: -20, opacity: 0 });
     gsap.to(filteredDesktopRefs, {
-      y: 8,
+      y: 0,
       opacity: 1,
-      delay: 1,
-      duration: 1,
-      stagger: 0.2,
-      ease: "sine.inOut"
+      delay: 0.2,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power3.out"
     });
-  }, [isMobileMenuOpen]);
+  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
