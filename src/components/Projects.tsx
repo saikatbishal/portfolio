@@ -3,7 +3,7 @@ import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
-import ledgerflow from "../assets/ledgerflow.png";
+import ledgerflow from "../../public/ledgerflow.png";
 import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 
 interface Project {
