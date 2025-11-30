@@ -1,83 +1,73 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
-type Theme = 'light' | 'dark';
-
+// Define the shape of your context
 interface ThemeContextType {
-  theme: Theme;
+  isDarkMode: boolean;
+  isAnimating: boolean;
   toggleTheme: () => void;
-  isDark: boolean;
+  handleAnimationComplete: () => void;
 }
 
+// Create the context with a default value (optional)
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-};
-
-interface ThemeProviderProps {
-  children: ReactNode;
-}
-
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check if user has a saved preference
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      return savedTheme;
+export const ThemeProvider = ({
+  children,
+}: {
+  children: React.ReactElement;
+}) => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    // Check localStorage or system preference
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      return saved === 'dark';
     }
-    
-    // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    
-    return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
-      return newTheme;
-    });
+    setIsAnimating(true);
+
+    // Start the animation and change theme after a slight delay
+    setTimeout(() => {
+      setIsDarkMode((prev) => {
+        const newValue = !prev;
+        localStorage.setItem('theme', newValue ? 'dark' : 'light');
+        if (newValue) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        return newValue;
+      });
+    }, 500); // Change theme halfway through animation
   };
 
-  useEffect(() => {
-    const root = document.documentElement;
-    
-    if (theme === 'dark') {
-      root.classList.add('dark');
+  const handleAnimationComplete = () => {
+    setIsAnimating(false);
+  };
+
+  // Initialize theme on mount
+  React.useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
     } else {
-      root.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
-  }, [theme]);
-
-  // Listen for system theme changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  const value: ThemeContextType = {
-    theme,
-    toggleTheme,
-    isDark: theme === 'dark',
-  };
+  }, [isDarkMode]);
 
   return (
-    <ThemeContext.Provider value={value}>
+    <ThemeContext.Provider value={{ isDarkMode, isAnimating, toggleTheme, handleAnimationComplete }}>
       {children}
     </ThemeContext.Provider>
   );
+};
+// eslint-disable-next-line react-refresh/only-export-components
+export const useTheme = (): ThemeContextType => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+  return context;
 };

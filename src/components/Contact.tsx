@@ -50,21 +50,29 @@ const Contact: React.FC = () => {
 
     try {
       console.log("Sending email with form data:", formData);
+      
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS environment variables are missing. Please check your .env file.");
+      }
 
       // Initialize EmailJS
-      emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+      emailjs.init(publicKey);
 
       const result = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        serviceId,
+        templateId,
         {
           from_name: formData.name,
           reply_to: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
+          to_email: import.meta.env.VITE_EMAIL_TO,
         },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        publicKey
       );
 
       console.log("Email sent successfully:", result);
@@ -125,7 +133,7 @@ const Contact: React.FC = () => {
         }}
       >
         Let's Work{" "}
-        <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r  from-pink-400 via-blue-400 to-green-400 bg-clip-text text-transparent">
           Together
         </span>
       </h2>
@@ -371,9 +379,9 @@ const Contact: React.FC = () => {
     onClick={handleDownloadCV}
     className="
       w-full group relative overflow-hidden rounded-2xl p-4 
-      bg-gradient-to-r from-indigo-400 to-purple-400 
-      hover:from-indigo-500 hover:to-purple-500 
-      transition-all duration-300 hover:scale-105 hover:shadow-xl
+      bg-gradient-to-r  from-pink-400 via-blue-400 to-green-400 
+      hover:from-pink-500 hover:via-blue-500 hover:to-green-500 
+      transition-all duration-300 hover:scale-[102%] hover:shadow-xl
     "
     style={{
       boxShadow: "0 4px 15px rgba(129, 140, 248, 0.3)", // pastel indigo
@@ -382,7 +390,7 @@ const Contact: React.FC = () => {
     <div
       className="
         absolute inset-0 bg-gradient-to-r 
-        from-purple-400 to-indigo-400 
+        from-pink-400 via-blue-400 to-green-400
         opacity-0 group-hover:opacity-100 
         transition-opacity duration-300
       "

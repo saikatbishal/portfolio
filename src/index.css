@@ -5,9 +5,9 @@
 
 :root {
   /* Color Palette - Pastel Minimal */
-  --primary: #4c8061;        /* muted emerald */
-  --secondary: #e3879e;      /* soft rose */
-  --accent: #88b4d4;         /* pastel blue */
+  --primary: #4c8061; /* muted emerald */
+  --secondary: #e3879e; /* soft rose */
+  --accent: #88b4d4; /* pastel blue */
   --success: #6cbf6c;
   --warning: #e8b86b;
   --error: #d96b6b;
@@ -80,11 +80,11 @@ body {
   color: var(--text-primary);
   background: var(--background-light);
   overflow-x: hidden;
+  cursor: url("/fish-cursor.svg") 10 7, auto;
 }
 
 /* ----- The rest of your utilities remain the same ------ */
 /* paste your full utilities below this line unchanged */
-
 
 #root {
   margin: 0;
@@ -196,7 +196,6 @@ html {
 .dark .gradient-text {
   @apply bg-gradient-to-r from-pink-300 via-rose-300 to-sky-200 bg-clip-text text-transparent;
 }
-
 
 /* .gradient-text {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -330,10 +329,10 @@ html {
 .gradient-text {
   background: linear-gradient(
     135deg,
-    #f8b4d9 0%,   /* pastel pink */
-    #c1d3fe 40%,  /* pastel baby blue */
-    #c4f1be 80%,  /* pastel mint green */
-    #ffe9a3 100%  /* pastel soft yellow */
+    #f8b4d9 0%,
+    /* pastel pink */ #c1d3fe 40%,
+    /* pastel baby blue */ #c4f1be 80%,
+    /* pastel mint green */ #ffe9a3 100% /* pastel soft yellow */
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -344,16 +343,15 @@ html {
 .dark .gradient-text {
   background: linear-gradient(
     135deg,
-    #ff9acb 0%,   /* vivid pastel pink */
-    #9bb8ff 40%,  /* pastel blue (slightly bolder for contrast) */
-    #9ff0b4 80%,  /* pastel mint */
-    #ffe38a 100%  /* pastel soft yellow */
+    #ff9acb 0%,
+    /* vivid pastel pink */ #9bb8ff 40%,
+    /* pastel blue (slightly bolder for contrast) */ #9ff0b4 80%,
+    /* pastel mint */ #ffe38a 100% /* pastel soft yellow */
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 
 /* Theme transition animations */
 * {
@@ -472,7 +470,7 @@ html {
 
 /* Hide default cursor on interactive elements - Desktop only */
 @media (hover: hover) {
-  body {
+  /* body {
     cursor: none;
   }
 
@@ -483,7 +481,7 @@ html {
   select,
   [role="button"] {
     cursor: none;
-  }
+  } */
 }
 
 /* Show default cursor on mobile */
@@ -505,6 +503,43 @@ html {
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Oneko cat positioning - ensure it stays on top of all content */
+#neko,
+.neko,
+[id*="neko"],
+[class*="neko"] {
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  position: fixed !important;
+}
+
+/* Ensure neko cat is visible and not affected by other transforms */
+#neko img,
+.neko img,
+[id*="neko"] img,
+[class*="neko"] img {
+  z-index: 999999 !important;
+  position: relative !important;
+}
+
+/* Custom Fish Cursor for Interactive Elements */
+a,
+button,
+input,
+textarea,
+select,
+[role="button"],
+.cursor-pointer {
+  cursor: url("/fish-cursor.svg") 10 7, pointer;
+}
+
+a:hover,
+button:hover,
+[role="button"]:hover,
+.cursor-pointer:hover {
+  cursor: url("/fish-cursor.svg") 10 7, pointer;
 }
 
 /* Make particle background area unselectable */

@@ -1,33 +1,12 @@
-import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
+import React from "react";
 import profileImage from "../assets/profile.png";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
-// Remove the custom hook for now for clarity
+import { useTypingEffect } from "../hooks/useTypingEffect";
 
 const Hero = () => {
   const name = "SAIKAT BISHAL";
-  // Array ref for each character span
-  const heroSpans = useRef([]);
-
-  useEffect(() => {
-    // Clean out refs on each render (important for React strict mode)
-    heroSpans.current = heroSpans.current.slice(0, name.length);
-
-    // Animate all character spans
-    gsap.to(heroSpans.current, {
-      y: 0,
-      opacity: 1,
-      visibility: "visible",
-      duration: 1,
-      ease: "power3.out",
-      stagger: 0.07,
-      delay: 0.7,
-      autoAlpha: 1 // Animate both opacity & visibility
-    });
-
-
-  }, [name]);
+  const typedName = useTypingEffect(name, 100, 500);
 
   const handleScrollToProjects = () => {
     const element = document.querySelector("#projects");
@@ -84,33 +63,46 @@ const Hero = () => {
             </span>
           </div>
 
-          {/* Name */}
-          <h1
-            className="text-display mb-6 animate-slide-up"
+          {/* Name with Typing Effect */}
+          <h2
+            className=" text-2xl font-bold bg-gradient-to-r from-pink-400 via-blue-400 to-green-400 bg-clip-text text-transparent hover:scale-105 transition-transform inline-block mb-6"
             style={{
-              fontSize: "clamp(3rem, 8vw, 5rem)",
+              fontSize: "clamp(2rem, 6vw, 4rem)",
               fontWeight: 700,
               lineHeight: 1.1
             }}
           >
-            <div
-              className="bg-gradient-to-r from-[#A5D8FF] via-[#C8B6FF] to-[#FFCBDD] bg-clip-text text-transparent"
-            >
-              {name.split("").map((ch, i) => (
-                <span
-                  key={i}
-                  ref={(el) => (heroSpans.current[i] = el)}
-                  style={{
-                    display: "inline-block",
-                    opacity: 0,
-                    transform: "translateY(20px)"
-                  }}
-                >
-                  {ch}
-                </span>
-              ))}
-            </div>
-          </h1>
+            {typedName}
+            <span className="animate-pulse">|</span>
+          </h2>
+
+          {/* Name - Gradient version (comment out the above if this works) */}
+          {/* <h1
+            className="text-display mb-6"
+            style={{
+              fontSize: "clamp(3rem, 8vw, 5rem)",
+              fontWeight: 700,
+              lineHeight: 1.1,
+              background: "linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              color: "#2D3748" // Fallback color
+            }}
+          >
+            {name.split("").map((ch, i) => (
+              <span
+                key={i}
+                className="inline-block animate-fade-in"
+                style={{ 
+                  minWidth: ch === " " ? "0.3em" : "auto",
+                  animationDelay: `${i * 50}ms`
+                }}
+              >
+                {ch === " " ? "\u00A0" : ch}
+              </span>
+            ))}
+          </h1> */}
 
           {/* Role */}
           <h2
@@ -186,11 +178,13 @@ const Hero = () => {
                         p-8 rounded-3xl">
               <img
                 src={profileImage}
-                alt="Saikat"
+                alt="Saikat Bishal - Full Stack Developer"
                 className="rounded-2xl transition-transform duration-300 hover:scale-110"
+                width="400"
+                height="400"
+                loading="eager"
+                decoding="sync"
                 style={{
-                  width: "400px",
-                  height: "400px",
                   objectFit: "cover",
                   borderRadius: "16px",
                 }}
