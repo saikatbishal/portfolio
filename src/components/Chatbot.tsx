@@ -1,15 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
+// import { useTheme } from '../contexts/ThemeContext'; // Restore this import in your actual project
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+const useTheme = () => {
+  return { isDarkMode: false }; 
+};
 
 interface Message {
   id: string;
   text: string;
   sender: 'user' | 'bot';
   timestamp: Date;
+}
+
+interface ApiResponse {
+  answer: string;
+  action: string;
+  error?: string;
 }
 
 const Chatbot: React.FC = () => {
@@ -35,6 +44,22 @@ const Chatbot: React.FC = () => {
     scrollToBottom();
   }, [messages, isOpen]);
 
+  // Helper to handle scrolling actions from the AI
+  const handleAction = (action: string) => {
+    if (action === 'none') return;
+
+    // Expected format: "scroll_sectionId"
+    const sectionId = action.replace('scroll_', '');
+    const element = document.getElementById(sectionId);
+    
+    if (element) {
+      // Small delay to allow the user to read the message first (optional)
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 500);
+    }
+  };
+
   const handleSend = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!input.trim()) return;
@@ -50,37 +75,67 @@ const Chatbot: React.FC = () => {
     setInput("");
     setIsLoading(true);
 
+   
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 35000); 
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({ question: userMessage.text }),
+        signal: controller.signal, // Attach the abort signal
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      clearTimeout(timeoutId); // Clear the safety timer if response arrives
+
+      // Handle Backend Timeout (503 Service Unavailable)
+      if (response.status === 503) {
+        const errorData = await response.json();
+        const timeoutMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: errorData.answer || "I'm thinking a bit too hard and got stuck. Please try asking again in a simpler way!",
+          sender: 'bot',
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, timeoutMessage]);
+        return;
       }
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`Server Error: ${response.status}`);
+      }
+
+      const data: ApiResponse = await response.json();
       
-      // Handle different possible response structures
-      const botText = data.response || data.message || data.answer || "I received your message.";
+      // Execute the Smart Navigation Action
+      if (data.action) {
+        handleAction(data.action);
+      }
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: botText,
+        text: data.answer,
         sender: 'bot',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, botMessage]);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Chat error:", error);
+      
+      let errorMessageText = "Sorry, I'm having trouble connecting to the server right now.";
+      
+      // Handle Client-Side Timeout specifically
+      if (error.name === 'AbortError') {
+        errorMessageText = "The request timed out. The server is taking too long to respond. Please try again.";
+      }
+
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Sorry, I'm having trouble connecting to the server right now. Please try again later.",
+        text: errorMessageText,
         sender: 'bot',
         timestamp: new Date()
       };
@@ -159,7 +214,7 @@ const Chatbot: React.FC = () => {
                       ? 'bg-gray-800 text-gray-200 rounded-bl-none border border-gray-700' 
                       : 'bg-white text-gray-800 rounded-bl-none border border-gray-200')
               }`}>
-                <p className="text-sm leading-relaxed">{msg.text}</p>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
                 <span className={`text-[10px] mt-1 block text-right ${
                   msg.sender === 'user' 
                     ? 'text-blue-100' 

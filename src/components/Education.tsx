@@ -78,7 +78,7 @@ const Education: React.FC = () => {
               {education.map((edu, index) => (
                 <div
                   key={edu.id}
-                  className="bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 p-6 rounded-2xl hover:scale-105 hover:bg-white/35 dark:hover:bg-gray-800/35 hover:border-white/30 dark:hover:border-gray-600/30 transition-all duration-300 hover:shadow-xl animate-fade-in"
+                  className="bg-white/40 dark:bg-gray-800/30 backdrop-blur-xl border border-white/40 dark:border-gray-700/40 p-6 rounded-2xl hover:scale-105 hover:bg-white/50 dark:hover:bg-gray-800/40 hover:border-white/50 dark:hover:border-gray-600/50 transition-all duration-300 hover:shadow-xl animate-fade-in"
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
                   {/* Institution & Duration */}
@@ -142,7 +142,7 @@ const Education: React.FC = () => {
               {Object.entries(skillCategories).map(([category, config]) => (
                 <div
                   key={category}
-                  className="bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 p-6 rounded-2xl"
+                  className="bg-white/40 dark:bg-gray-800/30 backdrop-blur-xl border border-white/40 dark:border-gray-700/40 p-6 rounded-2xl"
                 >
                   <h4
                     className="text-xl font-semibold mb-4"
