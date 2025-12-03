@@ -77,7 +77,7 @@ const Chatbot: React.FC = () => {
 
    
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 35000); 
+    const timeoutId = setTimeout(() => controller.abort(), 90000); 
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
         method: 'POST',
