@@ -30,8 +30,9 @@ const MinimalLoader = () => (
 // Home page component with all portfolio content
 const Home = () => (
   <>
+  
     <Suspense fallback={null}>
-      <ParticleBackground />
+      {/* <ParticleBackground /> */}
     </Suspense>
     <main>
       <Hero />
@@ -67,11 +68,14 @@ const AppContent = () => {
   const { isDarkMode, isAnimating, handleAnimationComplete } = useTheme();
 
   return (
-    <div className="min-h-screen w-full bg-background transition-colors duration-300 relative">
+    <div className="min-h-screen w-full bg-background transition-colors duration-300 relative flex justify-center">
       <ThemeTransition isAnimating={isAnimating}
         isDarkMode={isDarkMode}
         onAnimationComplete={handleAnimationComplete} />
-      <div className="App relative min-h-screen">
+      {/* Full-height stylized borders - positioned outside content */}
+      <div className="fixed opacity-20 top-0 h-screen w-10 border-r border-r-gray-300 dark:border-r-gray-200 bg-[image:repeating-linear-gradient(315deg,_currentColor_0,_currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed max-md:w-6 pointer-events-none z-10" style={{ left: "calc(50% - min(40vw, 500px) - 40px)" }}></div>
+      <div className="fixed opacity-20 top-0 h-screen w-10 border-l border-l-gray-300 dark:border-l-gray-200 bg-[image:repeating-linear-gradient(315deg,_currentColor_0,_currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed max-md:w-6 pointer-events-none z-10" style={{ right: "calc(50% - min(40vw,500px) - 40px)" }}></div>
+      <div className="App relative min-h-screen" style={{ maxWidth: "min(80vw, 1000px)" }}>
         {/* <CursorEffect /> */}
         <div className="relative z-10">
           <Navigation />
