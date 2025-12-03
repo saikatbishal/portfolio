@@ -57,6 +57,7 @@ const Navigation: React.FC = () => {
     { label: "Education", href: "#education", type: "scroll" },
     { label: "Contact", href: "#contact", type: "scroll" },
     { label: "Games", href: "/games", type: "route" },
+    { label: "Blogs", href: "/blogs", type: "route" },
   ];
 
   const handleNavClick = (href: string, type: string) => {
