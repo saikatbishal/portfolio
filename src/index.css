@@ -80,7 +80,7 @@ body {
   color: var(--text-primary);
   background: var(--background-light);
   overflow-x: hidden;
-  cursor: url("/fish-cursor.svg") 10 7, auto;
+  /* cursor: url("/fish-cursor.svg") 10 7, auto; */
 }
 
 /* ----- The rest of your utilities remain the same ------ */
@@ -278,8 +278,8 @@ html {
   backdrop-filter: var(--glass-backdrop);
   -webkit-backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm);
   transition: all 0.3s ease;
 }
 
@@ -531,9 +531,9 @@ input,
 textarea,
 select,
 [role="button"],
-.cursor-pointer {
-  cursor: url("/fish-cursor.svg") 10 7, pointer;
-}
+/* .cursor-pointer {
+  /* cursor: url("/fish-cursor.svg") 10 7, pointer; */
+
 
 a:hover,
 button:hover,
