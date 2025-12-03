@@ -6,71 +6,38 @@ const Education: React.FC = () => {
   useGSAPAnimations();
 
   const skillCategories = {
-    frontend: { name: "Frontend", color: "#4F46E5" }, // Indigo
-    backend: { name: "Backend", color: "#7C3AED" }, // Purple
-    tools: { name: "Tools & DevOps", color: "#0E7490" }, // Cyan
-    design: { name: "Design", color: "#10B981" }, // Emerald
+    frontend: { name: "Frontend" },
+    backend: { name: "Backend" },
+    tools: { name: "Tools & DevOps" },
+    design: { name: "Design" },
   };
 
   return (
     <section
       id="education"
-      className="py-20 relative min-h-screen bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900"
+      className="py-20 relative min-h-screen bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute top-32 right-16 w-72 h-72 rounded-full animate-float bg-gradient-to-br from-amber-500/5 to-red-500/5 dark:from-amber-400/10 dark:to-red-400/10 blur-[50px]"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute bottom-20 left-16 w-64 h-64 rounded-full animate-float bg-gradient-to-br from-cyan-500/5 to-emerald-500/5 dark:from-cyan-400/10 dark:to-emerald-400/10 blur-[40px]"
-          style={{ animationDelay: "3s" }}
-        />
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-caption px-4 py-2 rounded-full bg-amber-500/10 dark:bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-500/20 dark:border-amber-400/30 backdrop-blur-md mb-4 inline-block">
-            🎓 Learning & Growth
+          <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
+            // learning_path
           </span>
 
-          <h2
-            className="text-display mb-6"
-            style={{
-              fontSize: "clamp(2.5rem, 6vw, 4rem)",
-              fontWeight: 700,
-              marginBottom: "var(--spacing-lg)",
-            }}
-          >
-            Education & <span className="gradient-text">Skills</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight mb-6">
+            Education & Skills
           </h2>
 
-          <p
-            className="text-body max-w-3xl mx-auto"
-            style={{
-              fontSize: "1.25rem",
-              color: "var(--text-secondary)",
-            }}
-          >
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
             My academic background and technical expertise that form the
-            foundation of my professional capabilities and continuous learning
-            journey.
+            foundation of my professional capabilities.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Education Section */}
           <div className="animate-fade-in">
-            <h3
-              className="text-heading mb-8"
-              style={{
-                fontSize: "2rem",
-                fontWeight: 600,
-                color: "var(--text-primary)",
-              }}
-            >
+            <h3 className="text-2xl font-bold font-mono text-gray-900 dark:text-white mb-8">
               Academic Background
             </h3>
 
@@ -78,30 +45,29 @@ const Education: React.FC = () => {
               {education.map((edu, index) => (
                 <div
                   key={edu.id}
-                  className="bg-white/40 dark:bg-gray-800/30 backdrop-blur-xl border border-white/40 dark:border-gray-700/40 p-6 rounded-2xl hover:scale-105 hover:bg-white/50 dark:hover:bg-gray-800/40 hover:border-white/50 dark:hover:border-gray-600/50 transition-all duration-300 hover:shadow-xl animate-fade-in"
-                  style={{ animationDelay: `${index * 0.2}s` }}
+                  className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 hover:border-gray-900 dark:hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
                   {/* Institution & Duration */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
-                    <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 sm:mb-0">
+                    <h4 className="text-lg font-bold font-sans text-gray-900 dark:text-white mb-2 sm:mb-0">
                       {edu.institution}
                     </h4>
-                    <span className="px-3 py-1 rounded-full text-sm font-medium bg-amber-500/10 dark:bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-500/20 dark:border-amber-400/30 self-start">
-                      {edu.duration}
+                    <span className="font-mono text-xs text-gray-500 dark:text-gray-400 self-start">
+                      [{edu.duration}]
                     </span>
                   </div>
 
                   {/* Degree & Field */}
-                  <div className="mb-3">
-                    <h5 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
+                  <div className="mb-4">
+                    <h5 className="text-md font-medium font-mono text-gray-800 dark:text-gray-200 mb-1">
                       {edu.degree} in {edu.field}
                     </h5>
                     <div className="flex items-center gap-4">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        📍 {edu.location}
+                      <p className="text-sm font-mono text-gray-500 dark:text-gray-500">
+                        @ {edu.location}
                       </p>
                       {edu.gpa && (
-                        <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                        <p className="text-sm font-mono font-bold text-gray-900 dark:text-white">
                           GPA: {edu.gpa}
                         </p>
                       )}
@@ -113,9 +79,11 @@ const Education: React.FC = () => {
                     {edu.achievements.map((achievement, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start text-gray-700 dark:text-gray-300 text-sm leading-relaxed"
+                        className="flex items-start text-gray-600 dark:text-gray-400 text-sm font-sans leading-relaxed"
                       >
-                        <span className="inline-block w-2 h-2 bg-amber-500 dark:bg-amber-400 rounded-full mr-3 mt-2 flex-shrink-0" />
+                        <span className="mr-3 mt-1.5 text-gray-400 dark:text-gray-600 text-xs">
+                          &gt;
+                        </span>
                         {achievement}
                       </li>
                     ))}
@@ -126,15 +94,8 @@ const Education: React.FC = () => {
           </div>
 
           {/* Skills Section */}
-          <div className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <h3
-              className="text-heading mb-8"
-              style={{
-                fontSize: "2rem",
-                fontWeight: 600,
-                color: "var(--text-primary)",
-              }}
-            >
+          <div className="animate-fade-in">
+            <h3 className="text-2xl font-bold font-mono text-gray-900 dark:text-white mb-8">
               Technical Skills
             </h3>
 
@@ -142,12 +103,9 @@ const Education: React.FC = () => {
               {Object.entries(skillCategories).map(([category, config]) => (
                 <div
                   key={category}
-                  className="bg-white/40 dark:bg-gray-800/30 backdrop-blur-xl border border-white/40 dark:border-gray-700/40 p-6 rounded-2xl"
+                  className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 p-6"
                 >
-                  <h4
-                    className="text-xl font-semibold mb-4"
-                    style={{ color: config.color }}
-                  >
+                  <h4 className="text-lg font-bold font-mono text-gray-900 dark:text-white mb-4 uppercase tracking-wider">
                     {config.name}
                   </h4>
 
@@ -157,12 +115,7 @@ const Education: React.FC = () => {
                       .map((skill) => (
                         <div
                           key={skill.name}
-                          className="px-3 py-1 rounded-full text-sm font-medium"
-                          style={{
-                            backgroundColor: `${config.color}20`,
-                            color: config.color,
-                            border: `1px solid ${config.color}40`,
-                          }}
+                          className="skill-item px-3 py-1.5 border border-gray-200 dark:border-gray-700 text-sm font-mono text-gray-600 dark:text-gray-400 hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white transition-all duration-200 hover:scale-105 cursor-default"
                         >
                           {skill.name}
                         </div>

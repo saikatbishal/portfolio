@@ -3,22 +3,25 @@ import { skills } from '../data/skills';
 import { motion } from 'framer-motion';
 
 const skillCategories = {
-    frontend: { name: "Frontend", color: "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300" },
-    backend: { name: "Backend", color: "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300" },
-    tools: { name: "Tools & DevOps", color: "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300" },
-    design: { name: "Design", color: "bg-pink-100 dark:bg-pink-900/50 text-pink-600 dark:text-pink-300" },
+    frontend: { name: "Frontend", color: "text-gray-900 dark:text-white" },
+    backend: { name: "Backend", color: "text-gray-900 dark:text-white" },
+    tools: { name: "Tools & DevOps", color: "text-gray-900 dark:text-white" },
+    design: { name: "Design", color: "text-gray-900 dark:text-white" },
 };
 
 const Skills: React.FC = () => {
     return (
-        <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-900/50">
+        <section id="skills" className="py-20 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
-                        My Technical <span className="text-blue-600">Skills</span>
+                <div className="text-center mb-16">
+                    <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
+                        // stack
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight">
+                        Technical Skills
                     </h2>
-                    <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        A collection of technologies I'm proficient in, categorized for clarity.
+                    <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
+                        Technologies and tools I work with.
                     </p>
                 </div>
 
@@ -26,13 +29,13 @@ const Skills: React.FC = () => {
                     {Object.entries(skillCategories).map(([categoryKey, categoryValue]) => (
                         <motion.div
                             key={categoryKey}
-                            className="bg-white dark:bg-slate-800/50 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700"
+                            className="bg-gray-50 dark:bg-gray-900 p-6 border border-gray-200 dark:border-gray-800"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
                             viewport={{ once: true }}
                         >
-                            <h3 className={`text-xl font-semibold mb-4 ${categoryValue.color.split(' ')[1]}`}>
+                            <h3 className={`text-lg font-bold font-mono mb-6 uppercase tracking-wider ${categoryValue.color}`}>
                                 {categoryValue.name}
                             </h3>
                             <div className="flex flex-wrap gap-2">
@@ -41,8 +44,8 @@ const Skills: React.FC = () => {
                                     .map((skill) => (
                                         <motion.div
                                             key={skill.name}
-                                            className={`px-3 py-1 rounded-full text-sm font-medium ${categoryValue.color}`}
-                                            whileHover={{ scale: 1.1, rotate: 2 }}
+                                            className="px-3 py-1.5 text-sm font-mono text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 hover:border-gray-900 dark:hover:border-gray-500 transition-colors cursor-default"
+                                            whileHover={{ y: -2 }}
                                             transition={{ type: 'spring', stiffness: 300 }}
                                         >
                                             {skill.name}

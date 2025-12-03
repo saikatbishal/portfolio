@@ -40,19 +40,19 @@ const Stats = () => {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="text-center p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-200"
+          className="text-center p-6 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 hover:border-gray-900 dark:hover:border-white transition-colors duration-300"
         >
           <CountUp
             start={0}
             end={isVisible ? stat.end : 0}
             duration={2.5}
             suffix={stat.suffix}
-            className="text-4xl font-bold text-purple-600 dark:text-purple-400"
+            className="text-4xl font-bold font-mono text-gray-900 dark:text-white"
           >
             {({ countUpRef }) => (
               <div>
                 <span ref={countUpRef} />
-                <p className="mt-2 text-gray-600 dark:text-gray-300">
+                <p className="mt-2 text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {stat.label}
                 </p>
               </div>

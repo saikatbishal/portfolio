@@ -2,21 +2,21 @@ import { ReactTyped } from "react-typed";
 
 const TypedIntro = () => {
   return (
-    <section className="py-16 from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 particle-section">
+    <section className="py-16 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <div className="mb-8">
-          <span className="text-caption px-4 py-2 rounded-full bg-purple-500/10 dark:bg-purple-400/20 text-purple-600 dark:text-purple-400 border border-purple-500/20 dark:border-purple-400/30 backdrop-blur-md">
-            ✨ What I Do
+          <span className="font-mono text-sm text-gray-500 dark:text-gray-400">
+            // roles
           </span>
         </div>
-        
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800 dark:text-gray-100">
+
+        <h2 className="text-3xl md:text-4xl font-bold font-sans mb-8 text-gray-900 dark:text-white">
           I'm a{" "}
-          <span className="gradient-text">
+          <span className="font-mono text-gray-600 dark:text-gray-400">
             <ReactTyped
               strings={[
                 "Frontend Developer",
-                "UI/UX Enthusiast", 
+                "UI/UX Enthusiast",
                 "Problem Solver",
                 "Full Stack Developer",
                 "React Specialist",
@@ -30,10 +30,10 @@ const TypedIntro = () => {
             />
           </span>
         </h2>
-        
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Passionate about creating exceptional digital experiences through clean code, 
-          innovative design, and user-centered development. I bring ideas to life with 
+
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-sans">
+          Passionate about creating exceptional digital experiences through clean code,
+          innovative design, and user-centered development. I bring ideas to life with
           modern technologies and creative problem-solving.
         </p>
       </div>

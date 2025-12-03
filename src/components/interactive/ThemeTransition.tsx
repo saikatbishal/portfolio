@@ -25,7 +25,7 @@ const ThemeTransition: React.FC<ThemeTransitionProps> = ({
                             width: '40px',
                             height: '40px',
                             borderRadius: '50%',
-                            backgroundColor: isDarkMode ? '#0a0a0a' : '#ffffff',
+                            backgroundColor: isDarkMode ? '#030712' : '#ffffff',
                             transformOrigin: 'center',
                         }}
                         initial={{

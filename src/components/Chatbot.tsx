@@ -4,9 +4,6 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
-const useTheme = () => {
-  return { isDarkMode: false }; 
-};
 
 interface Message {
   id: string;
@@ -34,7 +31,7 @@ const Chatbot: React.FC = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { isDarkMode } = useTheme();
+  // const { isDarkMode } = useTheme(); // Unused with Tailwind dark mode classes
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -51,7 +48,7 @@ const Chatbot: React.FC = () => {
     // Expected format: "scroll_sectionId"
     const sectionId = action.replace('scroll_', '');
     const element = document.getElementById(sectionId);
-    
+
     if (element) {
       // Small delay to allow the user to read the message first (optional)
       setTimeout(() => {
@@ -75,9 +72,9 @@ const Chatbot: React.FC = () => {
     setInput("");
     setIsLoading(true);
 
-   
+
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 90000); 
+    const timeoutId = setTimeout(() => controller.abort(), 90000);
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
         method: 'POST',
@@ -109,7 +106,7 @@ const Chatbot: React.FC = () => {
       }
 
       const data: ApiResponse = await response.json();
-      
+
       // Execute the Smart Navigation Action
       if (data.action) {
         handleAction(data.action);
@@ -123,13 +120,13 @@ const Chatbot: React.FC = () => {
       };
       setMessages(prev => [...prev, botMessage]);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Chat error:", error);
-      
+
       let errorMessageText = "Sorry, I'm having trouble connecting to the server right now.";
-      
+
       // Handle Client-Side Timeout specifically
-      if (error.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         errorMessageText = "The request timed out. The server is taking too long to respond. Please try again.";
       }
 
@@ -150,45 +147,31 @@ const Chatbot: React.FC = () => {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl ${
-          isOpen ? 'rotate-90' : 'rotate-0'
-        } ${
-          isDarkMode 
-            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white' 
-            : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white'
-        }`}
+        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full transition-all duration-300 hover:scale-110 border border-gray-900 dark:border-white bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${isOpen ? 'rotate-90' : 'rotate-0'
+          }`}
         aria-label="Toggle Chatbot"
       >
         {isOpen ? <CloseIcon /> : <ChatBubbleOutlineIcon />}
       </button>
 
       {/* Chat Window */}
-      <div className={`fixed bottom-24 right-6 z-50 w-[90vw] sm:w-96 h-[500px] max-h-[80vh] rounded-2xl shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden ${
-        isOpen 
-          ? 'scale-100 opacity-100 translate-y-0' 
+      <div className={`fixed bottom-24 right-6 z-50 w-[90vw] sm:w-96 h-[500px] max-h-[80vh] border border-gray-200 dark:border-gray-800 shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden ${isOpen
+          ? 'scale-100 opacity-100 translate-y-0'
           : 'scale-0 opacity-0 translate-y-10 pointer-events-none'
-      } ${
-        isDarkMode ? 'bg-gray-900 border border-gray-700' : 'bg-white border border-gray-200'
-      }`}>
+        } bg-white dark:bg-gray-950`}>
         {/* Header */}
-        <div className={`p-4 border-b flex items-center justify-between ${
-          isDarkMode 
-            ? 'bg-gray-800/50 border-gray-700 backdrop-blur-md' 
-            : 'bg-blue-50/50 border-blue-100 backdrop-blur-md'
-        }`}>
+        <div className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-full ${
-              isDarkMode ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-100 text-blue-600'
-            }`}>
+            <div className="p-2 border border-gray-300 dark:border-gray-600 rounded-full text-gray-900 dark:text-white">
               <SmartToyIcon fontSize="small" />
             </div>
             <div>
-              <h3 className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h3 className="font-bold font-mono text-gray-900 dark:text-white">
                 Portfolio Assistant
               </h3>
               <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/>
-                <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
                   Online
                 </span>
               </div>
@@ -197,43 +180,33 @@ const Chatbot: React.FC = () => {
         </div>
 
         {/* Messages Area */}
-        <div className={`flex-1 overflow-y-auto p-4 space-y-4 ${
-          isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
-        }`}>
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white dark:bg-gray-950">
           {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <div className={`max-w-[80%] p-3 rounded-2xl shadow-sm ${
-                msg.sender === 'user'
-                  ? (isDarkMode 
-                      ? 'bg-blue-600 text-white rounded-br-none' 
-                      : 'bg-blue-500 text-white rounded-br-none')
-                  : (isDarkMode 
-                      ? 'bg-gray-800 text-gray-200 rounded-bl-none border border-gray-700' 
-                      : 'bg-white text-gray-800 rounded-bl-none border border-gray-200')
-              }`}>
-                <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
-                <span className={`text-[10px] mt-1 block text-right ${
-                  msg.sender === 'user' 
-                    ? 'text-blue-100' 
-                    : (isDarkMode ? 'text-gray-500' : 'text-gray-400')
+              <div className={`max-w-[80%] p-3 border ${msg.sender === 'user'
+                  ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white'
+                  : 'bg-white text-gray-900 border-gray-200 dark:bg-gray-950 dark:text-white dark:border-gray-800'
                 }`}>
+                <p className="text-sm font-mono leading-relaxed whitespace-pre-wrap">{msg.text}</p>
+                <span className={`text-[10px] font-mono mt-1 block text-right ${msg.sender === 'user'
+                    ? 'text-gray-400 dark:text-gray-500'
+                    : 'text-gray-400 dark:text-gray-500'
+                  }`}>
                   {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
             </div>
           ))}
           {isLoading && (
-             <div className="flex justify-start">
-              <div className={`p-4 rounded-2xl rounded-bl-none shadow-sm ${
-                isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
-              }`}>
+            <div className="flex justify-start">
+              <div className="p-4 border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
                 <div className="flex space-x-1.5">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}/>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}/>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}/>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }} />
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
                 </div>
               </div>
             </div>
@@ -242,29 +215,22 @@ const Chatbot: React.FC = () => {
         </div>
 
         {/* Input Area */}
-        <form onSubmit={handleSend} className={`p-4 border-t ${
-          isDarkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'
-        }`}>
+        <form onSubmit={handleSend} className="p-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
           <div className="flex gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me anything..."
-              className={`flex-1 p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all ${
-                isDarkMode 
-                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
-                  : 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400'
-              }`}
+              className="flex-1 p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 text-gray-900 dark:text-white placeholder-gray-400 font-mono text-sm focus:outline-none focus:border-gray-900 dark:focus:border-white transition-colors"
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className={`p-3 rounded-xl transition-all duration-200 ${
-                isLoading || !input.trim()
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-700 dark:text-gray-500'
-                  : 'bg-blue-500 hover:bg-blue-600 text-white shadow-md hover:shadow-lg active:scale-95'
-              }`}
+              className={`p-3 border transition-all duration-200 ${isLoading || !input.trim()
+                  ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed dark:bg-gray-800 dark:text-gray-600 dark:border-gray-700'
+                  : 'bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:border-white dark:hover:bg-gray-100'
+                }`}
             >
               <SendIcon fontSize="small" />
             </button>

@@ -80,37 +80,24 @@ const Navigation: React.FC = () => {
     <>
       {/* NAV WRAPPER */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b
           ${isScrolled
-            ? `${isDarkMode
-              ? "bg-zinc-900/30 border-b border-zinc-700/20 shadow-lg"
-              : "bg-white/50 border-b border-white/40 shadow-lg"
-            } backdrop-blur-xl py-3`
-            : "bg-transparent py-6"
+            ? "bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-gray-200 dark:border-gray-800 py-3"
+            : "bg-transparent border-transparent py-6"
           }`}
       >
-        <div className={`absolute inset-0 transition-opacity duration-500 ${isScrolled ? "opacity-100" : "opacity-0"}`}>
-          <div
-            className={`absolute inset-0 ${isDarkMode
-              ? "bg-gradient-to-r from-pink-400/10 via-blue-400/10 to-green-300/10"
-              : "bg-gradient-to-r from-pink-300/10 via-blue-300/10 to-green-200/10"
-              }`}
-          />
-        </div>
-
         {/* NAV CONTENT */}
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-10">
           {/* LOGO */}
           <div className="group cursor-pointer">
-            <span className="text-2xl font-bold bg-gradient-to-r from-pink-400 via-blue-400 to-green-400 bg-clip-text text-transparent hover:scale-105 transition-transform inline-block">
-              Saikat's Portfolio
+            <span className="text-xl font-bold font-mono text-gray-900 dark:text-white">
+              saikat_bishal
             </span>
-            <div className="h-0.5 w-0 bg-gradient-to-r from-pink-400 to-blue-400 transition-all duration-300 group-hover:w-full" />
           </div>
 
           {/* DESKTOP MENU */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-8">
+            <div className="flex items-center space-x-6">
               {navItems.map((item, index) => (
                 item.type === "route" ? (
                   <NavLink
@@ -119,15 +106,11 @@ const Navigation: React.FC = () => {
                     ref={(el) => (desktopNavRefs.current[index] = el)}
                     style={{ opacity: 0 }}
                     className={({ isActive }) =>
-                      `relative px-4 py-2 font-medium text-base tracking-wide transition-all group
-                      ${isDarkMode ? "text-zinc-100" : "text-zinc-700"}
-                      ${isActive ? "text-pink-500" : ""}
-                      hover:text-pink-500 hover:scale-105 inline-block`
+                      `text-sm font-mono transition-colors duration-300
+                      ${isActive ? "text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`
                     }
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-blue-300/20 rounded-full scale-0 group-hover:scale-100 transition-transform" />
-                    <span className="relative z-10">{item.label}</span>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-blue-400 rounded-full transition-all group-hover:w-3/4" />
+                    {item.label}
                   </NavLink>
                 ) : (
                   <button
@@ -135,13 +118,9 @@ const Navigation: React.FC = () => {
                     ref={(el) => (desktopNavRefs.current[index] = el as any)}
                     style={{ opacity: 0 }}
                     onClick={() => handleNavClick(item.href, item.type)}
-                    className={`relative px-4 py-2 font-medium text-base tracking-wide transition-all group
-                    ${isDarkMode ? "text-zinc-100" : "text-zinc-700"}
-                    hover:text-pink-500 hover:scale-105`}
+                    className={`text-sm font-mono transition-colors duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-pink-300/20 to-blue-300/20 rounded-full scale-0 group-hover:scale-100 transition-transform" />
-                    <span className="relative z-10">{item.label}</span>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-blue-400 rounded-full transition-all group-hover:w-3/4" />
+                    {item.label}
                   </button>
                 )
               ))}
@@ -156,39 +135,24 @@ const Navigation: React.FC = () => {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`relative p-3 rounded-2xl transition-all hover:scale-110 active:scale-95 ${isScrolled
-                  ? `${isDarkMode ? "bg-zinc-800/40" : "bg-white/40"} backdrop-blur-md border border-white/30`
-                  : `${isDarkMode ? "bg-zinc-800/20" : "bg-white/30"} backdrop-blur-md border border-white/20`
-                }`}
+              className="p-2 text-gray-900 dark:text-white"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-300/10 to-blue-300/10 rounded-2xl" />
-              <div className={`relative z-10 ${isDarkMode ? "text-zinc-200" : "text-zinc-700"} transition-transform`}>
-                {isMobileMenuOpen ? (
-                  <ClearOutlinedIcon className="rotate-90 transition-transform" style={{ fontSize: "1.5rem" }} />
-                ) : (
-                  <MenuOutlinedIcon style={{ fontSize: "1.5rem" }} />
-                )}
-              </div>
+              {isMobileMenuOpen ? (
+                <ClearOutlinedIcon style={{ fontSize: "1.5rem" }} />
+              ) : (
+                <MenuOutlinedIcon style={{ fontSize: "1.5rem" }} />
+              )}
             </button>
           </div>
         </div>
 
         {/* MOBILE MENU */}
         <div
-          className={`md:hidden absolute top-full left-0 right-0 transition-all duration-500 ${isMobileMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"
+          className={`md:hidden absolute top-full left-0 right-0 transition-all duration-300 ${isMobileMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"
             }`}
         >
-          <div
-            className={`${isDarkMode ? "bg-zinc-900/95" : "bg-white/95"} backdrop-blur-xl border-b border-white/30 shadow-xl`}
-          >
-            <div
-              className={`absolute inset-0 ${isDarkMode
-                  ? "bg-gradient-to-br from-pink-400/10 via-blue-400/10 to-green-400/10"
-                  : "bg-gradient-to-br from-pink-300/10 via-blue-300/10 to-green-300/10"
-                }`}
-            />
-
-            <div className="relative z-10 px-6 py-6 space-y-2">
+          <div className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-xl">
+            <div className="px-6 py-6 space-y-4">
               {navItems.map((item, index) => (
                 item.type === "route" ? (
                   <NavLink
@@ -197,32 +161,20 @@ const Navigation: React.FC = () => {
                     ref={(el) => (mobileNavRefs.current[index] = el)}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={({ isActive }) =>
-                      `w-full text-left px-4 py-3 text-xl font-medium rounded-xl transition-all group
-                      ${isDarkMode ? "text-zinc-100" : "text-zinc-700"}
-                      ${isActive ? "text-pink-500 bg-pink-200/20" : ""}
-                      hover:text-pink-500 hover:bg-pink-200/20 hover:scale-105 inline-block`
+                      `block text-lg font-mono transition-colors
+                      ${isActive ? "text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`
                     }
                   >
-                    <span className="relative">
-                      {item.label}
-                      <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-blue-400 transition-all group-hover:w-full rounded-full" />
-                    </span>
-                    <div className="w-2 h-2 bg-gradient-to-r from-pink-400 to-blue-400 rounded-full scale-0 group-hover:scale-100 transition-transform absolute right-4 top-1/2 -translate-y-1/2" />
+                    {item.label}
                   </NavLink>
                 ) : (
                   <button
                     key={item.label}
                     ref={(el) => (mobileNavRefs.current[index] = el as any)}
                     onClick={() => handleNavClick(item.href, item.type)}
-                    className={`w-full text-left px-4 py-3 text-xl font-medium rounded-xl transition-all group
-                      ${isDarkMode ? "text-zinc-100" : "text-zinc-700"}
-                      hover:text-pink-500 hover:bg-pink-200/20 hover:scale-105`}
+                    className="block w-full text-left text-lg font-mono text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
-                    <span className="relative">
-                      {item.label}
-                      <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-blue-400 transition-all group-hover:w-full rounded-full" />
-                    </span>
-                    <div className="w-2 h-2 bg-gradient-to-r from-pink-400 to-blue-400 rounded-full scale-0 group-hover:scale-100 transition-transform absolute right-4 top-1/2 -translate-y-1/2" />
+                    {item.label}
                   </button>
                 )
               ))}
@@ -233,7 +185,7 @@ const Navigation: React.FC = () => {
 
       {/* OVERLAY */}
       <div
-        className={`md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-all ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        className={`md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-all ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         onClick={() => setIsMobileMenuOpen(false)}
       />

@@ -11,38 +11,18 @@ const Experience: React.FC = () => {
   return (
     <section
       id="experience"
-      className="py-20 relative min-h-screen bg-gradient-to-br from-rose-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800"
+      className="py-20 relative min-h-screen bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900"
     >
-      {/* Floating Pastel Background Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute top-20 left-10 w-80 h-80 rounded-full animate-float bg-gradient-to-br from-mint-400/20 to-rose-300/30 dark:from-mint-300/20 dark:to-rose-300/20 blur-[60px]"
-          style={{ animationDelay: "2s" }}
-        />
-        <div
-          className="absolute bottom-40 right-20 w-64 h-64 rounded-full animate-float bg-gradient-to-br from-purple-300/20 to-sky-300/20 dark:from-purple-300/20 dark:to-sky-300/20 blur-[40px]"
-          style={{ animationDelay: "4s" }}
-        />
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-caption px-4 py-2 rounded-full 
-            bg-rose-300/20 dark:bg-rose-300/30 
-            text-rose-500 dark:text-rose-300 
-            border border-rose-300/30 dark:border-rose-400/20 
-            backdrop-blur-md mb-4 inline-block">
-            💼 Career Journey
+          <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
+            // career_log
           </span>
-          <h2
-            className="text-display mb-6 text-4xl md:text-5xl font-bold"
-          >
-            Professional <span className="gradient-text">Experience</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight mb-6">
+            Professional Experience
           </h2>
-          <p
-            className="text-body max-w-3xl mx-auto text-lg md:text-xl text-gray-600 dark:text-gray-300"
-          >
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
             A summary of my professional journey, showcasing growth,
             achievements, and the diverse projects I've contributed to.
           </p>
@@ -53,28 +33,27 @@ const Experience: React.FC = () => {
           {experiences.map((exp, index) => (
             <div
               key={exp.id}
-              className="experience-item animate-fade-in bg-white/50 dark:bg-gray-800/40 backdrop-blur-2xl border border-white/40 dark:border-gray-700/50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="experience-item animate-fade-in bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8 hover:border-gray-900 dark:hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="grid md:grid-cols-12 gap-6">
                 {/* Left Side: Main Content */}
                 <div className="md:col-span-8">
                   {/* Company & Position */}
-                  <div className="mb-4">
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-                      <BusinessCenterOutlinedIcon className="text-rose-500 dark:text-rose-400" />
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold font-sans text-gray-900 dark:text-white flex items-center gap-3">
                       {exp.company}
                     </h3>
-                    <h4 className="text-lg font-semibold text-rose-600 dark:text-rose-300 mt-1">
+                    <h4 className="text-lg font-mono font-medium text-gray-600 dark:text-gray-400 mt-1">
                       {exp.position}
                     </h4>
                   </div>
 
                   {/* Description */}
-                  <ul className="space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                  <ul className="space-y-3 text-gray-600 dark:text-gray-400 mb-6 font-sans">
                     {exp.description.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <span className="inline-block w-2 h-2 bg-sky-400 dark:bg-sky-300 rounded-full mt-2 flex-shrink-0" />
+                        <span className="mt-1.5 text-xs text-gray-400 dark:text-gray-600 font-mono">&gt;</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -85,7 +64,7 @@ const Experience: React.FC = () => {
                     {exp.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-xs font-medium bg-mint-200/40 dark:bg-mint-300/20 text-teal-700 dark:text-teal-300 border border-teal-200/50 dark:border-teal-300/30 rounded-full"
+                        className="px-3 py-1 text-xs font-mono text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950"
                       >
                         {tech}
                       </span>
@@ -94,12 +73,12 @@ const Experience: React.FC = () => {
                 </div>
 
                 {/* Right Side: Meta Info */}
-                <div className="md:col-span-4 md:text-right md:border-l md:border-gray-200 dark:md:border-gray-700/50 md:pl-6">
-                  <div className="flex items-center md:justify-end gap-3 text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                <div className="md:col-span-4 md:text-right md:border-l md:border-gray-200 dark:md:border-gray-800 md:pl-6">
+                  <div className="flex items-center md:justify-end gap-3 text-sm font-mono text-gray-500 dark:text-gray-400 mb-2">
                     <CalendarTodayOutlinedIcon style={{ fontSize: '1rem' }} />
                     <span>{exp.duration}</span>
                   </div>
-                  <div className="flex items-center md:justify-end gap-3 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center md:justify-end gap-3 text-sm font-mono text-gray-500 dark:text-gray-400">
                     <LocationOnOutlinedIcon style={{ fontSize: '1rem' }} />
                     <span>{exp.location}</span>
                   </div>

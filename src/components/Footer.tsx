@@ -16,25 +16,21 @@ const Footer: React.FC = () => {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/saikatbishal',
       icon: LinkedInIcon,
-      color: '#0077b5'
     },
     {
       name: 'GitHub',
       url: 'https://github.com/saikatbishal',
       icon: GitHubIcon,
-      color: '#333333'
     },
     {
       name: 'Medium',
       url: 'https://medium.com/@saikatbishal',
       icon: ArticleOutlinedIcon,
-      color: '#00ab6c'
     },
     {
       name: 'Upwork',
       url: 'https://upwork.com/freelancers/saikatbishal',
       icon: WorkOutlineOutlinedIcon,
-      color: '#14a800'
     }
   ];
 
@@ -43,34 +39,28 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-black py-16">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-10 left-20 w-64 h-64 rounded-full animate-float bg-gradient-to-br from-blue-500/5 to-purple-500/5 dark:from-blue-400/10 dark:to-purple-400/10 blur-[40px]" style={{ animationDelay: '0s' }} />
-        <div className="absolute bottom-10 right-20 w-80 h-80 rounded-full animate-float bg-gradient-to-br from-emerald-500/5 to-cyan-500/5 dark:from-emerald-400/10 dark:to-cyan-400/10 blur-[50px]" style={{ animationDelay: '3s' }} />
-      </div>
-
+    <footer className="relative bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900 py-16">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Main Footer Content */}
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
           {/* Personal Salutation */}
           <div className="lg:col-span-1">
-            <div className="bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 p-8 rounded-3xl h-full">
+            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8 h-full">
               <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">SB</span>
+                <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center border border-gray-900 dark:border-white rounded-full">
+                  <span className="text-2xl font-bold font-mono text-gray-900 dark:text-white">SB</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                <h3 className="text-2xl font-bold font-sans text-gray-900 dark:text-white mb-4">
                   Saikat Bishal
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-sans">
                   Thank you for visiting my portfolio! I'm passionate about creating
                   innovative digital solutions and would love to collaborate on your next project.
                 </p>
-                <div className="flex items-center justify-center text-sm text-gray-500 dark:text-gray-500">
+                <div className="flex items-center justify-center text-sm font-mono text-gray-500 dark:text-gray-500">
                   <span>Made with</span>
                   <FavoriteOutlinedIcon
-                    className="mx-2 text-red-500 animate-pulse"
+                    className="mx-2 text-gray-900 dark:text-white"
                     style={{ fontSize: '1rem' }}
                   />
                   <span>in India</span>
@@ -79,12 +69,10 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-
-
           {/* Social Links & Quick Actions */}
           <div className="lg:col-span-1">
-            <div className="bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 p-8 rounded-3xl h-full">
-              <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8 h-full">
+              <h4 className="text-xl font-bold font-mono text-gray-900 dark:text-white mb-6">
                 Connect & Follow
               </h4>
 
@@ -98,28 +86,13 @@ const Footer: React.FC = () => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center space-x-2 p-3 rounded-xl transition-all duration-300 hover:scale-105"
-                      style={{
-                        backgroundColor: `${link.color}10`,
-                        border: `1px solid ${link.color}20`
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = link.color;
-                        e.currentTarget.style.borderColor = link.color;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = `${link.color}10`;
-                        e.currentTarget.style.borderColor = `${link.color}20`;
-                      }}
+                      className="group flex items-center space-x-2 p-3 border border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-white transition-colors duration-300 bg-white dark:bg-gray-950"
                     >
                       <IconComponent
-                        className="transition-colors duration-300 group-hover:text-white"
-                        style={{
-                          color: link.color,
-                          fontSize: '1.1rem'
-                        }}
+                        className="text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300"
+                        style={{ fontSize: '1.1rem' }}
                       />
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-white transition-colors duration-300">
+                      <span className="text-sm font-mono font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
                         {link.name}
                       </span>
                     </a>
@@ -130,21 +103,21 @@ const Footer: React.FC = () => {
               {/* Contact Info */}
               <div className="space-y-4 mb-6">
                 <a href="mailto:saikat.bishal786@gmail.com" className="group flex items-center space-x-3">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50">
-                    <MailOutlineOutlinedIcon className="text-blue-600 dark:text-blue-400" />
+                  <div className="w-10 h-10 flex items-center justify-center border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950">
+                    <MailOutlineOutlinedIcon className="text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Email</p>
-                    <p className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">saikat.bishal786@gmail.com</p>
+                    <p className="text-xs font-mono text-gray-500 dark:text-gray-500 uppercase">Email</p>
+                    <p className="font-mono text-sm font-medium text-gray-900 dark:text-white">saikat.bishal786@gmail.com</p>
                   </div>
                 </a>
                 <div className="group flex items-center space-x-3">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/50">
-                    <LocationOnOutlinedIcon className="text-emerald-600 dark:text-emerald-400" />
+                  <div className="w-10 h-10 flex items-center justify-center border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950">
+                    <LocationOnOutlinedIcon className="text-gray-600 dark:text-gray-400" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Location</p>
-                    <p className="font-medium text-gray-800 dark:text-gray-200">Kolkata, India</p>
+                    <p className="text-xs font-mono text-gray-500 dark:text-gray-500 uppercase">Location</p>
+                    <p className="font-mono text-sm font-medium text-gray-900 dark:text-white">Kolkata, India</p>
                   </div>
                 </div>
               </div>
@@ -152,31 +125,31 @@ const Footer: React.FC = () => {
               {/* Back to Top Button */}
               <button
                 onClick={scrollToTop}
-                className="w-full group flex items-center justify-center space-x-2 p-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="w-full group flex items-center justify-center space-x-2 p-3 border border-gray-900 dark:border-white text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300"
               >
                 <ArrowUpwardOutlinedIcon
-                  className="text-white transition-transform duration-300 group-hover:-translate-y-1"
+                  className="transition-transform duration-300 group-hover:-translate-y-1"
                   style={{ fontSize: '1.1rem' }}
                 />
-                <span className="text-white font-medium">Back to Top</span>
+                <span className="font-mono font-medium">Back to Top</span>
               </button>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-300 dark:border-gray-700 pt-8">
+        <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="flex items-center space-x-6">
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-sm font-mono text-gray-500 dark:text-gray-500">
                 © {currentYear} Saikat Bishal. All rights reserved.
               </p>
             </div>
 
-            <div className="flex items-center space-x-6 text-sm">
+            <div className="flex items-center space-x-6 text-sm font-mono">
               <a
                 href="#hero"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
                   document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' });
@@ -186,7 +159,7 @@ const Footer: React.FC = () => {
               </a>
               <a
                 href="#projects"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
                   document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -196,7 +169,7 @@ const Footer: React.FC = () => {
               </a>
               <a
                 href="#contact"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
                   document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });

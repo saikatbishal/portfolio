@@ -33,12 +33,10 @@ const FilterButton = React.memo<{
   return (
     <button
       onClick={handleClick}
-      className={`px-6 py-3 rounded-full transition-all duration-300 ${isActive ? "btn-primary" : "btn-glass"
+      className={`px-4 py-2 text-sm font-mono border transition-all duration-300 ${isActive
+          ? "bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white"
+          : "bg-transparent text-gray-600 border-gray-200 hover:border-gray-400 dark:text-gray-400 dark:border-gray-800 dark:hover:border-gray-600"
         }`}
-      style={{
-        fontSize: "1rem",
-        fontWeight: 500,
-      }}
     >
       {category}
     </button>
@@ -56,26 +54,26 @@ const ProjectCard = React.memo<{
   return (
     <div
       className={`project-card group animate-fade-in flex flex-col h-full ${index % 2 === 0 ? "md:mt-0" : "md:mt-12"
-        } bg-white/40 dark:bg-gray-800/30 backdrop-blur-xl border border-white/40 dark:border-gray-700/40 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2`}
+        } bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-0 hover:border-gray-900 dark:hover:border-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
       style={{
         animationDelay: `${index * 0.2}s`,
       }}
     >
       {/* Project Image */}
-      <div className="relative overflow-hidden rounded-xl mb-5 shadow-md group-hover:shadow-lg transition-shadow duration-300">
+      <div className="relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
         <img
           src={project.image}
           alt={`${project.title} - ${project.attribution}`}
-          className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-56 object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
           loading="lazy"
         />
 
         {/* Overlay with Links - Centered for modern look */}
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
+        <div className="absolute inset-0 bg-gray-900/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
           {project.videoUrl && (
             <button
               onClick={() => onVideoClick(project.videoUrl!)}
-              className="p-3 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border border-white/30 transition-all duration-300 hover:scale-110 shadow-lg"
+              className="p-2 bg-white text-gray-900 hover:bg-gray-200 transition-all hover:scale-110 duration-200"
               title="Watch Demo"
             >
               <PlayCircleOutlineIcon style={{ fontSize: "1.5rem" }} />
@@ -85,7 +83,7 @@ const ProjectCard = React.memo<{
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border border-white/30 transition-all duration-300 hover:scale-110 shadow-lg"
+            className="p-2 bg-white text-gray-900 hover:bg-gray-200 transition-all hover:scale-110 duration-200"
             title="View Live"
           >
             <ArrowOutwardOutlinedIcon style={{ fontSize: "1.5rem" }} />
@@ -94,7 +92,7 @@ const ProjectCard = React.memo<{
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border border-white/30 transition-all duration-300 hover:scale-110 shadow-lg"
+            className="p-2 bg-white text-gray-900 hover:bg-gray-200 transition-all hover:scale-110 duration-200"
             title="View Code"
           >
             <LinkOutlinedIcon style={{ fontSize: "1.5rem" }} />
@@ -103,17 +101,17 @@ const ProjectCard = React.memo<{
       </div>
 
       {/* Project Content */}
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow p-5">
         <div className="flex items-start justify-between mb-3 gap-2">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white leading-tight">
+          <h3 className="text-xl font-bold font-sans text-gray-900 dark:text-white leading-tight">
             {project.title}
           </h3>
-          <span className="text-xs font-medium px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20 dark:text-blue-300 whitespace-nowrap border border-primary/10 dark:border-primary/20">
+          <span className="text-xs font-mono px-2 py-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 uppercase tracking-wider">
             {project.category}
           </span>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
+        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow font-sans">
           {project.description}
         </p>
 
@@ -122,9 +120,9 @@ const ProjectCard = React.memo<{
           {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="text-xs px-2.5 py-1 rounded-md bg-white/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600 font-medium"
+              className="text-xs font-mono px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
             >
-              {tech}
+              #{tech}
             </span>
           ))}
         </div>
@@ -249,41 +247,33 @@ const Projects: React.FC = () => {
       id="projects"
       className="py-20 relative min-h-screen bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute top-40 right-20 w-64 h-64 rounded-full animate-float bg-gradient-to-br from-purple-500/5 to-cyan-500/5 dark:from-purple-400/10 dark:to-cyan-400/10 blur-[40px]"
-          style={{ animationDelay: "1s" }}
-        />
-      </div>
+      {/* Minimalist Background */}
+      <div className="absolute inset-0 bg-grid-pattern dark:bg-grid-pattern-dark bg-[length:40px_40px] opacity-[0.03] dark:opacity-[0.05]" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-caption px-4 py-2 rounded-full bg-cyan-500/10 dark:bg-cyan-400/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 dark:border-cyan-400/30 backdrop-blur-md mb-4 inline-block">
-            💼 My Work
+          <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
+            // portfolio
           </span>
 
           <h2
-            className="text-display mb-6"
+            className="font-sans text-gray-900 dark:text-white mb-6 tracking-tight"
             style={{
               fontSize: "clamp(2.5rem, 6vw, 4rem)",
-              fontWeight: 700,
-              marginBottom: "var(--spacing-lg)",
+              fontWeight: 800,
             }}
           >
-            Featured <span className="gradient-text">Projects</span>
+            Featured Projects
           </h2>
 
           <p
-            className="text-body max-w-3xl mx-auto"
+            className="font-sans text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
             style={{
-              fontSize: "1.25rem",
-              color: "var(--text-secondary)",
+              fontSize: "1.125rem",
             }}
           >
-            A showcase of my recent work, featuring innovative solutions and
-            creative approaches to complex challenges across various domains.
+            A selection of recent work demonstrating full-stack capabilities and attention to detail.
           </p>
         </div>
 
@@ -315,7 +305,7 @@ const Projects: React.FC = () => {
       {/* Video Modal */}
       {videoModalUrl && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={handleCloseModal}
         >
           <div
@@ -330,11 +320,11 @@ const Projects: React.FC = () => {
               <CloseIcon style={{ fontSize: "2rem" }} />
             </button>
             <div
-              className="relative w-full"
+              className="relative w-full bg-black rounded-lg overflow-hidden border border-gray-800"
               style={{ paddingBottom: "56.25%" }}
             >
               <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                className="absolute top-0 left-0 w-full h-full"
                 src={videoModalUrl}
                 title="Project video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

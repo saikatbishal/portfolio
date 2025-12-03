@@ -23,13 +23,13 @@ const Stats = React.lazy(() => import('./components/interactive/Stats'));
 
 // Optimized loading component for critical path
 const MinimalLoader = () => (
-  <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+  <div className="w-full h-4 bg-gray-100 dark:bg-gray-800 rounded animate-pulse" />
 );
 
 // Home page component with all portfolio content
 const Home = () => (
   <>
-  
+
     <Suspense fallback={null}>
       {/* <ParticleBackground /> */}
     </Suspense>
