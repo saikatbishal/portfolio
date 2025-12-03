@@ -93,7 +93,6 @@ function App() {
     <BrowserRouter>
       <ThemeProvider>
         <div><AppContent />
-          {/* Oneko positioned at the very end to ensure highest z-index */}
           <Oneko />
           <Chatbot />
         </div>
