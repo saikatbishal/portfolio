@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TerminalHacker from './interactive/TerminalHacker';
+import CSSDetective from './interactive/CSSDetective';
 
 const Games: React.FC = () => {
     const [activeGame, setActiveGame] = useState<string | null>(null);
@@ -9,6 +10,9 @@ const Games: React.FC = () => {
         <div className="min-h-screen pt-20 bg-white dark:bg-gray-950">
             {activeGame === 'terminal-hacker' && (
                 <TerminalHacker onClose={() => setActiveGame(null)} />
+            )}
+            {activeGame === 'css-detective' && (
+                <CSSDetective onClose={() => setActiveGame(null)} />
             )}
             <div className="max-w-6xl mx-auto px-6 py-12">
                 {/* Header */}
@@ -41,6 +45,26 @@ const Games: React.FC = () => {
                                 System Breach Simulation
                             </p>
                             <span className="px-3 py-1 text-xs font-mono bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800 uppercase tracking-wider">
+                                Play Now
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* CSS Detective - Playable */}
+                    <div 
+                        onClick={() => setActiveGame('css-detective')}
+                        className="group cursor-pointer border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-gray-900 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)] relative overflow-hidden"
+                    >
+                        <div className="absolute top-0 left-0 w-full h-1 bg-blue-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div className="text-center">
+                            <div className="text-4xl mb-4 font-mono text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300">{"{}"}</div>
+                            <h3 className="text-xl font-bold font-mono mb-2 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                CSS Detective
+                            </h3>
+                            <p className="text-sm font-mono mb-4 text-gray-500 dark:text-gray-400">
+                                Fix Broken Layouts
+                            </p>
+                            <span className="px-3 py-1 text-xs font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 uppercase tracking-wider">
                                 Play Now
                             </span>
                         </div>
