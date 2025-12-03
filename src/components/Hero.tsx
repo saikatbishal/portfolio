@@ -33,7 +33,7 @@ const Hero = () => {
           {/* Badge */}
           <div className="mb-6">
             <span className="font-mono text-sm px-3 py-1 border border-gray-200 dark:border-gray-800 rounded text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
-              &gt; Hello_World
+              &gt; Architect_Mode_Active
             </span>
           </div>
 
@@ -52,9 +52,9 @@ const Hero = () => {
 
           <div className="mb-8 max-w-2xl mx-auto lg:mx-0">
             <div className="code-block text-left text-sm md:text-base text-gray-600 dark:text-gray-300">
-              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">role</span> = <span className="text-gray-500">"Full Stack Developer"</span>;</p>
+              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">role</span> = <span className="text-gray-500">"Architect of invisible cities"</span>;</p>
               <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">location</span> = <span className="text-gray-500">"Kolkata, India"</span>;</p>
-              <p><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">mission</span> = <span className="text-gray-500">"Building scalable digital solutions."</span>;</p>
+              <p><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">mission</span> = <span className="text-gray-500">"Translating human intent into machine logic."</span>;</p>
             </div>
           </div>
 
@@ -63,7 +63,7 @@ const Hero = () => {
               onClick={handleScrollToProjects}
               className="group px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100 transition-all hover:scale-105 duration-200 flex items-center justify-center gap-2"
             >
-              View Projects
+              View Artifacts
               <ArrowOutwardOutlinedIcon className="text-sm transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
             </button>
 
@@ -71,7 +71,7 @@ const Hero = () => {
               onClick={handleScrollToContact}
               className="group px-6 py-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-medium rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition-all hover:scale-105 duration-200 flex items-center justify-center gap-2"
             >
-              Contact Me
+              Initiate Handshake
               <KeyboardArrowRightOutlinedIcon className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>

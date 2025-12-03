@@ -107,16 +107,15 @@ const Contact: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // contact
+            // communication_channel
           </span>
 
           <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight mb-6">
-            Let's Work Together
+            Send a Signal
           </h2>
 
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
-            Have a project in mind or want to discuss opportunities? I'd love
-            to hear from you.
+            Initiate a handshake protocol. Let's build something meaningful.
           </p>
 
           <div className="mt-8 text-center">
@@ -135,7 +134,7 @@ const Contact: React.FC = () => {
           <div className="max-w-2xl mx-auto w-full">
             <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8">
               <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white font-mono">
-                Send me a message
+                Transmit Data
               </h3>
 
               {/* FORM FIELDS */}

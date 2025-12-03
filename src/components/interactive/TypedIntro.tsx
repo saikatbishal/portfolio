@@ -6,7 +6,7 @@ const TypedIntro = () => {
       <div className="max-w-4xl mx-auto px-6 text-center">
         <div className="mb-8">
           <span className="font-mono text-sm text-gray-500 dark:text-gray-400">
-            // roles
+            // identity_matrix
           </span>
         </div>
 
@@ -15,10 +15,10 @@ const TypedIntro = () => {
           <span className="font-mono text-gray-600 dark:text-gray-400">
             <ReactTyped
               strings={[
-                "Frontend Developer",
-                "UI/UX Enthusiast",
+                "Architect",
                 "Problem Solver",
-                "Full Stack Developer",
+                "Digital Craftsman",
+                "Logic Weaver",
                 "React Specialist",
                 "JavaScript Expert"
               ]}
@@ -32,9 +32,7 @@ const TypedIntro = () => {
         </h2>
 
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-sans">
-          Passionate about creating exceptional digital experiences through clean code,
-          innovative design, and user-centered development. I bring ideas to life with
-          modern technologies and creative problem-solving.
+          Weaving logic into experiences. I don't just write code; I compose digital symphonies.
         </p>
       </div>
     </section>

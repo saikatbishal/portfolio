@@ -17,14 +17,13 @@ const Experience: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // career_log
+            // memory_logs
           </span>
           <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight mb-6">
-            Professional Experience
+            Chronicles
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
-            A summary of my professional journey, showcasing growth,
-            achievements, and the diverse projects I've contributed to.
+            A timeline of problems solved and systems built.
           </p>
         </div>
 

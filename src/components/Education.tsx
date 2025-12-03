@@ -21,16 +21,15 @@ const Education: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // learning_path
+            // downloading_consciousness...
           </span>
 
           <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight mb-6">
-            Education & Skills
+            Theory & Practice
           </h2>
 
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
-            My academic background and technical expertise that form the
-            foundation of my professional capabilities.
+            The formal foundations I've built, and the modern tools I use to break them.
           </p>
         </div>
 
@@ -38,7 +37,7 @@ const Education: React.FC = () => {
           {/* Education Section */}
           <div className="animate-fade-in">
             <h3 className="text-2xl font-bold font-mono text-gray-900 dark:text-white mb-8">
-              Academic Background
+              The Theory
             </h3>
 
             <div className="space-y-6">
@@ -96,7 +95,7 @@ const Education: React.FC = () => {
           {/* Skills Section */}
           <div className="animate-fade-in">
             <h3 className="text-2xl font-bold font-mono text-gray-900 dark:text-white mb-8">
-              Technical Skills
+              The Instruments
             </h3>
 
             <div className="space-y-8">

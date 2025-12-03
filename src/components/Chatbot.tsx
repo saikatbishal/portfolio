@@ -156,8 +156,8 @@ const Chatbot: React.FC = () => {
 
       {/* Chat Window */}
       <div className={`fixed bottom-24 right-6 z-50 w-[90vw] sm:w-96 h-[500px] max-h-[80vh] border border-gray-200 dark:border-gray-800 shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden ${isOpen
-          ? 'scale-100 opacity-100 translate-y-0'
-          : 'scale-0 opacity-0 translate-y-10 pointer-events-none'
+        ? 'scale-100 opacity-100 translate-y-0'
+        : 'scale-0 opacity-0 translate-y-10 pointer-events-none'
         } bg-white dark:bg-gray-950`}>
         {/* Header */}
         <div className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
@@ -167,12 +167,11 @@ const Chatbot: React.FC = () => {
             </div>
             <div>
               <h3 className="font-bold font-mono text-gray-900 dark:text-white">
-                Portfolio Assistant
-              </h3>
+Tom Riddle's Diary              </h3>
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                 <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
-                  Online
+                  Open
                 </span>
               </div>
             </div>
@@ -187,13 +186,13 @@ const Chatbot: React.FC = () => {
               className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div className={`max-w-[80%] p-3 border ${msg.sender === 'user'
-                  ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white'
-                  : 'bg-white text-gray-900 border-gray-200 dark:bg-gray-950 dark:text-white dark:border-gray-800'
+                ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white'
+                : 'bg-white text-gray-900 border-gray-200 dark:bg-gray-950 dark:text-white dark:border-gray-800'
                 }`}>
                 <p className="text-sm font-mono leading-relaxed whitespace-pre-wrap">{msg.text}</p>
                 <span className={`text-[10px] font-mono mt-1 block text-right ${msg.sender === 'user'
-                    ? 'text-gray-400 dark:text-gray-500'
-                    : 'text-gray-400 dark:text-gray-500'
+                  ? 'text-gray-400 dark:text-gray-500'
+                  : 'text-gray-400 dark:text-gray-500'
                   }`}>
                   {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
@@ -228,8 +227,8 @@ const Chatbot: React.FC = () => {
               type="submit"
               disabled={isLoading || !input.trim()}
               className={`p-3 border transition-all duration-200 ${isLoading || !input.trim()
-                  ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed dark:bg-gray-800 dark:text-gray-600 dark:border-gray-700'
-                  : 'bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:border-white dark:hover:bg-gray-100'
+                ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed dark:bg-gray-800 dark:text-gray-600 dark:border-gray-700'
+                : 'bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:border-white dark:hover:bg-gray-100'
                 }`}
             >
               <SendIcon fontSize="small" />

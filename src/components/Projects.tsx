@@ -34,8 +34,8 @@ const FilterButton = React.memo<{
     <button
       onClick={handleClick}
       className={`px-4 py-2 text-sm font-mono border transition-all duration-300 ${isActive
-          ? "bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white"
-          : "bg-transparent text-gray-600 border-gray-200 hover:border-gray-400 dark:text-gray-400 dark:border-gray-800 dark:hover:border-gray-600"
+        ? "bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white"
+        : "bg-transparent text-gray-600 border-gray-200 hover:border-gray-400 dark:text-gray-400 dark:border-gray-800 dark:hover:border-gray-600"
         }`}
     >
       {category}
@@ -254,7 +254,7 @@ const Projects: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // portfolio
+            // digital_artifacts
           </span>
 
           <h2
@@ -264,7 +264,7 @@ const Projects: React.FC = () => {
               fontWeight: 800,
             }}
           >
-            Featured Projects
+            Proof of Concept
           </h2>
 
           <p
@@ -273,7 +273,7 @@ const Projects: React.FC = () => {
               fontSize: "1.125rem",
             }}
           >
-            A selection of recent work demonstrating full-stack capabilities and attention to detail.
+            Proof of concepts turned into reality. A gallery of logic and design.
           </p>
         </div>
 

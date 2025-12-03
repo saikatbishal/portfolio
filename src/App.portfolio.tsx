@@ -11,6 +11,7 @@ import './index.css';
 import ThemeTransition from './components/interactive/ThemeTransition';
 import Games from './components/Games';
 import Chatbot from './components/Chatbot';
+import GlobalSound from './components/interactive/GlobalSound';
 
 // Lazy load components - Critical path optimization
 const Projects = React.lazy(() => import('./components/Projects'));
@@ -29,7 +30,6 @@ const MinimalLoader = () => (
 // Home page component with all portfolio content
 const Home = () => (
   <>
-
     <Suspense fallback={null}>
       {/* <ParticleBackground /> */}
     </Suspense>
@@ -68,6 +68,7 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen w-full bg-background transition-colors duration-300 relative flex justify-center">
+      <GlobalSound />
       <ThemeTransition isAnimating={isAnimating}
         isDarkMode={isDarkMode}
         onAnimationComplete={handleAnimationComplete} />
