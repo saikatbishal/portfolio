@@ -13,7 +13,6 @@ import Games from './components/Games';
 import Chatbot from './components/Chatbot';
 
 // Lazy load components - Critical path optimization
-const ParticleBackground = React.lazy(() => import('./components/interactive/ParticleBackground'));
 const Projects = React.lazy(() => import('./components/Projects'));
 const Experience = React.lazy(() => import('./components/Experience'));
 const Education = React.lazy(() => import('./components/Education'));

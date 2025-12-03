@@ -33,9 +33,8 @@ const FilterButton = React.memo<{
   return (
     <button
       onClick={handleClick}
-      className={`px-6 py-3 rounded-full transition-all duration-300 ${
-        isActive ? "btn-primary" : "btn-glass"
-      }`}
+      className={`px-6 py-3 rounded-full transition-all duration-300 ${isActive ? "btn-primary" : "btn-glass"
+        }`}
       style={{
         fontSize: "1rem",
         fontWeight: 500,
@@ -56,123 +55,74 @@ const ProjectCard = React.memo<{
 }>(({ project, index, onVideoClick }) => {
   return (
     <div
-      className={`project-card card-glass group animate-fade-in ${
-        index % 2 === 0 ? "md:mt-0" : "md:mt-12"
-      }`}
+      className={`project-card group animate-fade-in flex flex-col h-full ${index % 2 === 0 ? "md:mt-0" : "md:mt-12"
+        } bg-white/40 dark:bg-gray-800/30 backdrop-blur-xl border border-white/40 dark:border-gray-700/40 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2`}
       style={{
         animationDelay: `${index * 0.2}s`,
-        borderRadius: "var(--radius-xl)",
-        overflow: "hidden",
       }}
     >
       {/* Project Image */}
-      <div
-        className="relative overflow-hidden mb-6"
-        style={{ borderRadius: "var(--radius-lg)" }}
-      >
+      <div className="relative overflow-hidden rounded-xl mb-5 shadow-md group-hover:shadow-lg transition-shadow duration-300">
         <img
           src={project.image}
           alt={`${project.title} - ${project.attribution}`}
-          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-          style={{
-            width: "100%",
-            height: "256px",
-          }}
-          loading="lazy" // Add lazy loading for better performance
+          className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-        {/* Project Links */}
-        <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {/* Overlay with Links - Centered for modern look */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
           {project.videoUrl && (
             <button
               onClick={() => onVideoClick(project.videoUrl!)}
-              className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
-              style={{
-                background: "rgba(255, 255, 255, 0.2)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-              }}
+              className="p-3 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border border-white/30 transition-all duration-300 hover:scale-110 shadow-lg"
+              title="Watch Demo"
             >
-              <PlayCircleOutlineIcon style={{ fontSize: "1.25rem" }} />
+              <PlayCircleOutlineIcon style={{ fontSize: "1.5rem" }} />
             </button>
           )}
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
-            style={{
-              background: "rgba(255, 255, 255, 0.2)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}
+            className="p-3 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border border-white/30 transition-all duration-300 hover:scale-110 shadow-lg"
+            title="View Live"
           >
-            <ArrowOutwardOutlinedIcon style={{ fontSize: "1.25rem" }} />
+            <ArrowOutwardOutlinedIcon style={{ fontSize: "1.5rem" }} />
           </a>
           <a
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-full glass text-white hover:scale-110 transition-transform"
-            style={{
-              background: "rgba(255, 255, 255, 0.2)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}
+            className="p-3 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border border-white/30 transition-all duration-300 hover:scale-110 shadow-lg"
+            title="View Code"
           >
-            <LinkOutlinedIcon style={{ fontSize: "1.25rem" }} />
+            <LinkOutlinedIcon style={{ fontSize: "1.5rem" }} />
           </a>
         </div>
       </div>
 
       {/* Project Content */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <h3
-            className="text-heading"
-            style={{
-              fontSize: "1.5rem",
-              fontWeight: 600,
-              color: "var(--text-primary)",
-            }}
-          >
+      <div className="flex flex-col flex-grow">
+        <div className="flex items-start justify-between mb-3 gap-2">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white leading-tight">
             {project.title}
           </h3>
-          <span
-            className="text-caption px-3 py-1 rounded-full"
-            style={{
-              background: "rgba(99, 102, 241, 0.1)",
-              color: "var(--primary)",
-              fontSize: "0.875rem",
-            }}
-          >
+          <span className="text-xs font-medium px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20 dark:text-blue-300 whitespace-nowrap border border-primary/10 dark:border-primary/20">
             {project.category}
           </span>
         </div>
 
-        <p
-          className="text-body mb-4"
-          style={{
-            color: "var(--text-secondary)",
-            lineHeight: 1.6,
-          }}
-        >
+        <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
           {project.description}
         </p>
 
         {/* Technologies */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mt-auto">
           {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="text-caption px-3 py-1 rounded-full"
-              style={{
-                background: "rgba(6, 182, 212, 0.1)",
-                color: "var(--accent)",
-                fontSize: "0.75rem",
-                fontWeight: 500,
-              }}
+              className="text-xs px-2.5 py-1 rounded-md bg-white/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600 font-medium"
             >
               {tech}
             </span>
@@ -214,7 +164,7 @@ const Projects: React.FC = () => {
           "PostgreSQL",
         ],
 
-        category: "Web App",
+        category: "UI/UX",
         liveUrl: "https://folio-one-brown.vercel.app",
         githubUrl: "#",
         videoUrl: "https://www.loom.com/embed/c6a640fe96a9428f9ab49bac36315d86",

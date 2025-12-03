@@ -5,7 +5,6 @@ import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 
-import { socialLinks } from "../data/socialLinks";
 interface FormData {
   name: string;
   email: string;
@@ -148,11 +147,21 @@ const Contact: React.FC = () => {
             Have a project in mind or want to discuss opportunities? I'd love
             to hear from you.
           </p>
+
+          <div className="mt-8 text-center">
+            <button
+              onClick={handleDownloadCV}
+              className="group inline-flex items-center px-6 py-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 text-sm font-semibold text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md"
+            >
+              <DownloadOutlinedIcon className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" />
+              Download Resume
+            </button>
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 gap-12 items-start">
           {/* FORM */}
-          <div className="animate-fade-in">
+          <div className="animate-fade-in max-w-2xl mx-auto w-full">
             <div className="bg-white/40 dark:bg-blue-900/20 backdrop-blur-xl border border-blue-200 dark:border-blue-700 p-8 rounded-3xl shadow-lg">
               <h3
                 className="text-heading mb-6 text-blue-900 dark:text-blue-200"
@@ -227,216 +236,23 @@ const Contact: React.FC = () => {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full group bg-gradient-to-r from-blue-400 to-purple-400 text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-xl transition-all"
+                  disabled={isSubmitting}
+                  className="w-full group bg-gradient-to-r from-blue-400 to-purple-400 text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-xl transition-all disabled:opacity-50"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
-            </div>
-          </div>
-
-          {/* CONTACT INFO + SOCIAL LINKS */}
-          <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="space-y-8">
-              {/* Contact Card */}
-              <div className="bg-white/20 dark:bg-blue-900/20 backdrop-blur-xl border border-blue-200 dark:border-blue-700 p-8 rounded-3xl shadow-lg">
-                <h3 className="text-heading text-blue-900 dark:text-blue-200 mb-6">
-                  Let's connect
-                </h3>
-
-                <div className="space-y-4">
-                  {/* Email */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center bg-blue-200/40">
-                      <MailOutlineOutlinedIcon className="text-blue-700" />
-                    </div>
-                    <div>
-                      <p className="text-body text-blue-900 dark:text-blue-200">
-                        Email
-                      </p>
-                      <p className="text-caption text-blue-700 dark:text-blue-300">
-                        saikat.bishal786@gmail.com
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Location */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center bg-emerald-200/40">
-                      <span className="text-emerald-700 text-xl">📍</span>
-                    </div>
-                    <div>
-                      <p className="text-body text-blue-900 dark:text-blue-200">
-                        Location
-                      </p>
-                      <p className="text-caption text-blue-700 dark:text-blue-300">
-                        Kolkata, India
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="
-              bg-white/50 
-              dark:bg-indigo-900/30 
-              border border-indigo-200/40 
-              dark:border-indigo-700/40 
-              p-8 rounded-3xl backdrop-blur-xl
-            "
-              >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
-                  Connect & Follow
-                </h3>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {socialLinks.map((link) => {
-                    const IconComponent = link.icon;
-                    return (
-                      <a
-                        key={link.name}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="
-            group relative overflow-hidden rounded-2xl p-4 
-            transition-all duration-300
-            hover:scale-105 hover:shadow-lg
-          "
-                        style={{
-                          backgroundColor: link.bgColor,
-                          border: `1px solid ${link.color}20`,
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = link.color;
-                          e.currentTarget.style.borderColor = link.hoverColor;
-                          e.currentTarget.style.boxShadow = `0 10px 25px ${link.color}30`;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = link.bgColor;
-                          e.currentTarget.style.borderColor = `${link.color}20`;
-                          e.currentTarget.style.boxShadow = "none";
-                        }}
-                      >
-                        <div
-                          className="
-              absolute inset-0 opacity-0 group-hover:opacity-100 
-              transition-opacity duration-300
-            "
-                          style={{
-                            background: `linear-gradient(135deg, ${link.color}15, ${link.hoverColor}25)`,
-                          }}
-                        />
-
-                        <div className="relative z-10 flex items-center space-x-3">
-                          <div
-                            className="
-                w-10 h-10 rounded-xl flex items-center justify-center 
-                transition-all duration-300 group-hover:scale-110
-              "
-                            style={{ backgroundColor: `${link.color}20` }}
-                          >
-                            <IconComponent
-                              className="transition-all duration-300 group-hover:text-white"
-                              style={{
-                                color: link.color,
-                                fontSize: "1.25rem",
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <p className="font-medium text-gray-900 dark:text-gray-100 group-hover:text-white transition-colors duration-300">
-                              {link.name}
-                            </p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-200 transition-colors duration-300">
-                              {link.name === "LinkedIn"
-                                ? "Professional Network"
-                                : link.name === "GitHub"
-                                  ? "Code Repository"
-                                  : link.name === "Medium"
-                                    ? "Blog & Articles"
-                                    : "Freelance Profile"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <ArrowOutwardOutlinedIcon
-                          className="
-              absolute top-4 right-4 opacity-0 
-              group-hover:opacity-100 transition-all duration-300
-              group-hover:text-white transform translate-x-2 
-              group-hover:translate-x-0
-            "
-                          style={{ fontSize: "1rem" }}
-                        />
-                      </a>
-                    );
-                  })}
-                </div>
-
-                <button
-                  onClick={handleDownloadCV}
-                  className="
-      w-full group relative overflow-hidden rounded-2xl p-4 
-      bg-gradient-to-r  from-pink-400 via-blue-400 to-green-400 
-      hover:from-pink-500 hover:via-blue-500 hover:to-green-500 
-      transition-all duration-300 hover:scale-[102%] hover:shadow-xl
-    "
-                  style={{
-                    boxShadow: "0 4px 15px rgba(129, 140, 248, 0.3)", // pastel indigo
-                  }}
-                >
-                  <div
-                    className="
-        absolute inset-0 bg-gradient-to-r 
-        from-pink-400 via-blue-400 to-green-400
-        opacity-0 group-hover:opacity-100 
-        transition-opacity duration-300
-      "
-                  />
-
-                  <div className="relative z-10 flex items-center justify-center space-x-3">
-                    <div
-                      className="
-          w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center 
-          transition-all duration-300 group-hover:scale-110 group-hover:rotate-12
-        "
-                    >
-                      <DownloadOutlinedIcon
-                        className="text-white transition-transform duration-300 group-hover:translate-y-0.5"
-                        style={{ fontSize: "1.25rem" }}
-                      />
-                    </div>
-
-                    <div className="text-left">
-                      <p className="font-semibold text-white">Download Resume</p>
-                      <p className="text-sm text-indigo-100">Get my latest CV (PDF)</p>
-                    </div>
-
-                    <ArrowOutwardOutlinedIcon
-                      className="
-          text-white opacity-70 group-hover:opacity-100 
-          transition-all duration-300 transform translate-x-2 
-          group-hover:translate-x-0
-        "
-                      style={{ fontSize: "1rem" }}
-                    />
-                  </div>
-
-                  <div
-                    className="
-        absolute inset-0 rounded-2xl bg-white/10 scale-0 
-        group-active:scale-100 transition-transform duration-200
-      "
-                  />
-                </button>
-              </div>
+              {submitStatus === 'success' && (
+                <p className="mt-4 text-center text-green-600">Message sent successfully!</p>
+              )}
+              {submitStatus === 'error' && (
+                <p className="mt-4 text-center text-red-600">Failed to send message. Please try again.</p>
+              )}
             </div>
           </div>
         </div>
       </div>
     </section>
-
   );
 };
 

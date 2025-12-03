@@ -6,10 +6,10 @@ const Education: React.FC = () => {
   useGSAPAnimations();
 
   const skillCategories = {
-    frontend: { name: "Frontend", color: "#FFB5A7" }, // Indigo color
-    backend: { name: "Backend", color: "#FCD5CE" }, // Purple color
-    tools: { name: "Tools & DevOps", color: "#A0E7E5" }, // Cyan color
-    design: { name: "Design", color: "#FEE1A8" }, // Emerald color
+    frontend: { name: "Frontend", color: "#4F46E5" }, // Indigo
+    backend: { name: "Backend", color: "#7C3AED" }, // Purple
+    tools: { name: "Tools & DevOps", color: "#0E7490" }, // Cyan
+    design: { name: "Design", color: "#10B981" }, // Emerald
   };
 
   return (
@@ -151,38 +151,20 @@ const Education: React.FC = () => {
                     {config.name}
                   </h4>
 
-                  <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
                     {skills
                       .filter((skill) => skill.category === category)
-                      .map((skill, skillIndex) => (
-                        <div key={skill.name} className="skill-item">
-                          <div className="flex justify-between items-center mb-2">
-                            <span
-                              className="text-sm font-medium"
-                              style={{ color: "var(--text-primary)" }}
-                            >
-                              {skill.name}
-                            </span>
-                            <span
-                              className="text-sm font-semibold"
-                              style={{ color: "var(--text-secondary)" }}
-                            >
-                              {skill.level}%
-                            </span>
-                          </div>
-
-                          {/* Progress Bar */}
-                          <div className="w-full h-3 rounded-full overflow-hidden" style={{ backgroundColor: "var(--border)" }}>
-                            <div
-                              className="h-full rounded-full transition-all duration-1000 ease-out skill-progress"
-                              style={{
-                                width: `${skill.level}%`,
-                                background: `linear-gradient(90deg, ${config.color}, ${config.color}99)`,
-                                boxShadow: `0 2px 4px ${config.color}40`,
-                                animationDelay: `${skillIndex * 0.1}s`,
-                              }}
-                            />
-                          </div>
+                      .map((skill) => (
+                        <div
+                          key={skill.name}
+                          className="px-3 py-1 rounded-full text-sm font-medium"
+                          style={{
+                            backgroundColor: `${config.color}20`,
+                            color: config.color,
+                            border: `1px solid ${config.color}40`,
+                          }}
+                        >
+                          {skill.name}
                         </div>
                       ))}
                   </div>

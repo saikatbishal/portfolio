@@ -1,40 +1,15 @@
 import React from 'react';
-import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-
-  const contactInfo = [
-    {
-      icon: MailOutlineOutlinedIcon,
-      label: 'Email',
-      value: 'saikat.bishal786@gmail.com',
-      href: 'mailto:saikat.bishal786@gmail.com',
-      color: '#3b82f6'
-    },
-    {
-      icon: PhoneOutlinedIcon,
-      label: 'Phone',
-      value: '+91 (906) 421-7900',
-      href: 'tel:+919064217900',
-      color: '#10b981'
-    },
-    {
-      icon: LocationOnOutlinedIcon,
-      label: 'Location',
-      value: 'Kolkata, India',
-      href: '#',
-      color: '#f59e0b'
-    }
-  ];
 
   const socialLinks = [
     {
@@ -77,7 +52,7 @@ const Footer: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Main Footer Content */}
-        <div className="grid lg:grid-cols-3 gap-12 mb-12">
+        <div className="grid lg:grid-cols-2 gap-12 mb-12">
           {/* Personal Salutation */}
           <div className="lg:col-span-1">
             <div className="bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 p-8 rounded-3xl h-full">
@@ -89,13 +64,13 @@ const Footer: React.FC = () => {
                   Saikat Bishal
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Thank you for visiting my portfolio! I'm passionate about creating 
+                  Thank you for visiting my portfolio! I'm passionate about creating
                   innovative digital solutions and would love to collaborate on your next project.
                 </p>
                 <div className="flex items-center justify-center text-sm text-gray-500 dark:text-gray-500">
                   <span>Made with</span>
-                  <FavoriteOutlinedIcon 
-                    className="mx-2 text-red-500 animate-pulse" 
+                  <FavoriteOutlinedIcon
+                    className="mx-2 text-red-500 animate-pulse"
                     style={{ fontSize: '1rem' }}
                   />
                   <span>in India</span>
@@ -104,46 +79,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Contact Information */}
-          <div className="lg:col-span-1">
-            <div className="bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 p-8 rounded-3xl h-full">
-              <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
-                Get In Touch
-              </h4>
-              <div className="space-y-4">
-                {contactInfo.map((contact) => {
-                  const IconComponent = contact.icon;
-                  return (
-                    <a
-                      key={contact.label}
-                      href={contact.href}
-                      className="group flex items-center space-x-4 p-3 rounded-xl transition-all duration-300 hover:bg-white/30 dark:hover:bg-gray-700/30 hover:scale-105"
-                    >
-                      <div 
-                        className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: `${contact.color}20` }}
-                      >
-                        <IconComponent 
-                          style={{ 
-                            color: contact.color,
-                            fontSize: '1.25rem'
-                          }} 
-                        />
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                          {contact.label}
-                        </p>
-                        <p className="text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                          {contact.value}
-                        </p>
-                      </div>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+
 
           {/* Social Links & Quick Actions */}
           <div className="lg:col-span-1">
@@ -151,7 +87,7 @@ const Footer: React.FC = () => {
               <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
                 Connect & Follow
               </h4>
-              
+
               {/* Social Links */}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {socialLinks.map((link) => {
@@ -176,12 +112,12 @@ const Footer: React.FC = () => {
                         e.currentTarget.style.borderColor = `${link.color}20`;
                       }}
                     >
-                      <IconComponent 
+                      <IconComponent
                         className="transition-colors duration-300 group-hover:text-white"
-                        style={{ 
+                        style={{
                           color: link.color,
                           fontSize: '1.1rem'
-                        }} 
+                        }}
                       />
                       <span className="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-white transition-colors duration-300">
                         {link.name}
@@ -191,12 +127,34 @@ const Footer: React.FC = () => {
                 })}
               </div>
 
+              {/* Contact Info */}
+              <div className="space-y-4 mb-6">
+                <a href="mailto:saikat.bishal786@gmail.com" className="group flex items-center space-x-3">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50">
+                    <MailOutlineOutlinedIcon className="text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Email</p>
+                    <p className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">saikat.bishal786@gmail.com</p>
+                  </div>
+                </a>
+                <div className="group flex items-center space-x-3">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/50">
+                    <LocationOnOutlinedIcon className="text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Location</p>
+                    <p className="font-medium text-gray-800 dark:text-gray-200">Kolkata, India</p>
+                  </div>
+                </div>
+              </div>
+
               {/* Back to Top Button */}
               <button
                 onClick={scrollToTop}
                 className="w-full group flex items-center justify-center space-x-2 p-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
-                <ArrowUpwardOutlinedIcon 
+                <ArrowUpwardOutlinedIcon
                   className="text-white transition-transform duration-300 group-hover:-translate-y-1"
                   style={{ fontSize: '1.1rem' }}
                 />
@@ -214,10 +172,10 @@ const Footer: React.FC = () => {
                 © {currentYear} Saikat Bishal. All rights reserved.
               </p>
             </div>
-            
+
             <div className="flex items-center space-x-6 text-sm">
-              <a 
-                href="#hero" 
+              <a
+                href="#hero"
                 className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
@@ -226,8 +184,8 @@ const Footer: React.FC = () => {
               >
                 Home
               </a>
-              <a 
-                href="#projects" 
+              <a
+                href="#projects"
                 className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
@@ -236,8 +194,8 @@ const Footer: React.FC = () => {
               >
                 Projects
               </a>
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                 onClick={(e) => {
                   e.preventDefault();
