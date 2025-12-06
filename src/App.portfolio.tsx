@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { PerfDashboard } from '@saikat786/react-perf-dashboard';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { useTheme } from "./contexts/ThemeContext";
 
@@ -110,6 +111,8 @@ const AppContent = () => {
 function App() {
   return (
     <BrowserRouter>
+          <PerfDashboard />
+    
       <ThemeProvider>
         <div><AppContent />
           <Oneko />
