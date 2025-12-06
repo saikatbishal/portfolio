@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 // import { useTheme } from '../contexts/ThemeContext'; // Restore this import in your actual project
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 
 interface Message {
   id: string;
@@ -20,6 +23,7 @@ interface ApiResponse {
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -155,12 +159,17 @@ const Chatbot: React.FC = () => {
       </button>
 
       {/* Chat Window */}
-      <div className={`fixed bottom-24 right-6 z-50 w-[90vw] sm:w-96 h-[500px] max-h-[80vh] border border-gray-200 dark:border-gray-800 shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden ${isOpen
-        ? 'scale-100 opacity-100 translate-y-0'
-        : 'scale-0 opacity-0 translate-y-10 pointer-events-none'
-        } bg-white dark:bg-gray-950`}>
+      <div className={`fixed z-50 border border-gray-200 dark:border-gray-800 shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden bg-white dark:bg-gray-950 ${
+        isOpen
+          ? 'scale-100 opacity-100 translate-y-0'
+          : 'scale-0 opacity-0 translate-y-10 pointer-events-none'
+        } ${
+          isExpanded 
+            ? 'bottom-6 right-6 w-[95vw] h-[85vh] sm:w-[800px] sm:h-[700px]' 
+            : 'bottom-24 right-6 w-[90vw] sm:w-96 h-[500px] max-h-[80vh]'
+        }`}>
         {/* Header */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="p-2 border border-gray-300 dark:border-gray-600 rounded-full text-gray-900 dark:text-white">
               <SmartToyIcon fontSize="small" />
@@ -177,6 +186,15 @@ const Chatbot: React.FC = () => {
               </div>
             </div>
           </div>
+          
+          {/* Expand/Collapse Button */}
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="p-1.5 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors rounded-md hover:bg-gray-200 dark:hover:bg-gray-800"
+            aria-label={isExpanded ? "Collapse Chat" : "Expand Chat"}
+          >
+            {isExpanded ? <CloseFullscreenIcon fontSize="small" /> : <OpenInFullIcon fontSize="small" />}
+          </button>
         </div>
 
         {/* Messages Area */}
@@ -190,7 +208,29 @@ const Chatbot: React.FC = () => {
                 ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white'
                 : 'bg-white text-gray-900 border-gray-200 dark:bg-gray-950 dark:text-white dark:border-gray-800'
                 }`}>
-                <p className="text-sm font-mono leading-relaxed whitespace-pre-wrap">{msg.text}</p>
+                <div className="text-sm font-mono leading-relaxed markdown-body">
+                    <ReactMarkdown
+                    components={{
+                      a: ({ node: _node, ...props }) => (
+                      <a
+                        {...props}
+                        className="text-blue-500 underline hover:text-blue-600 break-all"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      />
+                      ),
+                      p: ({ node: _node, ...props }) => <p {...props} className="mb-2 last:mb-0" />,
+                      ul: ({ node: _node, ...props }) => <ul {...props} className="list-disc ml-4 mb-2" />,
+                      ol: ({ node: _node, ...props }) => <ol {...props} className="list-decimal ml-4 mb-2" />,
+                      li: ({ node: _node, ...props }) => <li {...props} className="mb-1" />,
+                      code: ({ node: _node, ...props }) => (
+                      <code {...props} className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-xs font-bold" />
+                      ),
+                    }}
+                    >
+                    {msg.text}
+                    </ReactMarkdown>
+                </div>
                 <span className={`text-[10px] font-mono mt-1 block text-right 
                 ${msg.sender === 'user'
                   ? 'text-gray-400 dark:text-gray-500'
