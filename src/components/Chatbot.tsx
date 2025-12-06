@@ -167,7 +167,8 @@ const Chatbot: React.FC = () => {
             </div>
             <div>
               <h3 className="font-bold font-mono text-gray-900 dark:text-white">
-Tom Riddle's Diary              </h3>
+                Tom Riddle's Diary
+              </h3>
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                 <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
@@ -190,7 +191,8 @@ Tom Riddle's Diary              </h3>
                 : 'bg-white text-gray-900 border-gray-200 dark:bg-gray-950 dark:text-white dark:border-gray-800'
                 }`}>
                 <p className="text-sm font-mono leading-relaxed whitespace-pre-wrap">{msg.text}</p>
-                <span className={`text-[10px] font-mono mt-1 block text-right ${msg.sender === 'user'
+                <span className={`text-[10px] font-mono mt-1 block text-right 
+                ${msg.sender === 'user'
                   ? 'text-gray-400 dark:text-gray-500'
                   : 'text-gray-400 dark:text-gray-500'
                   }`}>
