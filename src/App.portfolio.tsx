@@ -21,6 +21,8 @@ const Contact = React.lazy(() => import('./components/Contact'));
 const Footer = React.lazy(() => import('./components/Footer'));
 const TypedIntro = React.lazy(() => import('./components/interactive/TypedIntro'));
 const Stats = React.lazy(() => import('./components/interactive/Stats'));
+const Blogs = React.lazy(() => import('./components/Blogs'));
+const BlogPost = React.lazy(() => import('./components/BlogPost'));
 
 // Optimized loading component for critical path
 const MinimalLoader = () => (
@@ -82,6 +84,16 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/games" element={<Games />} />
+            <Route path="/blogs" element={
+              <Suspense fallback={<MinimalLoader />}>
+                <Blogs />
+              </Suspense>
+            } />
+            <Route path="/blogs/:slug" element={
+              <Suspense fallback={<MinimalLoader />}>
+                <BlogPost />
+              </Suspense>
+            } />
           </Routes>
         </div>
       </div>

@@ -24,7 +24,7 @@ const Hero = () => {
              bg-white dark:bg-gray-950 pt-20"
     >
       {/* Minimalist Grid Background */}
-      <div className="absolute inset-0 bg-grid-pattern dark:bg-grid-pattern-dark bg-[length:40px_40px] opacity-[0.05] dark:opacity-[0.1]" />
+      <div className="absolute inset-0 bg-grid-pattern dark:bg-grid-pattern-dark animate-grid-beat opacity-[0.25] bg-[length:40px_40px]  dark:opacity-[0.1]" />
 
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Side */}
