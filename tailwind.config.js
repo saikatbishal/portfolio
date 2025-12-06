@@ -46,8 +46,13 @@ export default {
         "fade-in": "fadeIn 0.6s ease-out forwards",
         "slide-up": "slideUp 0.8s ease-out forwards",
         gradient: "gradient 8s ease infinite",
+        "grid-beat": "grid-beat 2s ease-in-out infinite",
       },
       keyframes: {
+        "grid-beat": {
+          "0%, 100%": { backgroundSize: "40px 40px" },
+          "50%": { backgroundSize: "48px 48px" },
+        },
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-20px)" },

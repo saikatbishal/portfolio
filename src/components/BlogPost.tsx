@@ -38,6 +38,13 @@ const BlogPost: React.FC = () => {
         </Link>
 
         <header className="mb-10">
+          {post.image && (
+            <img 
+              src={post.image} 
+              alt={post.title} 
+              className="w-full h-64 md:h-96 object-cover rounded-xl mb-8 shadow-lg"
+            />
+          )}
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
             {post.title}
           </h1>

@@ -6,6 +6,7 @@ export interface BlogPost {
   date: string;
   description: string;
   tags: string[];
+  image?: string;
   content: string;
 }
 
@@ -27,6 +28,7 @@ export const getBlogs = (): BlogPost[] => {
       date: attributes.date || "",
       description: attributes.description || "",
       tags: attributes.tags || [],
+      image: attributes.image,
       content: body,
     };
   });
