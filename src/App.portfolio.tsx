@@ -23,6 +23,7 @@ const TypedIntro = React.lazy(() => import('./components/interactive/TypedIntro'
 const Stats = React.lazy(() => import('./components/interactive/Stats'));
 const Blogs = React.lazy(() => import('./components/Blogs'));
 const BlogPost = React.lazy(() => import('./components/BlogPost'));
+const AstTranspiler = React.lazy(() => import('./components/AstTranspiler'));
 
 // Optimized loading component for critical path
 const MinimalLoader = () => (
@@ -92,6 +93,11 @@ const AppContent = () => {
             <Route path="/blogs/:slug" element={
               <Suspense fallback={<MinimalLoader />}>
                 <BlogPost />
+              </Suspense>
+            } />
+            <Route path="/ast-transpiler" element={
+              <Suspense fallback={<MinimalLoader />}>
+                <AstTranspiler />
               </Suspense>
             } />
           </Routes>

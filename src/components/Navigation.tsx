@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "../contexts/ThemeContext";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
@@ -9,9 +10,11 @@ import gsap from "gsap";
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const { isDarkMode } = useTheme();
   const desktopNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const mobileNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const filteredDesktopRefs = desktopNavRefs.current.filter((ref) => ref != null);
@@ -47,6 +50,17 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close more menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+        setIsMoreMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -58,10 +72,15 @@ const Navigation: React.FC = () => {
     { label: "Contact", href: "#contact", type: "scroll" },
     { label: "Games", href: "/games", type: "route" },
     { label: "Blogs", href: "/blogs", type: "route" },
+    { label: "CSS to Tailwind", href: "/ast-transpiler", type: "route" },
   ];
+
+  const visibleNavItems = navItems.slice(0, 4);
+  const hiddenNavItems = navItems.slice(4);
 
   const handleNavClick = (href: string, type: string) => {
     setIsMobileMenuOpen(false);
+    setIsMoreMenuOpen(false);
     if (type === "scroll") {
       // If we're not on the home page, navigate there first
       if (location.pathname !== "/") {
@@ -99,7 +118,7 @@ const Navigation: React.FC = () => {
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex items-center space-x-6">
-              {navItems.map((item, index) => (
+              {visibleNavItems.map((item, index) => (
                 item.type === "route" ? (
                   <NavLink
                     key={item.label}
@@ -125,6 +144,45 @@ const Navigation: React.FC = () => {
                   </button>
                 )
               ))}
+
+              {/* More Button */}
+              <div className="relative" ref={moreMenuRef}>
+                <button
+                  onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+                  className={`flex items-center text-sm font-mono transition-colors duration-300 ${isMoreMenuOpen ? "text-gray-900 dark:text-white" : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`}
+                >
+                  More <MoreHorizOutlinedIcon className="ml-1" fontSize="small" />
+                </button>
+
+                {/* Popover */}
+                {isMoreMenuOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-xl py-2 animate-fade-in">
+                    {hiddenNavItems.map((item) => (
+                      item.type === "route" ? (
+                        <NavLink
+                          key={item.label}
+                          to={item.href}
+                          onClick={() => setIsMoreMenuOpen(false)}
+                          className={({ isActive }) =>
+                            `block px-4 py-2 text-sm font-mono transition-colors
+                            ${isActive ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"}`
+                          }
+                        >
+                          {item.label}
+                        </NavLink>
+                      ) : (
+                        <button
+                          key={item.label}
+                          onClick={() => handleNavClick(item.href, item.type)}
+                          className="block w-full text-left px-4 py-2 text-sm font-mono text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                        >
+                          {item.label}
+                        </button>
+                      )
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             <ThemeToggle />
