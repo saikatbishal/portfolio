@@ -169,18 +169,17 @@ const Projects: React.FC = () => {
       },
       {
         id: 2,
-        title: "Mobile Banking App",
+        title: "React Performance Dashboard",
         description:
-          "Secure mobile banking application with biometric authentication, transaction history, and seamless money transfer capabilities.",
+          "A lightweight npm package that provides a real-time performance dashboard for React applications. It tracks FPS, API request/response times, and status codes to help developers optimize their apps.",
         image:
-          "https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw1fHxtb2JpbGUlMjBhcHAlMjBzbWFydHBob25lJTIwZGVzaWdufGVufDB8MXx8cHVycGxlfDE3NTY2NDY4OTF8MA&ixlib=rb-4.1.0&q=85",
-        attribution: "Daniel Korpai on Unsplash",
-        photographerUrl: "https://unsplash.com/@danielkorpai",
-        technologies: ["React Native", "Firebase", "Redux", "Stripe API"],
-        category: "Mobile App",
-        liveUrl: "#",
-        githubUrl: "#",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+          "/perfmonitor.png",
+        attribution: "Luke Chesser on Unsplash",
+        photographerUrl: "/perfmonitor.png",
+        technologies: ["React", "TypeScript", "NPM", "Performance"],
+        category: "Web App",
+        liveUrl: "https://www.npmjs.com/package/@saikat786/react-perf-dashboard",
+        githubUrl: "https://github.com/saikatbishal/react-perf-dashboard",
       },
       {
         id: 3,
