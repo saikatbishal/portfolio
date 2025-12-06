@@ -85,10 +85,40 @@ const AstTranspiler: React.FC = () => {
                   
                   <div className="mt-8 text-center">
                     <div className="mb-2 text-xs uppercase tracking-wide text-gray-400 dark:text-gray-500 font-bold">Live Preview</div>
-                    {/* We apply the generated classes here dynamically */}
-                    <div className={`p-6 border dark:border-slate-600 transition-all duration-300 ${outputClasses.join(' ')}`}>
-                      Preview Box
-                    </div>
+                    {/* Iframe to isolate Tailwind CDN and generated styles */}
+                    <iframe
+                      title="Live Preview"
+                      className="w-full h-48 border dark:border-slate-600 rounded bg-white"
+                      srcDoc={`
+                        <!DOCTYPE html>
+                        <html>
+                          <head>
+                            <script src="https://cdn.tailwindcss.com"></script>
+                            <script>
+                              tailwind.config = {
+                                darkMode: 'class',
+                              }
+                            </script>
+                            <style>
+                              body { 
+                                display: flex; 
+                                align-items: center; 
+                                justify-content: center; 
+                                height: 100vh; 
+                                margin: 0; 
+                                font-family: sans-serif;
+                                color: #333;
+                              }
+                            </style>
+                          </head>
+                          <body>
+                            <div class="p-6 border transition-all duration-300 ${outputClasses.join(' ')}">
+                              Preview Box
+                            </div>
+                          </body>
+                        </html>
+                      `}
+                    />
                   </div>
                 </div>
               ) : (
