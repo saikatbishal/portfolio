@@ -40,14 +40,14 @@ const Stats = () => {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="text-center p-6 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 hover:border-gray-900 dark:hover:border-white transition-colors duration-300"
+          className="text-center p-6 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-colors duration-300 group"
         >
           <CountUp
             start={0}
             end={isVisible ? stat.end : 0}
             duration={2.5}
             suffix={stat.suffix}
-            className="text-4xl font-bold font-mono text-gray-900 dark:text-white"
+            className="text-4xl font-bold font-mono text-gray-900 dark:text-white group-hover:text-[#16a34a] dark:group-hover:text-[#39ff14] transition-colors duration-300"
           >
             {({ countUpRef }) => (
               <div>

@@ -24,12 +24,12 @@ const Footer: React.FC = () => {
     },
     {
       name: 'Medium',
-      url: 'https://medium.com/@saikatbishal',
+      url: 'https://medium.com/@saikat.bishal786',
       icon: ArticleOutlinedIcon,
     },
     {
-      name: 'Upwork',
-      url: 'https://upwork.com/freelancers/saikatbishal',
+      name: 'Freelancer',
+      url: 'https://www.freelancer.com/u/saikatbishal',
       icon: WorkOutlineOutlinedIcon,
     }
   ];

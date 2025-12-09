@@ -54,7 +54,7 @@ const ProjectCard = React.memo<{
   return (
     <div
       className={`project-card group animate-fade-in flex flex-col h-full ${index % 2 === 0 ? "md:mt-0" : "md:mt-12"
-        } bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-0 hover:border-gray-900 dark:hover:border-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
+        } bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-0 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
       style={{
         animationDelay: `${index * 0.2}s`,
       }}
@@ -103,7 +103,7 @@ const ProjectCard = React.memo<{
       {/* Project Content */}
       <div className="flex flex-col flex-grow p-5">
         <div className="flex items-start justify-between mb-3 gap-2">
-          <h3 className="text-xl font-bold font-sans text-gray-900 dark:text-white leading-tight">
+          <h3 className="text-xl font-bold font-sans text-gray-900 dark:text-white group-hover:text-[#16a34a] dark:group-hover:text-[#39ff14] transition-colors duration-300 leading-tight">
             {project.title}
           </h3>
           <span className="text-xs font-mono px-2 py-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 uppercase tracking-wider">

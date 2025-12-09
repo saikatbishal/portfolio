@@ -32,7 +32,7 @@ const Experience: React.FC = () => {
           {experiences.map((exp, index) => (
             <div
               key={exp.id}
-              className="experience-item animate-fade-in bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8 hover:border-gray-900 dark:hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              className="experience-item group animate-fade-in bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="grid md:grid-cols-12 gap-6">
@@ -40,7 +40,7 @@ const Experience: React.FC = () => {
                 <div className="md:col-span-8">
                   {/* Company & Position */}
                   <div className="mb-6">
-                    <h3 className="text-2xl font-bold font-sans text-gray-900 dark:text-white flex items-center gap-3">
+                    <h3 className="text-2xl font-bold font-sans text-gray-900 dark:text-white group-hover:text-[#16a34a] dark:group-hover:text-[#39ff14] transition-colors duration-300 flex items-center gap-3">
                       {exp.company}
                     </h3>
                     <h4 className="text-lg font-mono font-medium text-gray-600 dark:text-gray-400 mt-1">

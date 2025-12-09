@@ -44,11 +44,11 @@ const Education: React.FC = () => {
               {education.map((edu, index) => (
                 <div
                   key={edu.id}
-                  className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 hover:border-gray-900 dark:hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-1 hover:shadow-md group"
                 >
                   {/* Institution & Duration */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
-                    <h4 className="text-lg font-bold font-sans text-gray-900 dark:text-white mb-2 sm:mb-0">
+                    <h4 className="text-lg font-bold font-sans text-gray-900 dark:text-white group-hover:text-[#16a34a] dark:group-hover:text-[#39ff14] transition-colors duration-300 mb-2 sm:mb-0">
                       {edu.institution}
                     </h4>
                     <span className="font-mono text-xs text-gray-500 dark:text-gray-400 self-start">
@@ -114,7 +114,7 @@ const Education: React.FC = () => {
                       .map((skill) => (
                         <div
                           key={skill.name}
-                          className="skill-item px-3 py-1.5 border border-gray-200 dark:border-gray-700 text-sm font-mono text-gray-600 dark:text-gray-400 hover:border-gray-900 dark:hover:border-white hover:text-gray-900 dark:hover:text-white transition-all duration-200 hover:scale-105 cursor-default"
+                          className="skill-item px-3 py-1.5 border border-gray-200 dark:border-gray-700 text-sm font-mono text-gray-600 dark:text-gray-400 hover:border-[#39ff14] dark:hover:border-[#39ff14] hover:text-gray-900 dark:hover:text-white transition-all duration-200 hover:scale-105 cursor-default"
                         >
                           {skill.name}
                         </div>
