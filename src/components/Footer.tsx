@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
   const socialLinks = [
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/saikatbishal',
+      url: 'https://linkedin.com/in/saikat-bishal',
       icon: LinkedInIcon,
     },
     {

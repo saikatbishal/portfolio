@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TerminalHacker from './interactive/TerminalHacker';
 import CSSDetective from './interactive/CSSDetective';
+import TicTacToe from './interactive/TicTacToe';
 
 const Games: React.FC = () => {
     const [activeGame, setActiveGame] = useState<string | null>(null);
@@ -13,6 +14,9 @@ const Games: React.FC = () => {
             )}
             {activeGame === 'css-detective' && (
                 <CSSDetective onClose={() => setActiveGame(null)} />
+            )}
+            {activeGame === 'tic-tac-toe' && (
+                <TicTacToe onClose={() => setActiveGame(null)} />
             )}
             <div className="max-w-6xl mx-auto px-6 py-12">
                 {/* Header */}
@@ -31,7 +35,7 @@ const Games: React.FC = () => {
                 {/* Games Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     {/* Terminal Hacker - Playable */}
-                    <div 
+                    <div
                         onClick={() => setActiveGame('terminal-hacker')}
                         className="group cursor-pointer border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-gray-900 hover:border-green-500 dark:hover:border-green-500 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(34,197,94,0.3)] relative overflow-hidden"
                     >
@@ -51,7 +55,7 @@ const Games: React.FC = () => {
                     </div>
 
                     {/* CSS Detective - Playable */}
-                    <div 
+                    <div
                         onClick={() => setActiveGame('css-detective')}
                         className="group cursor-pointer border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-gray-900 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)] relative overflow-hidden"
                     >
@@ -70,10 +74,29 @@ const Games: React.FC = () => {
                         </div>
                     </div>
 
+                    {/* Tic Tac Toe - Playable */}
+                    <div
+                        onClick={() => setActiveGame('tic-tac-toe')}
+                        className="group cursor-pointer border border-gray-200 dark:border-gray-800 p-6 bg-white dark:bg-gray-900 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)] relative overflow-hidden"
+                    >
+                        <div className="absolute top-0 left-0 w-full h-1 bg-purple-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div className="text-center">
+                            <div className="text-4xl mb-4 font-mono text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300">⭕❌</div>
+                            <h3 className="text-xl font-bold font-mono mb-2 text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                                Tic Tac Toe
+                            </h3>
+                            <p className="text-sm font-mono mb-4 text-gray-500 dark:text-gray-400">
+                                2-Player Classic Battle
+                            </p>
+                            <span className="px-3 py-1 text-xs font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-800 uppercase tracking-wider">
+                                Play Now
+                            </span>
+                        </div>
+                    </div>
+
                     {/* Coming Soon Cards */}
                     {[
                         { title: "Snake Game", tech: "HTML5 Canvas", status: "Coming Soon" },
-                        { title: "Tic Tac Toe", tech: "React", status: "Coming Soon" },
                         { title: "Memory Match", tech: "TypeScript", status: "Coming Soon" },
                         { title: "Puzzle Slider", tech: "CSS Animations", status: "Coming Soon" },
                         { title: "Space Invaders", tech: "WebGL", status: "Coming Soon" }

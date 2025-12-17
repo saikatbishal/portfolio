@@ -173,8 +173,8 @@ const Projects: React.FC = () => {
         description:
           "A lightweight npm package that provides a real-time performance dashboard for React applications. It tracks FPS, API request/response times, and status codes to help developers optimize their apps.",
         image:
-          "/perfmonitor.png",
-        attribution: "Luke Chesser on Unsplash",
+          "/image.png",
+        attribution: "Saikat Bishal",
         photographerUrl: "/perfmonitor.png",
         technologies: ["React", "TypeScript", "NPM", "Performance"],
         category: "Web App",
