@@ -50,6 +50,20 @@ body {
   border-color: var(--border-dark);
 }
 
+/* Inline code spans in markdown should shrink to content and stay inline */
+.markdown-content code {
+  display: inline-flex;
+  align-items: center;
+  max-width: max-content;
+  white-space: pre-wrap;
+}
+
+/* Preserve block behavior for fenced code within markdown */
+.markdown-content pre code {
+  display: block;
+  max-width: 100%;
+}
+
 /* Notion-like Callouts */
 .callout {
   padding: 1rem;
