@@ -94,31 +94,6 @@ const Games: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Coming Soon Cards */}
-                    {[
-                        { title: "Snake Game", tech: "HTML5 Canvas", status: "Coming Soon" },
-                        { title: "Memory Match", tech: "TypeScript", status: "Coming Soon" },
-                        { title: "Puzzle Slider", tech: "CSS Animations", status: "Coming Soon" },
-                        { title: "Space Invaders", tech: "WebGL", status: "Coming Soon" }
-                    ].map((game, index) => (
-                        <div
-                            key={index}
-                            className="border border-gray-200 dark:border-gray-800 p-6 bg-gray-50 dark:bg-gray-900 hover:border-gray-900 dark:hover:border-white transition-colors duration-300 opacity-75 hover:opacity-100"
-                        >
-                            <div className="text-center">
-                                <div className="text-4xl mb-4 grayscale opacity-50">🎲</div>
-                                <h3 className="text-xl font-bold font-mono mb-2 text-gray-900 dark:text-white">
-                                    {game.title}
-                                </h3>
-                                <p className="text-sm font-mono mb-4 text-gray-500 dark:text-gray-400">
-                                    Built with {game.tech}
-                                </p>
-                                <span className="px-3 py-1 text-xs font-mono border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 uppercase tracking-wider">
-                                    {game.status}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
                 </div>
 
                 {/* Back to Home */}

@@ -44,8 +44,8 @@ const Stats = () => {
         >
           <CountUp
             start={0}
-            end={isVisible ? stat.end : 0}
-            duration={2.5}
+            end={stat.end}
+            duration={isVisible ? 2.5 : 0}
             suffix={stat.suffix}
             className="text-4xl font-bold font-mono text-gray-900 dark:text-white group-hover:text-[#16a34a] dark:group-hover:text-[#39ff14] transition-colors duration-300"
           >

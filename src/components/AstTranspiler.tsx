@@ -1,12 +1,60 @@
 // src/components/AstTranspiler.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { compileCssToTailwind } from '../transpiler/compiler';
 import { useDebounce } from '../hooks/useDebounce';
 import Editor from '@monaco-editor/react';
 import AstViewer from './AstViewer';
 import { useTheme } from '../contexts/ThemeContext';
 
-const AstTranspiler: React.FC = () => {
+const LoadingPlaceholder = () => (
+  <div className="flex items-center justify-center h-full text-gray-400">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-400 mx-auto mb-2"></div>
+      <p className="text-sm">Loading editor...</p>
+    </div>
+  </div>
+);
+
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error('AstTranspiler error:', error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex items-center justify-center min-h-screen bg-red-50 dark:bg-red-900/20 p-6">
+          <div className="text-center max-w-md">
+            <h1 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-2">
+              Something went wrong
+            </h1>
+            <p className="text-red-600 dark:text-red-400 text-sm mb-4">
+              {this.state.error?.message || 'An error occurred while loading the transpiler'}
+            </p>
+            <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Return home
+            </a>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const AstTranspilerContent: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const [inputCode, setInputCode] = useState<string>('.my-class {\n  text-align: center;\n  color: red;\n}');
@@ -19,12 +67,16 @@ const AstTranspiler: React.FC = () => {
 
   useEffect(() => {
     if (!debouncedCode) return;
-    
-    const result = compileCssToTailwind(debouncedCode);
-    setAst(result.ast);
-    setOutputClasses(result.tailwindClasses);
-    setError(result.error);
-    
+
+    try {
+      const result = compileCssToTailwind(debouncedCode);
+      setAst(result.ast);
+      setOutputClasses(result.tailwindClasses);
+      setError(result.error);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    }
+
   }, [debouncedCode]);
 
   return (
@@ -45,22 +97,25 @@ const AstTranspiler: React.FC = () => {
           <div className="bg-gray-100 dark:bg-slate-700 px-4 py-2 border-b border-gray-200 dark:border-slate-600 font-semibold text-sm text-gray-700 dark:text-gray-200 transition-colors duration-300">
             1. CSS Input
           </div>
-          <div className="flex-1 w-full">
-            <Editor
-              key={isDarkMode ? "dark" : "light"}
-              height="100%"
-              defaultLanguage="css"
-              theme={isDarkMode ? "vs-dark" : "light"}
-              value={inputCode}
-              onChange={(value) => setInputCode(value || '')}
-              options={{
-                minimap: { enabled: false },
-                fontSize: 12,
-                wordWrap: 'on',
-                automaticLayout: true,
-                scrollBeyondLastLine: false,
-              }}
-            />
+          <div className="flex-1 w-full bg-white dark:bg-slate-800">
+            <Suspense fallback={<LoadingPlaceholder />}>
+              <Editor
+                key={isDarkMode ? "dark" : "light"}
+                height="100%"
+                defaultLanguage="css"
+                theme={isDarkMode ? "vs-dark" : "light"}
+                value={inputCode}
+                onChange={(value) => setInputCode(value || '')}
+                loading={<LoadingPlaceholder />}
+                options={{
+                  minimap: { enabled: false },
+                  fontSize: 12,
+                  wordWrap: 'on',
+                  automaticLayout: true,
+                  scrollBeyondLastLine: false,
+                }}
+              />
+            </Suspense>
           </div>
           {error && (
             <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs p-2 border-t border-red-100 dark:border-red-900/30">
@@ -147,5 +202,11 @@ const AstTranspiler: React.FC = () => {
     </div>
   );
 };
+
+const AstTranspiler: React.FC = () => (
+  <ErrorBoundary>
+    <AstTranspilerContent />
+  </ErrorBoundary>
+);
 
 export default AstTranspiler;

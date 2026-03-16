@@ -24,6 +24,7 @@ interface ApiResponse {
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showPulse, setShowPulse] = useState(true);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -36,6 +37,13 @@ const Chatbot: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   // const { isDarkMode } = useTheme(); // Unused with Tailwind dark mode classes
+
+  // Dismiss pulse animation after 5 seconds or on first interaction
+  useEffect(() => {
+    if (!showPulse) return;
+    const timer = setTimeout(() => setShowPulse(false), 5000);
+    return () => clearTimeout(timer);
+  }, [showPulse]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -149,14 +157,23 @@ const Chatbot: React.FC = () => {
   return (
     <>
       {/* Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full transition-all duration-300 hover:scale-110 border border-gray-900 dark:border-white bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${isOpen ? 'rotate-90' : 'rotate-0'
-          }`}
-        aria-label="Toggle Chatbot"
-      >
-        {isOpen ? <CloseIcon /> : <ChatBubbleOutlineIcon />}
-      </button>
+      <div className="relative">
+        {showPulse && !isOpen && (
+          <div className="absolute bottom-6 right-6 w-16 h-16 bg-blue-400 dark:bg-blue-500 rounded-full animate-pulse opacity-40 z-40" />
+        )}
+        <button
+          onClick={() => {
+            setIsOpen(!isOpen);
+            setShowPulse(false);
+          }}
+          title="Ask me anything about Saikat →"
+          className={`fixed bottom-6 right-6 z-50 p-4 rounded-full transition-all duration-300 hover:scale-110 border border-gray-900 dark:border-white bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${isOpen ? 'rotate-90' : 'rotate-0'
+            }`}
+          aria-label="Ask me anything about Saikat"
+        >
+          {isOpen ? <CloseIcon /> : <ChatBubbleOutlineIcon />}
+        </button>
+      </div>
 
       {/* Chat Window */}
       <div className={`fixed z-50 border border-gray-200 dark:border-gray-800 shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden bg-white dark:bg-gray-950 ${

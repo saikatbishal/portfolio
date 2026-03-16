@@ -51,11 +51,14 @@ const Hero = () => {
           </h1>
 
           <div className="mb-8 max-w-2xl mx-auto lg:mx-0">
-            <div className="code-block text-left text-sm md:text-base text-gray-600 dark:text-gray-300">
+            <div className="code-block text-left text-sm md:text-base text-gray-600 dark:text-gray-300 mb-4">
               <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">role</span> = <span className="text-gray-500">"Architect of invisible cities"</span>;</p>
               <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">location</span> = <span className="text-gray-500">"Kolkata, India"</span>;</p>
               <p><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">mission</span> = <span className="text-gray-500">"Translating human intent into machine logic."</span>;</p>
             </div>
+            <p className="text-sm md:text-base font-mono text-gray-700 dark:text-gray-300">
+              Frontend Engineer · React · TypeScript · 4+ Years
+            </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -71,7 +74,7 @@ const Hero = () => {
               onClick={handleScrollToContact}
               className="group px-6 py-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-medium rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition-all hover:scale-105 duration-200 flex items-center justify-center gap-2"
             >
-              Initiate Handshake
+              Say Hello
               <KeyboardArrowRightOutlinedIcon className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>

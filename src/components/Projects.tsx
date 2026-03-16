@@ -3,7 +3,7 @@ import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
-import ledgerflow from "../../public/ledgerflow.png";
+import sumipImage from "../../public/sumip.png";
 import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 
 interface Project {
@@ -20,31 +20,6 @@ interface Project {
   videoUrl?: string;
 }
 
-// Memoized filter button component to prevent unnecessary re-renders
-const FilterButton = React.memo<{
-  category: string;
-  isActive: boolean;
-  onClick: (category: string) => void;
-}>(({ category, isActive, onClick }) => {
-  const handleClick = useCallback(() => {
-    onClick(category);
-  }, [category, onClick]);
-
-  return (
-    <button
-      onClick={handleClick}
-      className={`px-4 py-2 text-sm font-mono border transition-all duration-300 ${isActive
-        ? "bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-gray-900 dark:border-white"
-        : "bg-transparent text-gray-600 border-gray-200 hover:border-gray-400 dark:text-gray-400 dark:border-gray-800 dark:hover:border-gray-600"
-        }`}
-    >
-      {category}
-    </button>
-  );
-});
-
-FilterButton.displayName = "FilterButton";
-
 // Memoized project card component to prevent unnecessary re-renders
 const ProjectCard = React.memo<{
   project: Project;
@@ -53,8 +28,7 @@ const ProjectCard = React.memo<{
 }>(({ project, index, onVideoClick }) => {
   return (
     <div
-      className={`project-card group animate-fade-in flex flex-col h-full ${index % 2 === 0 ? "md:mt-0" : "md:mt-12"
-        } bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-0 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
+      className={`project-card group animate-fade-in flex flex-col h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-0 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
       style={{
         animationDelay: `${index * 0.2}s`,
       }}
@@ -135,37 +109,27 @@ ProjectCard.displayName = "ProjectCard";
 
 const Projects: React.FC = () => {
   useGSAPAnimations();
-  const [activeFilter, setActiveFilter] = useState("All");
   const [videoModalUrl, setVideoModalUrl] = useState<string | null>(null);
-
-  // Memoize categories to prevent recreation on every render
-  const categories = useMemo(
-    () => ["All", "Web App", "Mobile App", "UI/UX"],
-    []
-  );
 
   // Move projects data outside component or memoize to prevent recreation on every render
   const projects: Project[] = useMemo(
     () => [
       {
         id: 1,
-        title: "Ledgerflow",
+        title: "Sumip",
         description:
-          "A comprehensive financial management platform with real-time tracking, interactive dashboards, and powerful analytics for business intelligence.",
-        image: ledgerflow,
-        attribution: "Ledgerflow Screenshot",
+          "A vibrant party planner website showcasing modern UI design with interactive components, smooth animations, and playful interactions. A frontend showcase of contemporary web design trends.",
+        image: sumipImage,
+        attribution: "Sumip Party Planner",
         technologies: [
           "React",
           "TypeScript",
           "Tailwind CSS",
-          "Node.js",
-          "PostgreSQL",
+          "Next.js",
         ],
-
-        category: "UI/UX",
-        liveUrl: "https://folio-one-brown.vercel.app",
-        githubUrl: "#",
-        videoUrl: "https://www.loom.com/embed/c6a640fe96a9428f9ab49bac36315d86",
+        category: "Web App",
+        liveUrl: "https://sumip-frontend.vercel.app/",
+        githubUrl: "https://github.com/saikatbishal/sumip-frontend",
       },
       {
         id: 2,
@@ -181,55 +145,8 @@ const Projects: React.FC = () => {
         liveUrl: "https://www.npmjs.com/package/@saikat786/react-perf-dashboard",
         githubUrl: "https://github.com/saikatbishal/react-perf-dashboard",
       },
-      {
-        id: 3,
-        title: "E-commerce Platform",
-        description:
-          "Full-featured e-commerce platform with inventory management, payment processing, and advanced search functionality.",
-        image:
-          "https://images.unsplash.com/photo-1629363447922-1f421b470828?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwzfHxlY29tbWVyY2UlMjB3ZWJzaXRlJTIwbGFwdG9wJTIwc2hvcHBpbmd8ZW58MHwwfHxncmVlbnwxNzU2NjQ2ODkxfDA&ixlib=rb-4.1.0&q=85",
-        attribution: "Tim Schmidbauer on Unsplash",
-        photographerUrl: "https://unsplash.com/@timschmidbauer",
-        technologies: ["Next.js", "MongoDB", "Stripe", "Tailwind CSS"],
-        category: "Web App",
-        liveUrl: "#",
-        githubUrl: "#",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      },
-      {
-        id: 4,
-        title: "Task Management Tool",
-        description:
-          "Collaborative task management application with real-time updates, team collaboration features, and project tracking.",
-        image:
-          "https://images.unsplash.com/photo-1659035260002-11d486d6e9f5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxkYXNoYm9hcmQlMjBpbnRlcmZhY2UlMjB3ZWIlMjBhcHBsaWNhdGlvbnxlbnwwfDB8fGJsdWV8MTc1NjY0Njg5MXww&ixlib=rb-4.1.0&q=85",
-        attribution: "2H Media on Unsplash",
-        photographerUrl: "https://unsplash.com/@2hmedia",
-        technologies: ["Vue.js", "Express.js", "Socket.io", "MySQL"],
-        category: "Web App",
-        liveUrl: "#",
-        githubUrl: "#",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      },
     ],
     []
-  );
-
-  // Memoize filtered projects to prevent unnecessary recalculations
-  const filteredProjects = useMemo(() => {
-    return activeFilter === "All"
-      ? projects
-      : projects.filter((project) => project.category === activeFilter);
-  }, [projects, activeFilter]);
-
-  // Memoize the filter handler to prevent unnecessary re-renders of FilterButton components
-  const handleFilterChange = useCallback(
-    (category: string) => {
-      if (category !== activeFilter) {
-        setActiveFilter(category);
-      }
-    },
-    [activeFilter]
   );
 
   // Video modal handlers
@@ -276,21 +193,9 @@ const Projects: React.FC = () => {
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
-            <FilterButton
-              key={category}
-              category={category}
-              isActive={activeFilter === category}
-              onClick={handleFilterChange}
-            />
-          ))}
-        </div>
-
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
