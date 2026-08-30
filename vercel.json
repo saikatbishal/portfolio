@@ -1,5 +1,7 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/(.*)", "destination": "/" },
+     { "source": "/platform", "destination": "https://vercel.com/saikatbishals-projects/platform/ADQcovDFja9PkR4kV4ZjEb7ELkhJ" },
+    { "source": "/platform/:path*", "destination": "https://vercel.com/saikatbishals-projects/platform/ADQcovDFja9PkR4kV4ZjEb7ELkhJ/:path*" }
   ]
 }
