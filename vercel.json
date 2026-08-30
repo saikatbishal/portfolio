@@ -1,7 +1,7 @@
 {
   "rewrites": [
     { "source": "/(.*)", "destination": "/" },
-     { "source": "/platform", "destination": "https://vercel.com/saikatbishals-projects/platform/ADQcovDFja9PkR4kV4ZjEb7ELkhJ" },
-    { "source": "/platform/:path*", "destination": "https://vercel.com/saikatbishals-projects/platform/ADQcovDFja9PkR4kV4ZjEb7ELkhJ/:path*" }
+      { "source": "/platform", "destination": "https://platform-pi-eight-48.vercel.app/" },
+    { "source": "/platform/:path*", "destination": "https://platform-pi-eight-48.vercel.app/:path*" }
   ]
 }
