@@ -73,6 +73,9 @@ const Navigation: React.FC = () => {
     { label: "Games", href: "/games", type: "route" },
     { label: "Blogs", href: "/blogs", type: "route" },
     { label: "CSS to Tailwind", href: "/ast-transpiler", type: "route" },
+    // Proxied at the edge (vercel.json) to a separate app — a real page load,
+    // not a client-side route, so this renders as a plain <a>, not NavLink.
+    { label: "Platform", href: "/platform", type: "external" },
   ];
 
   const visibleNavItems = navItems.slice(0, 4);
@@ -132,6 +135,16 @@ const Navigation: React.FC = () => {
                   >
                     {item.label}
                   </NavLink>
+                ) : item.type === "external" ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    ref={(el) => (desktopNavRefs.current[index] = el)}
+                    style={{ opacity: 0 }}
+                    className="text-sm font-mono transition-colors duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  >
+                    {item.label}
+                  </a>
                 ) : (
                   <button
                     key={item.label}
@@ -170,6 +183,15 @@ const Navigation: React.FC = () => {
                         >
                           {item.label}
                         </NavLink>
+                      ) : item.type === "external" ? (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          onClick={() => setIsMoreMenuOpen(false)}
+                          className="block px-4 py-2 text-sm font-mono text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                        >
+                          {item.label}
+                        </a>
                       ) : (
                         <button
                           key={item.label}
@@ -226,6 +248,16 @@ const Navigation: React.FC = () => {
                   >
                     {item.label}
                   </NavLink>
+                ) : item.type === "external" ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    ref={(el) => (mobileNavRefs.current[index] = el)}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-lg font-mono text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  >
+                    {item.label}
+                  </a>
                 ) : (
                   <button
                     key={item.label}

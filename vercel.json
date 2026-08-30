@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" },
-      { "source": "/platform", "destination": "https://platform-pi-eight-48.vercel.app/" },
-    { "source": "/platform/:path*", "destination": "https://platform-pi-eight-48.vercel.app/:path*" }
+    { "source": "/platform", "destination": "https://platform-pi-eight-48.vercel.app/" },
+    { "source": "/platform/:path*", "destination": "https://platform-pi-eight-48.vercel.app/:path*" },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
