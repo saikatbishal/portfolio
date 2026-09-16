@@ -94,7 +94,7 @@ const TerminalHacker: React.FC<TerminalHackerProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
             <div className={`w-full max-w-2xl bg-black border-2 ${theme.border} ${theme.shadow} font-mono ${theme.text} p-6 relative overflow-hidden rounded-lg transition-colors duration-500`}>
 
                 {/* CRT Scanline Effect */}
@@ -103,7 +103,9 @@ const TerminalHacker: React.FC<TerminalHackerProps> = ({ onClose }) => {
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className={`absolute top-4 right-4 ${theme.text} ${theme.hoverText} z-20`}
+                    className={`absolute top-4 right-4 ${theme.text} ${theme.hoverText} z-40`}
+                    aria-label="Close game"
+                    title="Back to games (Esc)"
                 >
                     <CloseIcon />
                 </button>
@@ -116,7 +118,7 @@ const TerminalHacker: React.FC<TerminalHackerProps> = ({ onClose }) => {
 
                 {/* Instructions Overlay */}
                 {showInstructions && (
-                    <div className="absolute inset-0 z-30 bg-black/95 flex items-center justify-center p-8">
+                    <div className="absolute inset-0 z-30 bg-black/95 flex items-center justify-center p-8 overflow-y-auto">
                         <div className={`border ${theme.border} p-6 max-w-md w-full text-center relative`}>
                             <h3 className="text-xl font-bold mb-4 tracking-widest border-b border-green-500/30 pb-2">
                                 HOW TO PLAY
@@ -135,6 +137,12 @@ const TerminalHacker: React.FC<TerminalHackerProps> = ({ onClose }) => {
                                 className={`px-8 py-3 ${theme.bg} text-black font-bold hover:opacity-80 tracking-wider w-full transition-all`}
                             >
                                 INITIALIZE HACK
+                            </button>
+                            <button
+                                onClick={onClose}
+                                className={`mt-3 px-8 py-2 border ${theme.border} ${theme.text} ${theme.hoverText} tracking-wider w-full text-sm transition-all hover:opacity-80`}
+                            >
+                                ABORT - BACK TO GAMES
                             </button>
                         </div>
                     </div>

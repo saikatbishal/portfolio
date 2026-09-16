@@ -69,7 +69,7 @@ const CSSDetective: React.FC<CSSDetectiveProps> = ({ onClose }) => {
     const currentStyle = currentLevel.options.find(opt => opt.id === selectedOptionId)?.style || {};
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
             <div className="w-full max-w-4xl bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-[80vh] md:h-[600px]">
                 
                 {/* Left Panel: Preview */}

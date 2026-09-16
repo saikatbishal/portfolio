@@ -3,7 +3,6 @@ import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
-import sumipImage from "../../public/sumip.png";
 import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 
 interface Project {
@@ -15,8 +14,8 @@ interface Project {
   photographerUrl?: string;
   technologies: string[];
   category: string;
-  liveUrl: string;
-  githubUrl: string;
+  liveUrl?: string;
+  githubUrl?: string;
   videoUrl?: string;
 }
 
@@ -53,6 +52,7 @@ const ProjectCard = React.memo<{
               <PlayCircleOutlineIcon style={{ fontSize: "1.5rem" }} />
             </button>
           )}
+          {project.liveUrl && (
           <a
             href={project.liveUrl}
             target="_blank"
@@ -62,6 +62,8 @@ const ProjectCard = React.memo<{
           >
             <ArrowOutwardOutlinedIcon style={{ fontSize: "1.5rem" }} />
           </a>
+          )}
+          {project.githubUrl && (
           <a
             href={project.githubUrl}
             target="_blank"
@@ -71,6 +73,7 @@ const ProjectCard = React.memo<{
           >
             <LinkOutlinedIcon style={{ fontSize: "1.5rem" }} />
           </a>
+          )}
         </div>
       </div>
 
@@ -116,20 +119,15 @@ const Projects: React.FC = () => {
     () => [
       {
         id: 1,
-        title: "Sumip",
+        title: "Platform",
         description:
-          "A vibrant party planner website showcasing modern UI design with interactive components, smooth animations, and playful interactions. A frontend showcase of contemporary web design trends.",
-        image: sumipImage,
-        attribution: "Sumip Party Planner",
-        technologies: [
-          "React",
-          "TypeScript",
-          "Tailwind CSS",
-          "Next.js",
-        ],
+          "A record of every train journey I've taken across India, drawn as a map that fills in as I travel.",
+        image: "/project-platform.png",
+        attribution: "Platform rail journey map",
+        technologies: ["React", "TypeScript", "Tailwind", "Supabase", "SVG", "Canvas"],
         category: "Web App",
-        liveUrl: "https://sumip-frontend.vercel.app/",
-        githubUrl: "https://github.com/saikatbishal/sumip-frontend",
+        liveUrl: "https://www.saikatbishal.com/platform",
+        githubUrl: "https://github.com/saikatbishal/platform",
       },
       {
         id: 2,

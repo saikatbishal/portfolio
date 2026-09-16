@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import TerminalHacker from './interactive/TerminalHacker';
 import CSSDetective from './interactive/CSSDetective';
@@ -6,17 +7,35 @@ import TicTacToe from './interactive/TicTacToe';
 
 const Games: React.FC = () => {
     const [activeGame, setActiveGame] = useState<string | null>(null);
+    const closeGame = () => setActiveGame(null);
+
+    // While a game is open: Escape returns to the games list, and the page
+    // behind the modal stops scrolling.
+    useEffect(() => {
+        if (!activeGame) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setActiveGame(null);
+        };
+        const prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = prevOverflow;
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [activeGame]);
 
     return (
         <div className="min-h-screen pt-20 bg-white dark:bg-gray-950">
-            {activeGame === 'terminal-hacker' && (
-                <TerminalHacker onClose={() => setActiveGame(null)} />
-            )}
-            {activeGame === 'css-detective' && (
-                <CSSDetective onClose={() => setActiveGame(null)} />
-            )}
-            {activeGame === 'tic-tac-toe' && (
-                <TicTacToe onClose={() => setActiveGame(null)} />
+            {/* Portalled to <body> so no page element (links and buttons get
+                z-index: 50 globally in index.css) can paint over the modal. */}
+            {activeGame && createPortal(
+                <>
+                    {activeGame === 'terminal-hacker' && <TerminalHacker onClose={closeGame} />}
+                    {activeGame === 'css-detective' && <CSSDetective onClose={closeGame} />}
+                    {activeGame === 'tic-tac-toe' && <TicTacToe onClose={closeGame} />}
+                </>,
+                document.body
             )}
             <div className="max-w-6xl mx-auto px-6 py-12">
                 {/* Header */}

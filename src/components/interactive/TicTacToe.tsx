@@ -105,7 +105,7 @@ const TicTacToe: React.FC<TicTacToeProps> = ({ onClose }) => {
         : `Player ${currentPlayer}'s Turn`;
 
     return (
-        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-[1000] flex items-center justify-center p-4">
             <div className="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 max-w-2xl w-full rounded-lg shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-blue-600 to-red-600 p-6 relative">
