@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
+import { getYearsOfExperience } from "../../utils/experience";
 
 interface StatItem {
   end: number;
@@ -11,7 +12,7 @@ const Stats = () => {
   const [isVisible, setIsVisible] = useState(false);
   const stats: StatItem[] = [
     { end: 20, label: "Projects Completed", suffix: "+" },
-    { end: 4, label: "Years Experience", suffix: "+" },
+    { end: getYearsOfExperience(), label: "Years Experience", suffix: "+" },
     { end: 100, label: "Github Contributions", suffix: "+" },
   ];
 

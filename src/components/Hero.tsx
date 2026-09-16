@@ -2,6 +2,7 @@ import profileImage from "../assets/profile.png";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import { useTypingEffect } from "../hooks/useTypingEffect";
+import { getYearsOfExperience } from "../utils/experience";
 
 const Hero = () => {
   const name = "SAIKAT BISHAL";
@@ -57,7 +58,7 @@ const Hero = () => {
               <p><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">mission</span> = <span className="text-gray-500">"Translating human intent into machine logic."</span>;</p>
             </div>
             <p className="text-sm md:text-base font-mono text-gray-700 dark:text-gray-300">
-              Frontend Engineer · React · TypeScript · 4+ Years
+              AI Native Frontend Engineer · React · TypeScript · {getYearsOfExperience()}+ Years
             </p>
           </div>
 
