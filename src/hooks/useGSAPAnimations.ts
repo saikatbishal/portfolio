@@ -4,98 +4,107 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * Scroll animations for the home page.
+ *
+ * Several sections call this hook, and React StrictMode runs effects twice in
+ * development. `gsap.from()` applied twice to the same element records the
+ * first call's hidden state (opacity 0) as its end state, so the element stays
+ * invisible for good. Two guards prevent that:
+ *   1. every element is bound at most once (data-gsap-bound), and
+ *   2. everything runs inside a gsap.context that is reverted on unmount,
+ *      which restores the elements and kills their ScrollTriggers.
+ */
 export const useGSAPAnimations = () => {
   useEffect(() => {
-    // Navbar Animation
-    // gsap.from(".nav-item", {
-    //   y: -50,
-    //   opacity: 0,
-    //   stagger: 0.1,
-    //   duration: 0.8,
-    //   ease: "power2.out",
-    // });
+    const bound: HTMLElement[] = [];
 
-    // Hero Title Animation (letter by letter)
-    const heroTitle = document.querySelector(".hero-title");
-    if (heroTitle) {
-      const text = heroTitle.textContent || "";
-      heroTitle.textContent = "";
-      text.split("").forEach((char) => {
-        const span = document.createElement("span");
-        span.textContent = char;
-        span.style.display = "inline-block";
-        heroTitle.appendChild(span);
+    // Elements matching `selector` that no other hook instance has animated yet.
+    const unbound = (selector: string): HTMLElement[] =>
+      gsap.utils.toArray<HTMLElement>(selector).filter((el) => {
+        if (el.dataset.gsapBound) return false;
+        el.dataset.gsapBound = "1";
+        bound.push(el);
+        return true;
       });
 
-      gsap.from(".hero-title span", {
-        y: 100,
-        opacity: 0,
-        stagger: 0.05,
-        duration: 1,
-        ease: "back.out(1.7)",
+    const ctx = gsap.context(() => {
+      // Project Cards
+      unbound(".project-card").forEach((card) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=100",
+            end: "top center",
+            toggleActions: "play none none reverse",
+            scrub: 1,
+          },
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
       });
-    }
 
-    // Project Cards Animation
-    gsap.utils.toArray(".project-card").forEach((card) => {
-      gsap.from(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: "top bottom-=100",
-          end: "top center",
-          toggleActions: "play none none reverse",
-          scrub: 1,
-        },
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out",
+      // Experience
+      unbound(".experience-item").forEach((item) => {
+        gsap.from(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top bottom-=80",
+            toggleActions: "play none none reverse",
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+        });
       });
-    });
 
-    // Experience Section Animation
-    gsap.utils.toArray(".experience-item").forEach((item: Element) => {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-          start: "top center+=100",
-          toggleActions: "play none none reverse",
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out",
+      // Skills
+      unbound(".skill-item").forEach((skill, i) => {
+        gsap.from(skill, {
+          scrollTrigger: {
+            trigger: skill,
+            start: "top bottom-=50",
+            end: "top center",
+            toggleActions: "play none none reverse",
+          },
+          x: -50,
+          opacity: 0,
+          duration: 0.6,
+          delay: i * 0.05,
+          ease: "power2.out",
+        });
       });
-    });
 
-    // Skills Animation
-    gsap.utils.toArray(".skill-item").forEach((skill: Element, i: number) => {
-      gsap.from(skill, {
-        scrollTrigger: {
-          trigger: skill,
-          start: "top bottom-=50",
-          end: "top center",
-          toggleActions: "play none none reverse",
-        },
-        x: -50,
-        opacity: 0,
-        duration: 0.6,
-        delay: i * 0.05,
-        ease: "power2.out",
+      // Contact Form
+      unbound(".contact-form").forEach((form) => {
+        gsap.from(form, {
+          scrollTrigger: {
+            trigger: form,
+            start: "top center+=100",
+            toggleActions: "play none none reverse",
+          },
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
       });
     });
 
-    // Contact Form Animation
-    gsap.from(".contact-form", {
-      scrollTrigger: {
-        trigger: ".contact-form",
-        start: "top center+=100",
-        toggleActions: "play none none reverse",
-      },
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-    });
+    // Sections are lazy-loaded, so the page keeps growing after triggers are
+    // created. Recalculate trigger positions once layout has settled.
+    const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
+    const onLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", onLoad);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("load", onLoad);
+      ctx.revert();
+      bound.forEach((el) => delete el.dataset.gsapBound);
+    };
   }, []);
 };

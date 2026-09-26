@@ -115,7 +115,7 @@ const Contact: React.FC = () => {
           </h2>
 
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
-            Initiate a handshake protocol. Let's build something meaningful.
+            Hiring, collaborating, or just curious? Say hello.
           </p>
 
           <div className="mt-8 text-center">
@@ -223,4 +223,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact;
+export default Contact;

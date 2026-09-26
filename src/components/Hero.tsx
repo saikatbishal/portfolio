@@ -34,7 +34,7 @@ const Hero = () => {
           {/* Badge */}
           <div className="mb-6">
             <span className="font-mono text-sm px-3 py-1 border border-gray-200 dark:border-gray-800 rounded text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
-              &gt; Architect_Mode_Active
+              &gt; frontend + design_systems
             </span>
           </div>
 
@@ -53,12 +53,15 @@ const Hero = () => {
 
           <div className="mb-8 max-w-2xl mx-auto lg:mx-0">
             <div className="code-block text-left text-sm md:text-base text-gray-600 dark:text-gray-300 mb-4">
-              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">role</span> = <span className="text-gray-500">"Architect of invisible cities"</span>;</p>
-              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">location</span> = <span className="text-gray-500">"Kolkata, India"</span>;</p>
-              <p><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">mission</span> = <span className="text-gray-500">"Translating human intent into machine logic."</span>;</p>
+              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">role</span> = <span className="text-gray-500">"Frontend engineer · Design systems"</span>;</p>
+              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">builds</span> = <span className="text-gray-500">["component libraries", "design tokens", "product UI"]</span>;</p>
+              <p><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">location</span> = <span className="text-gray-500">"Kolkata, India"</span>;</p>
             </div>
-            <p className="text-sm md:text-base font-mono text-gray-700 dark:text-gray-300">
-              AI Native Frontend Engineer · React · TypeScript · {getYearsOfExperience()}+ Years
+            <p className="text-base md:text-lg font-sans text-gray-800 dark:text-gray-200 mb-3">
+              I build component libraries and token pipelines that keep product UIs consistent, from Figma to production.
+            </p>
+            <p className="text-sm font-mono text-gray-600 dark:text-gray-400">
+              React · TypeScript · {getYearsOfExperience()}+ years · 25+ component library and Figma-token migration at Rifa.ai
             </p>
           </div>
 
@@ -67,7 +70,7 @@ const Hero = () => {
               onClick={handleScrollToProjects}
               className="group px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100 transition-all hover:scale-105 duration-200 flex items-center justify-center gap-2"
             >
-              View Artifacts
+              See work
               <ArrowOutwardOutlinedIcon className="text-sm transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
             </button>
 
@@ -87,7 +90,7 @@ const Hero = () => {
             <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-4 rounded-lg transition-transform duration-500 group-hover:rotate-2 group-hover:scale-[1.02]">
               <img
                 src={profileImage}
-                alt="Saikat Bishal - Full Stack Developer"
+                alt="Saikat Bishal"
                 className="rounded grayscale hover:grayscale-0 transition-all duration-500"
                 width="400"
                 height="400"

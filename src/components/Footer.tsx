@@ -54,8 +54,7 @@ const Footer: React.FC = () => {
                   Saikat Bishal
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-sans">
-                  Thank you for visiting my portfolio! I'm passionate about creating
-                  innovative digital solutions and would love to collaborate on your next project.
+                  Frontend engineer · Design systems · Kolkata
                 </p>
                 <div className="flex items-center justify-center text-sm font-mono text-gray-500 dark:text-gray-500">
                   <span>Made with</span>
@@ -185,4 +184,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer;
+export default Footer;

@@ -11,6 +11,8 @@ const BlogPost: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Arriving from a project card mid-page would otherwise keep the old scroll.
+    window.scrollTo(0, 0);
     if (slug) {
       const foundPost = getBlogBySlug(slug);
       if (foundPost) {

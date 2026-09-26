@@ -6,7 +6,7 @@ const skillCategories = {
     frontend: { name: "Frontend", color: "text-gray-900 dark:text-white" },
     backend: { name: "Backend", color: "text-gray-900 dark:text-white" },
     tools: { name: "Tools & DevOps", color: "text-gray-900 dark:text-white" },
-    design: { name: "Design", color: "text-gray-900 dark:text-white" },
+    design: { name: "Design Systems", color: "text-gray-900 dark:text-white" },
 };
 
 const Skills: React.FC = () => {

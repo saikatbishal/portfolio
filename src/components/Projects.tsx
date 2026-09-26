@@ -3,6 +3,7 @@ import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 
 interface Project {
@@ -17,6 +18,10 @@ interface Project {
   liveUrl?: string;
   githubUrl?: string;
   videoUrl?: string;
+  /** Short, scannable facts shown as chips instead of more description. */
+  highlights?: string[];
+  /** Slug of the post in src/blog/ that tells this project's story. */
+  blogSlug?: string;
 }
 
 // Memoized project card component to prevent unnecessary re-renders
@@ -25,9 +30,30 @@ const ProjectCard = React.memo<{
   index: number;
   onVideoClick: (videoUrl: string) => void;
 }>(({ project, index, onVideoClick }) => {
+  const navigate = useNavigate();
+  const blogPath = project.blogSlug ? `/blogs/${project.blogSlug}` : undefined;
+
+  const openBlog = () => {
+    if (blogPath) navigate(blogPath);
+  };
+
+  // The overlay buttons (live, code, video) keep their own behaviour and must
+  // not also open the blog post.
+  const stop = (e: React.SyntheticEvent) => e.stopPropagation();
+
   return (
     <div
-      className={`project-card group animate-fade-in flex flex-col h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-0 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
+      onClick={openBlog}
+      onKeyDown={(e) => {
+        if (blogPath && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          openBlog();
+        }
+      }}
+      role={blogPath ? "link" : undefined}
+      tabIndex={blogPath ? 0 : undefined}
+      aria-label={blogPath ? `Read the story behind ${project.title}` : undefined}
+      className={`project-card group ${blogPath ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] dark:focus-visible:ring-[#39ff14]" : ""} animate-fade-in flex flex-col h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-0 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
       style={{
         animationDelay: `${index * 0.2}s`,
       }}
@@ -45,7 +71,7 @@ const ProjectCard = React.memo<{
         <div className="absolute inset-0 bg-gray-900/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
           {project.videoUrl && (
             <button
-              onClick={() => onVideoClick(project.videoUrl!)}
+              onClick={(e) => { e.stopPropagation(); onVideoClick(project.videoUrl!); }}
               className="p-2 bg-white text-gray-900 hover:bg-gray-200 transition-all hover:scale-110 duration-200"
               title="Watch Demo"
             >
@@ -57,6 +83,8 @@ const ProjectCard = React.memo<{
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={stop}
+            onKeyDown={stop}
             className="p-2 bg-white text-gray-900 hover:bg-gray-200 transition-all hover:scale-110 duration-200"
             title="View Live"
           >
@@ -68,6 +96,8 @@ const ProjectCard = React.memo<{
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={stop}
+            onKeyDown={stop}
             className="p-2 bg-white text-gray-900 hover:bg-gray-200 transition-all hover:scale-110 duration-200"
             title="View Code"
           >
@@ -88,9 +118,28 @@ const ProjectCard = React.memo<{
           </span>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow font-sans">
+        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2 font-sans">
           {project.description}
         </p>
+
+        {project.highlights && (
+          <ul className="flex flex-wrap gap-2 mb-4">
+            {project.highlights.map((h) => (
+              <li
+                key={h}
+                className="text-xs font-sans font-medium px-2 py-1 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
+              >
+                {h}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {blogPath && (
+          <span className="text-xs font-mono text-gray-500 dark:text-gray-400 group-hover:text-[#16a34a] dark:group-hover:text-[#39ff14] transition-colors duration-300 mb-4">
+            Read the story →
+          </span>
+        )}
 
         {/* Technologies */}
         <div className="flex flex-wrap gap-2 mt-auto">
@@ -121,19 +170,22 @@ const Projects: React.FC = () => {
         id: 1,
         title: "Platform",
         description:
-          "A record of every train journey I've taken across India, drawn as a map that fills in as I travel.",
+          "A phone-first map of every train journey I've taken across India, on a design system sampled from real railway paint.",
+        highlights: ["13 typed components", "21 guideline pages", "15 product decisions"],
         image: "/project-platform.png",
         attribution: "Platform rail journey map",
-        technologies: ["React", "TypeScript", "Tailwind", "Supabase", "SVG", "Canvas"],
-        category: "Web App",
+        technologies: ["Design System", "Design Tokens", "React", "TypeScript", "Tailwind", "SVG"],
+        category: "Product + DS",
         liveUrl: "https://www.saikatbishal.com/platform",
         githubUrl: "https://github.com/saikatbishal/platform",
+        blogSlug: "platform",
       },
       {
         id: 2,
         title: "React Performance Dashboard",
         description:
-          "A lightweight npm package that provides a real-time performance dashboard for React applications. It tracks FPS, API request/response times, and status codes to help developers optimize their apps.",
+          "A live overlay for React apps: FPS, memory and API timings, without leaving the page.",
+        highlights: ["npm package", "Zero dependencies", "Core Web Vitals"],
         image:
           "/image.png",
         attribution: "Saikat Bishal",
@@ -142,6 +194,7 @@ const Projects: React.FC = () => {
         category: "Web App",
         liveUrl: "https://www.npmjs.com/package/@saikat786/react-perf-dashboard",
         githubUrl: "https://github.com/saikatbishal/react-perf-dashboard",
+        blogSlug: "perf-monitor",
       },
     ],
     []
@@ -168,7 +221,7 @@ const Projects: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // digital_artifacts
+            // selected_work
           </span>
 
           <h2
@@ -178,7 +231,7 @@ const Projects: React.FC = () => {
               fontWeight: 800,
             }}
           >
-            Proof of Concept
+            Selected Work
           </h2>
 
           <p
@@ -187,7 +240,7 @@ const Projects: React.FC = () => {
               fontSize: "1.125rem",
             }}
           >
-            Proof of concepts turned into reality. A gallery of logic and design.
+            Products and tools I designed and built, and the systems underneath them.
           </p>
         </div>
 

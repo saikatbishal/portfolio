@@ -66,16 +66,16 @@ const Navigation: React.FC = () => {
 
   const navItems = [
     { label: "Home", href: "/", type: "route" },
-    { label: "Projects", href: "#projects", type: "scroll" },
+    { label: "Work", href: "#projects", type: "scroll" },
+    // Proxied at the edge (vercel.json) to a separate app — a real page load,
+    // not a client-side route, so this renders as a plain <a> that opens in a new tab.
+    { label: "Platform", href: "/platform", type: "external" },
     { label: "Experience", href: "#experience", type: "scroll" },
     { label: "Education", href: "#education", type: "scroll" },
     { label: "Contact", href: "#contact", type: "scroll" },
     { label: "Games", href: "/games", type: "route" },
     { label: "Blogs", href: "/blogs", type: "route" },
     { label: "CSS to Tailwind", href: "/ast-transpiler", type: "route" },
-    // Proxied at the edge (vercel.json) to a separate app — a real page load,
-    // not a client-side route, so this renders as a plain <a>, not NavLink.
-    { label: "Platform", href: "/platform", type: "external" },
   ];
 
   const visibleNavItems = navItems.slice(0, 4);
@@ -139,11 +139,15 @@ const Navigation: React.FC = () => {
                   <a
                     key={item.label}
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     ref={(el) => (desktopNavRefs.current[index] = el)}
                     style={{ opacity: 0 }}
                     className="text-sm font-mono transition-colors duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                   >
                     {item.label}
+                    <span aria-hidden="true"> ↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ) : (
                   <button
@@ -187,10 +191,14 @@ const Navigation: React.FC = () => {
                         <a
                           key={item.label}
                           href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setIsMoreMenuOpen(false)}
                           className="block px-4 py-2 text-sm font-mono text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
                         >
                           {item.label}
+                          <span aria-hidden="true"> ↗</span>
+                          <span className="sr-only"> (opens in a new tab)</span>
                         </a>
                       ) : (
                         <button
@@ -252,11 +260,15 @@ const Navigation: React.FC = () => {
                   <a
                     key={item.label}
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     ref={(el) => (mobileNavRefs.current[index] = el)}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-lg font-mono text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
                     {item.label}
+                    <span aria-hidden="true"> ↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ) : (
                   <button

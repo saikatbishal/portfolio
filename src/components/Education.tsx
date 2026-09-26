@@ -6,16 +6,16 @@ const Education: React.FC = () => {
   useGSAPAnimations();
 
   const skillCategories = {
+    design: { name: "Design Systems" },
     frontend: { name: "Frontend" },
     backend: { name: "Backend" },
     tools: { name: "Tools & DevOps" },
-    design: { name: "Design" },
   };
 
   return (
     <section
       id="education"
-      className="py-20 relative min-h-screen bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900"
+      className="py-20 relative bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -28,9 +28,6 @@ const Education: React.FC = () => {
             Theory & Practice
           </h2>
 
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
-            The formal foundations I've built, and the modern tools I use to break them.
-          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -40,56 +37,25 @@ const Education: React.FC = () => {
               The Theory
             </h3>
 
-            <div className="space-y-6">
-              {education.map((edu, index) => (
-                <div
-                  key={edu.id}
-                  className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 hover:border-[#39ff14] dark:hover:border-[#39ff14] transition-all duration-300 hover:-translate-y-1 hover:shadow-md group"
-                >
-                  {/* Institution & Duration */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
-                    <h4 className="text-lg font-bold font-sans text-gray-900 dark:text-white group-hover:text-[#16a34a] dark:group-hover:text-[#39ff14] transition-colors duration-300 mb-2 sm:mb-0">
-                      {edu.institution}
-                    </h4>
-                    <span className="font-mono text-xs text-gray-500 dark:text-gray-400 self-start">
-                      [{edu.duration}]
-                    </span>
-                  </div>
-
-                  {/* Degree & Field */}
-                  <div className="mb-4">
-                    <h5 className="text-md font-medium font-mono text-gray-800 dark:text-gray-200 mb-1">
-                      {edu.degree} in {edu.field}
-                    </h5>
-                    <div className="flex items-center gap-4">
-                      <p className="text-sm font-mono text-gray-500 dark:text-gray-500">
-                        @ {edu.location}
-                      </p>
-                      {edu.gpa && (
-                        <p className="text-sm font-mono font-bold text-gray-900 dark:text-white">
-                          GPA: {edu.gpa}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Achievements */}
-                  <ul className="space-y-2">
-                    {edu.achievements.map((achievement, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-start text-gray-600 dark:text-gray-400 text-sm font-sans leading-relaxed"
-                      >
-                        <span className="mr-3 mt-1.5 text-gray-400 dark:text-gray-600 text-xs">
-                          &gt;
-                        </span>
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <ol className="border-l border-gray-200 dark:border-gray-800 ml-1.5 space-y-6">
+              {education.map((edu) => (
+                <li key={edu.id} className="relative pl-6">
+                  <span
+                    aria-hidden="true"
+                    className="absolute -left-[6px] top-2 w-3 h-3 rounded-full border-2 bg-white dark:bg-gray-950 border-gray-400 dark:border-gray-600"
+                  />
+                  <p className="font-mono text-xs text-gray-500 dark:text-gray-400">
+                    {edu.duration}
+                  </p>
+                  <h4 className="font-sans font-bold text-gray-900 dark:text-white">
+                    {edu.institution}
+                  </h4>
+                  <p className="font-sans text-sm text-gray-600 dark:text-gray-400">
+                    {edu.degree} · {edu.field}
+                  </p>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
 
           {/* Skills Section */}
@@ -98,13 +64,13 @@ const Education: React.FC = () => {
               The Instruments
             </h3>
 
-            <div className="space-y-8">
+            <div className="space-y-4">
               {Object.entries(skillCategories).map(([category, config]) => (
                 <div
                   key={category}
-                  className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 p-6"
+                  className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 p-4"
                 >
-                  <h4 className="text-lg font-bold font-mono text-gray-900 dark:text-white mb-4 uppercase tracking-wider">
+                  <h4 className="text-sm font-bold font-mono text-gray-900 dark:text-white mb-3 uppercase tracking-wider">
                     {config.name}
                   </h4>
 

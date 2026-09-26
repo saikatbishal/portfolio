@@ -86,8 +86,11 @@ export const skills: Skill[]= [
   { name: "Keycloak", level: 70, category: "tools" },
   { name: "Git", level: 90, category: "tools" },
 
-  // Design
-  { name: "UI/UX Design", level: 65, category: "design" },
-  { name: "Component Libraries", level: 70, category: "design" }
+  // Design systems
+  { name: "Component Libraries", level: 85, category: "design" },
+  { name: "Design Tokens", level: 85, category: "design" },
+  { name: "Figma", level: 75, category: "design" },
+  { name: "Figma MCP", level: 75, category: "design" },
+  { name: "UI/UX Design", level: 70, category: "design" }
 ];
 
