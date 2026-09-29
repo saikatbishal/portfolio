@@ -1,4 +1,3 @@
-import profileImage from "../assets/profile.png";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import { getYearsOfExperience } from "../utils/experience";
@@ -69,18 +68,27 @@ const Hero = () => {
         <div className="flex justify-center lg:justify-end animate-fade-in">
           <div className="relative group">
             <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-4 rounded-lg transition-transform duration-500 group-hover:rotate-2 group-hover:scale-[1.02]">
-              <img
-                src={profileImage}
-                alt="Saikat Bishal"
-                className="rounded grayscale hover:grayscale-0 transition-all duration-500"
-                width="400"
-                height="400"
-                loading="eager"
-                decoding="sync"
-                style={{
-                  objectFit: "cover",
-                }}
-              />
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet="/profile-400.avif 400w, /profile-800.avif 800w"
+                  sizes="(min-width: 1024px) 400px, 80vw"
+                />
+                <img
+                  src="/profile-800.webp"
+                  srcSet="/profile-400.webp 400w, /profile-800.webp 800w"
+                  sizes="(min-width: 1024px) 400px, 80vw"
+                  alt="Saikat Bishal"
+                  className="rounded grayscale hover:grayscale-0 transition-all duration-500"
+                  width={400}
+                  height={400}
+                  fetchPriority="high"
+                  decoding="async"
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
+              </picture>
             </div>
 
             {/* Minimalist accents */}

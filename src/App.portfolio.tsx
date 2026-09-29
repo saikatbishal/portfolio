@@ -1,15 +1,17 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { PerfDashboard } from '@saikat786/react-perf-dashboard';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
 import './index.css';
-import Games from './components/Games';
 
 // Lazy load components - Critical path optimization
+const Games = React.lazy(() => import('./components/Games'));
+const PerfDashboard = React.lazy(() =>
+  import('@saikat786/react-perf-dashboard').then((m) => ({ default: m.PerfDashboard }))
+);
 const Projects = React.lazy(() => import('./components/Projects'));
 const Experience = React.lazy(() => import('./components/Experience'));
 const Education = React.lazy(() => import('./components/Education'));
@@ -59,7 +61,11 @@ const AppContent = () => {
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/games" element={<Games />} />
+            <Route path="/games" element={
+              <Suspense fallback={<MinimalLoader />}>
+                <Games />
+              </Suspense>
+            } />
             <Route path="/blogs" element={
               <Suspense fallback={<MinimalLoader />}>
                 <Blogs />
@@ -106,7 +112,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      {showPerfMonitor && <PerfDashboard />}
+      {showPerfMonitor && (
+        <Suspense fallback={null}>
+          <PerfDashboard />
+        </Suspense>
+      )}
 
       <ThemeProvider>
         <AppContent />

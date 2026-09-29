@@ -28,7 +28,17 @@
       content="https://www.saikatbishal.com/og-image.png"
     />
 
-    <link rel="icon" type="image/png" href="/profile.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      href="/profile-800.avif"
+      imagesrcset="/profile-400.avif 400w, /profile-800.avif 800w"
+      imagesizes="(min-width: 1024px) 400px, 80vw"
+      fetchpriority="high"
+    />
     <title>Saikat Bishal — Frontend Engineer · Design Systems</title>
     <meta name="description" content="Frontend engineer who builds component libraries and design-token pipelines that keep product UIs consistent. React, TypeScript, Figma tokens." />
     <link rel="canonical" href="https://www.saikatbishal.com/" />

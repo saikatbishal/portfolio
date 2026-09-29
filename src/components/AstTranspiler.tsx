@@ -6,6 +6,9 @@ import Editor from '@monaco-editor/react';
 import AstViewer from './AstViewer';
 import { useTheme } from '../contexts/ThemeContext';
 
+// Generated classes come from user-typed CSS, so escape them before they go into the preview's HTML.
+const escapeHtml = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+
 const LoadingPlaceholder = () => (
   <div className="flex items-center justify-center h-full text-gray-400">
     <div className="text-center">
@@ -140,9 +143,11 @@ const AstTranspilerContent: React.FC = () => {
                   
                   <div className="mt-8 text-center">
                     <div className="mb-2 text-xs uppercase tracking-wide text-gray-400 dark:text-gray-500 font-bold">Live Preview</div>
-                    {/* Iframe to isolate Tailwind CDN and generated styles */}
+                    {/* Iframe to isolate Tailwind CDN and generated styles. No allow-same-origin:
+                        the frame gets an opaque origin, while the CDN script can still run. */}
                     <iframe
                       title="Live Preview"
+                      sandbox="allow-scripts"
                       className="w-full h-48 border dark:border-slate-600 rounded bg-white"
                       srcDoc={`
                         <!DOCTYPE html>
@@ -167,7 +172,7 @@ const AstTranspilerContent: React.FC = () => {
                             </style>
                           </head>
                           <body>
-                            <div class="p-6 border transition-all duration-300 ${outputClasses.join(' ')}">
+                            <div class="p-6 border transition-all duration-300 ${escapeHtml(outputClasses.join(' '))}">
                               Preview Box
                             </div>
                           </body>
