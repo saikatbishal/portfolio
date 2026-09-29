@@ -5,6 +5,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
+import { testimonials } from './data/testimonials';
 import './index.css';
 
 // Lazy load components - Critical path optimization
@@ -20,6 +21,8 @@ const Footer = React.lazy(() => import('./components/Footer'));
 const Blogs = React.lazy(() => import('./components/Blogs'));
 const BlogPost = React.lazy(() => import('./components/BlogPost'));
 const AstTranspiler = React.lazy(() => import('./components/AstTranspiler'));
+const Testimonials = React.lazy(() => import('./components/Testimonials'));
+const NotFound = React.lazy(() => import('./components/NotFound'));
 
 // Optimized loading component for critical path
 const MinimalLoader = () => (
@@ -30,13 +33,18 @@ const MinimalLoader = () => (
 const Home = () => (
   <main>
       <Hero />
-      <About />
       <Suspense fallback={<MinimalLoader />}>
         <Projects />
       </Suspense>
       <Suspense fallback={<MinimalLoader />}>
         <Experience />
       </Suspense>
+      {testimonials.length > 0 && (
+        <Suspense fallback={<MinimalLoader />}>
+          <Testimonials items={testimonials} />
+        </Suspense>
+      )}
+      <About />
       <Suspense fallback={<MinimalLoader />}>
         <Education />
       </Suspense>
@@ -54,9 +62,10 @@ const AppContent = () => {
   return (
     <div className="min-h-screen w-full bg-background transition-colors duration-300 relative flex justify-center">
       {/* Full-height stylized borders - positioned outside content */}
-      <div className="fixed opacity-20 top-0 h-screen w-10 border-r border-r-gray-300 dark:border-r-gray-200 bg-[image:repeating-linear-gradient(315deg,_currentColor_0,_currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed max-md:w-6 pointer-events-none z-10" style={{ left: "calc(50% - min(40vw, 500px) - 40px)" }}></div>
-      <div className="fixed opacity-20 top-0 h-screen w-10 border-l border-l-gray-300 dark:border-l-gray-200 bg-[image:repeating-linear-gradient(315deg,_currentColor_0,_currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed max-md:w-6 pointer-events-none z-10" style={{ right: "calc(50% - min(40vw,500px) - 40px)" }}></div>
-      <div className="App relative min-h-screen" style={{ maxWidth: "min(80vw, 1000px)" }}>
+      <div className="fixed opacity-20 top-0 h-screen w-10 border-r border-r-gray-300 dark:border-r-gray-200 bg-[image:repeating-linear-gradient(315deg,_currentColor_0,_currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed max-md:hidden pointer-events-none z-10" style={{ left: "calc(50% - min(40vw, 500px) - 40px)" }}></div>
+      <div className="fixed opacity-20 top-0 h-screen w-10 border-l border-l-gray-300 dark:border-l-gray-200 bg-[image:repeating-linear-gradient(315deg,_currentColor_0,_currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed max-md:hidden pointer-events-none z-10" style={{ right: "calc(50% - min(40vw,500px) - 40px)" }}></div>
+      {/* Full width on phones; the hatched rails and the 80vw column start at md. */}
+      <div className="App relative min-h-screen w-full md:w-auto md:max-w-[min(80vw,1000px)]">
         <div className="relative z-10">
           <Navigation />
           <Routes>
@@ -79,6 +88,11 @@ const AppContent = () => {
             <Route path="/ast-transpiler" element={
               <Suspense fallback={<MinimalLoader />}>
                 <AstTranspiler />
+              </Suspense>
+            } />
+            <Route path="*" element={
+              <Suspense fallback={<MinimalLoader />}>
+                <NotFound />
               </Suspense>
             } />
           </Routes>

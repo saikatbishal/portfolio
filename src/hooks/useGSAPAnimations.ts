@@ -17,6 +17,9 @@ gsap.registerPlugin(ScrollTrigger);
  */
 export const useGSAPAnimations = () => {
   useEffect(() => {
+    // Content stays visible and static for people who ask for less motion.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const bound: HTMLElement[] = [];
 
     // Elements matching `selector` that no other hook instance has animated yet.
@@ -29,23 +32,6 @@ export const useGSAPAnimations = () => {
       });
 
     const ctx = gsap.context(() => {
-      // Project Cards
-      unbound(".project-card").forEach((card) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom-=100",
-            end: "top center",
-            toggleActions: "play none none reverse",
-            scrub: 1,
-          },
-          y: 100,
-          opacity: 0,
-          duration: 1,
-          ease: "power2.out",
-        });
-      });
-
       // Experience
       unbound(".experience-item").forEach((item) => {
         gsap.from(item, {
@@ -57,23 +43,6 @@ export const useGSAPAnimations = () => {
           y: 40,
           opacity: 0,
           duration: 0.6,
-          ease: "power2.out",
-        });
-      });
-
-      // Skills
-      unbound(".skill-item").forEach((skill, i) => {
-        gsap.from(skill, {
-          scrollTrigger: {
-            trigger: skill,
-            start: "top bottom-=50",
-            end: "top center",
-            toggleActions: "play none none reverse",
-          },
-          x: -50,
-          opacity: 0,
-          duration: 0.6,
-          delay: i * 0.05,
           ease: "power2.out",
         });
       });

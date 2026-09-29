@@ -1,34 +1,28 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ThemeToggle from "./ThemeToggle";
-import { useTheme } from "../contexts/ThemeContext";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import gsap from "gsap";
+import { RESUME_URL } from "../data/links";
+
+type NavItem = { label: string; href: string; type: "scroll" | "route" | "external" };
+
+const navItems: NavItem[] = [
+  { label: "Work", href: "#projects", type: "scroll" },
+  { label: "Experience", href: "#experience", type: "scroll" },
+  { label: "Writing", href: "/blogs", type: "route" },
+  { label: "Contact", href: "#contact", type: "scroll" },
+  { label: "Résumé", href: RESUME_URL, type: "external" },
+];
+
+const linkBase =
+  "font-sans transition-colors duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white";
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
-  const { isDarkMode } = useTheme();
-  const mobileNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const moreMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      const filteredMobileRefs = mobileNavRefs.current.filter((ref) => ref != null);
-      gsap.set(filteredMobileRefs, { y: -50, opacity: 0 });
-      gsap.to(filteredMobileRefs, {
-        y: 0,
-        opacity: 1,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power3.out",
-        clearProps: "transform,opacity"
-      });
-    }
-  }, [isMobileMenuOpen]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -36,54 +30,66 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close more menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
-        setIsMoreMenuOpen(false);
-      }
+    if (!isMobileMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isMobileMenuOpen]);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const navItems = [
-    { label: "Work", href: "#projects", type: "scroll" },
-    { label: "Experience", href: "#experience", type: "scroll" },
-    { label: "Education", href: "#education", type: "scroll" },
-    { label: "Contact", href: "#contact", type: "scroll" },
-    { label: "Games", href: "/games", type: "route" },
-    { label: "Blogs", href: "/blogs", type: "route" },
-    { label: "CSS to Tailwind", href: "/ast-transpiler", type: "route" },
-  ];
-
-  const visibleNavItems = navItems.slice(0, 4);
-  const hiddenNavItems = navItems.slice(4);
-
-  const handleNavClick = (href: string, type: string) => {
+  const scrollTo = (href: string) => {
     setIsMobileMenuOpen(false);
-    setIsMoreMenuOpen(false);
-    if (type === "scroll") {
-      // If we're not on the home page, navigate there first
-      if (location.pathname !== "/") {
-        navigate("/");
-        // Wait for navigation, then scroll
-        setTimeout(() => {
-          document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      } else {
-        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-      }
+    if (location.pathname !== "/") {
+      navigate("/");
+      // Wait for the home page to mount, then scroll
+      setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: "smooth" }), 100);
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     }
-    // For route navigation, NavLink handles it automatically
+  };
+
+  const renderItem = (item: NavItem, extra: string) => {
+    if (item.type === "route") {
+      return (
+        <NavLink
+          key={item.label}
+          to={item.href}
+          onClick={() => setIsMobileMenuOpen(false)}
+          className={({ isActive }) =>
+            `${extra} ${isActive ? "font-sans font-semibold text-gray-900 dark:text-white" : linkBase}`
+          }
+        >
+          {item.label}
+        </NavLink>
+      );
+    }
+    if (item.type === "external") {
+      return (
+        <a
+          key={item.label}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className={`${extra} ${linkBase}`}
+        >
+          {item.label}
+          <span aria-hidden="true"> ↗</span>
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      );
+    }
+    return (
+      <button key={item.label} onClick={() => scrollTo(item.href)} className={`${extra} ${linkBase} text-left`}>
+        {item.label}
+      </button>
+    );
   };
 
   return (
     <>
-      {/* NAV WRAPPER */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b
           ${isScrolled
@@ -91,116 +97,30 @@ const Navigation: React.FC = () => {
             : "bg-transparent border-transparent py-6"
           }`}
       >
-        {/* NAV CONTENT */}
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-10">
-          {/* LOGO */}
-          <NavLink to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            <span className="text-xl font-bold font-mono text-gray-900 dark:text-white">
-              saikat_bishal
-            </span>
+        <div className="max-w-[1000px] mx-auto px-6 flex items-center justify-between relative z-10">
+          <NavLink
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="text-lg font-bold font-sans tracking-tight text-gray-900 dark:text-white"
+          >
+            Saikat Bishal
           </NavLink>
 
           {/* DESKTOP MENU */}
-          <div className="hidden md:flex items-center space-x-8">
-            <div className="flex items-center space-x-6">
-              {visibleNavItems.map((item) => (
-                item.type === "route" ? (
-                  <NavLink
-                    key={item.label}
-                    to={item.href}
-                    className={({ isActive }) =>
-                      `text-sm font-mono transition-colors duration-300
-                      ${isActive ? "text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                ) : item.type === "external" ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-mono transition-colors duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    {item.label}
-                    <span aria-hidden="true"> ↗</span>
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                ) : (
-                  <button
-                    key={item.label}
-                    onClick={() => handleNavClick(item.href, item.type)}
-                    className={`text-sm font-mono transition-colors duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white`}
-                  >
-                    {item.label}
-                  </button>
-                )
-              ))}
-
-              {/* More Button */}
-              <div className="relative" ref={moreMenuRef}>
-                <button
-                  onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
-                  className={`flex items-center text-sm font-mono transition-colors duration-300 ${isMoreMenuOpen ? "text-gray-900 dark:text-white" : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`}
-                >
-                  More <MoreHorizOutlinedIcon className="ml-1" fontSize="small" />
-                </button>
-
-                {/* Popover */}
-                {isMoreMenuOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-xl py-2 animate-fade-in">
-                    {hiddenNavItems.map((item) => (
-                      item.type === "route" ? (
-                        <NavLink
-                          key={item.label}
-                          to={item.href}
-                          onClick={() => setIsMoreMenuOpen(false)}
-                          className={({ isActive }) =>
-                            `block px-4 py-2 text-sm font-mono transition-colors
-                            ${isActive ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"}`
-                          }
-                        >
-                          {item.label}
-                        </NavLink>
-                      ) : item.type === "external" ? (
-                        <a
-                          key={item.label}
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => setIsMoreMenuOpen(false)}
-                          className="block px-4 py-2 text-sm font-mono text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
-                        >
-                          {item.label}
-                          <span aria-hidden="true"> ↗</span>
-                          <span className="sr-only"> (opens in a new tab)</span>
-                        </a>
-                      ) : (
-                        <button
-                          key={item.label}
-                          onClick={() => handleNavClick(item.href, item.type)}
-                          className="block w-full text-left px-4 py-2 text-sm font-mono text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
-                        >
-                          {item.label}
-                        </button>
-                      )
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
+          <div className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => renderItem(item, "text-sm"))}
             <ThemeToggle />
           </div>
 
           {/* MOBILE MENU TOGGLE */}
-          <div className="md:hidden flex items-center space-x-3">
+          <div className="md:hidden flex items-center gap-3">
             <ThemeToggle />
-
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 text-gray-900 dark:text-white"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? (
                 <ClearOutlinedIcon style={{ fontSize: "1.5rem" }} />
@@ -213,50 +133,13 @@ const Navigation: React.FC = () => {
 
         {/* MOBILE MENU */}
         <div
-          className={`md:hidden absolute top-full left-0 right-0 transition-all duration-300 ${isMobileMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"
+          id="mobile-menu"
+          className={`md:hidden absolute top-full left-0 right-0 transition-all duration-200 ${isMobileMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
             }`}
         >
           <div className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-xl">
-            <div className="px-6 py-6 space-y-4">
-              {navItems.map((item, index) => (
-                item.type === "route" ? (
-                  <NavLink
-                    key={item.label}
-                    to={item.href}
-                    ref={(el) => (mobileNavRefs.current[index] = el)}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={({ isActive }) =>
-                      `block text-lg font-mono transition-colors
-                      ${isActive ? "text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                ) : item.type === "external" ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    ref={(el) => (mobileNavRefs.current[index] = el)}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-lg font-mono text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                  >
-                    {item.label}
-                    <span aria-hidden="true"> ↗</span>
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                ) : (
-                  <button
-                    key={item.label}
-                    ref={(el) => (mobileNavRefs.current[index] = el as any)}
-                    onClick={() => handleNavClick(item.href, item.type)}
-                    className="block w-full text-left text-lg font-mono text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </button>
-                )
-              ))}
+            <div className="px-6 py-6 flex flex-col gap-4">
+              {navItems.map((item) => renderItem(item, "block w-full text-lg"))}
             </div>
           </div>
         </div>

@@ -4,6 +4,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
+import { Link } from 'react-router-dom';
+import { EMAIL, FREELANCER_URL, GITHUB_URL, LINKEDIN_URL, MEDIUM_URL } from '../data/links';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -11,22 +13,22 @@ const Footer: React.FC = () => {
   const socialLinks = [
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/saikat-bishal',
+      url: LINKEDIN_URL,
       icon: LinkedInIcon,
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/saikatbishal',
+      url: GITHUB_URL,
       icon: GitHubIcon,
     },
     {
       name: 'Medium',
-      url: 'https://medium.com/@saikat.bishal786',
+      url: MEDIUM_URL,
       icon: ArticleOutlinedIcon,
     },
     {
       name: 'Freelancer profile',
-      url: 'https://www.freelancer.com/u/saikatbishal',
+      url: FREELANCER_URL,
       icon: WorkOutlineOutlinedIcon,
     }
   ];
@@ -37,14 +39,14 @@ const Footer: React.FC = () => {
         {/* Email + social links */}
         <div className="flex flex-wrap items-center justify-center md:justify-between gap-x-6 gap-y-3 mb-8">
           <a
-            href="mailto:saikat.bishal786@gmail.com"
+            href={`mailto:${EMAIL}`}
             className="group flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             <MailOutlineOutlinedIcon
               className="text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300"
               style={{ fontSize: '1.1rem' }}
             />
-            saikat.bishal786@gmail.com
+            {EMAIL}
           </a>
 
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
@@ -69,11 +71,11 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <p className="text-sm font-mono text-gray-500 dark:text-gray-500">
+            <p className="text-sm font-sans text-gray-500 dark:text-gray-500">
               © {currentYear} Saikat Bishal
             </p>
 
-            <div className="flex items-center space-x-6 text-sm font-mono">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-sans">
               <a
                 href="#hero"
                 className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
@@ -92,7 +94,7 @@ const Footer: React.FC = () => {
                   document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                Projects
+                Work
               </a>
               <a
                 href="#contact"
@@ -104,6 +106,12 @@ const Footer: React.FC = () => {
               >
                 Contact
               </a>
+              <Link to="/games" className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">
+                Games
+              </Link>
+              <Link to="/ast-transpiler" className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">
+                CSS to Tailwind
+              </Link>
             </div>
           </div>
         </div>

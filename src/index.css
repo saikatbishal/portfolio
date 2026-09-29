@@ -5,9 +5,7 @@
 :root {
   /* Minimalist Monochrome Palette */
   --background-light: #ffffff;
-  --background-dark: #121212;
-  --surface-light: #f8f9fa;
-  --surface-dark: #1e1e1e;
+  --background-dark: #030712; /* gray-950: the one dark page background */
 
   --text-primary-light: #111827;
   --text-secondary-light: #4b5563;
@@ -33,6 +31,19 @@ body {
 .dark body {
   background-color: var(--background-dark);
   color: var(--text-primary-dark);
+}
+
+/* Buttons: one radius, two variants, colour-only hover */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded font-sans text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-900 dark:focus-visible:ring-white dark:focus-visible:ring-offset-gray-950 disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply bg-gray-900 text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200;
+  }
+  .btn-secondary {
+    @apply border border-gray-300 text-gray-800 hover:border-gray-900 hover:text-gray-900 dark:border-gray-700 dark:text-gray-200 dark:hover:border-white dark:hover:text-white;
+  }
 }
 
 /* Inline code spans in markdown should shrink to content and stay inline */
@@ -119,20 +130,16 @@ html {
     color 0.3s ease;
 }
 
-/* Navigation and other fixed elements should be above particles */
-nav,
-header,
-.navigation {
-  position: relative;
-  z-index: 100;
-}
-
-/* Ensure buttons and interactive elements are clickable */
-button,
-a,
-input,
-textarea,
-select {
-  position: relative;
-  z-index: 50;
+/* Respect reduced-motion: no entrance animations, transitions or smooth scrolling */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

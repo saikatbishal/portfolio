@@ -16,9 +16,9 @@ export const experiences: ExperienceItem[] = [
     id: 1,
     company: 'Rifa.ai',
     position: 'Senior Software Engineer',
-    duration: 'Jan 2026 - Present',
+    duration: 'Jan 2026 – Aug 2026',
     location: 'Remote',
-    highlights: ['25+ component library', 'Figma tokens → CSS variables', '−90% manual QA review', 'Figma MCP agent workflow'],
+    highlights: ['25+ component library', 'Figma tokens → CSS variables', '−90% manual QA review', 'AI-assisted Figma-to-code workflow'],
     description: [
       'Built a 25+ component library end-to-end in React and TypeScript, giving the dashboard one shared UI kit.',
       'Moved the dashboard to Figma design tokens via Tailwind and CSS variables, eliminating style drift in the monorepo.',
@@ -36,7 +36,7 @@ export const experiences: ExperienceItem[] = [
     id: 2,
     company: 'Ramco Systems',
     position: 'Software Developer',
-    duration: 'Feb 2024 - Sep 2025',
+    duration: 'Feb 2024 – Sep 2025',
     location: 'India',
     highlights: ['Nebula component library', 'ML API proxy · Docker, RabbitMQ', 'ELK observability'],
     description: [
@@ -53,7 +53,7 @@ export const experiences: ExperienceItem[] = [
     id: 3,
     company: 'Rezolve.ai',
     position: 'Full Stack Developer',
-    duration: 'May 2023 - Jan 2024',
+    duration: 'May 2023 – Jan 2024',
     location: 'India',
     highlights: ['Production chatbot platform', 'Bot configuration UI', 'Keycloak auth'],
     description: [
@@ -67,9 +67,9 @@ export const experiences: ExperienceItem[] = [
   },
   {
     id: 4,
-    company: 'LTIMindtree (formerly Larsen and Toubro Infotech)',
+    company: 'LTIMindtree',
     position: 'Software Engineer',
-    duration: 'Jul 2021 - May 2023',
+    duration: 'Jul 2021 – May 2023',
     location: 'India',
     highlights: ['−25% server response time', 'Serverless on AWS', 'End-to-end app delivery'],
     description: [

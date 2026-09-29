@@ -16,7 +16,7 @@ export const education: EducationItem[]= [
     institution: "National Institute of Technology, Jamshedpur",
     degree: "Bachelor of Technology (B.Tech)",
     field: "Metallurgical and Materials Engineering",
-    duration: "2017 - 2021",
+    duration: "2017 – 2021",
     location: "Jamshedpur, India",
     gpa: "7.01",
     achievements: [

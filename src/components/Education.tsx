@@ -22,7 +22,7 @@ const Education: React.FC = () => {
                 aria-hidden="true"
                 className="absolute -left-[6px] top-2 w-3 h-3 rounded-full border-2 bg-white dark:bg-gray-950 border-gray-400 dark:border-gray-600"
               />
-              <p className="font-mono text-xs text-gray-500 dark:text-gray-400">
+              <p className="font-sans text-xs text-gray-500 dark:text-gray-400">
                 {edu.duration}
               </p>
               <h3 className="font-sans font-bold text-gray-900 dark:text-white">

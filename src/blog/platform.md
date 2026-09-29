@@ -5,6 +5,8 @@ description: "How I designed and built Platform, a map of every train journey I'
 tags: ["product", "design-systems", "design-tokens", "react", "case-study"]
 image: "/project-platform.png"
 ---
+*Status: in active development · last updated Sep 2026 · [live](https://www.saikatbishal.com/platform) · [code](https://github.com/saikatbishal/platform)*
+
 I travel long distances by train. Some of those journeys matter. Going to Vellore for a checkup, with my mother coming to meet me there, is not the same kind of event as a commute. Yet both leave exactly the same trace: a PDF in my inbox and a PNR number I will never look at again.
 
 IRCTC has my booking history. It is a table. It knows I bought a ticket; it has no idea I went somewhere.

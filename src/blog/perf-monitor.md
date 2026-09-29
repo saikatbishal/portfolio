@@ -1,7 +1,7 @@
 ---
 title: "Building a Zero-Dependency React Performance Monitor"
 date: "2025-12-19"
-description: ""
+description: "How I built a zero-dependency overlay that shows FPS, memory and Web Vitals while you work."
 tags: ["react", "performance", "core-web-vitals", "web-vitals", "monitoring"]
 image: "/performance-monitor.png"
 ---
@@ -417,7 +417,5 @@ Creating `react-perf-dashboard` bridged the gap between "it feels slow" and "I k
 
 I invite you to try it out, break it, and contribute.
 
-- **GitHub:** [github.com/saikat786/react-perf-dashboard](https://www.google.com/search?q=%23&authuser=1)
-- **NPM:** [npmjs.com/package/@saikat786/react-perf-dashboard](https://www.google.com/search?q=%23&authuser=1)
-
-Let's make the web faster, one frame at a time. 🚀
+- **GitHub:** [github.com/saikatbishal/react-perf-dashboard](https://github.com/saikatbishal/react-perf-dashboard)
+- **npm:** [npmjs.com/package/@saikat786/react-perf-dashboard](https://www.npmjs.com/package/@saikat786/react-perf-dashboard)
