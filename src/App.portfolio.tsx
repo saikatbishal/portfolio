@@ -8,7 +8,6 @@ import Hero from './components/Hero';
 import About from './components/About';
 import './index.css';
 import Games from './components/Games';
-import Chatbot from './components/Chatbot';
 
 // Lazy load components - Critical path optimization
 const Projects = React.lazy(() => import('./components/Projects'));
@@ -110,9 +109,7 @@ function App() {
       {showPerfMonitor && <PerfDashboard />}
 
       <ThemeProvider>
-        <div><AppContent />
-          <Chatbot />
-        </div>
+        <AppContent />
       </ThemeProvider>
     </BrowserRouter>
   );
