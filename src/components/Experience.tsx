@@ -23,9 +23,6 @@ const Experience: React.FC = () => {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // memory_logs
-          </span>
           <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight">
             Experience
           </h2>

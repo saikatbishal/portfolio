@@ -25,14 +25,9 @@ const About = () => {
   return (
     <section id="about" className="py-16 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
       <div className="max-w-5xl mx-auto px-6">
-        <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-2">
-          <span className="font-mono text-sm text-gray-500 dark:text-gray-400">
-            // origin_story
-          </span>
-          <p className="font-sans text-lg font-semibold text-gray-900 dark:text-white">
-            Code is honest. It works or it doesn't.
-          </p>
-        </div>
+        <h2 className="mb-8 font-sans text-lg font-semibold text-gray-900 dark:text-white">
+          How I got here
+        </h2>
 
         {/* Mobile: vertical rail. Desktop: four stops on one line. */}
         <ol className="relative grid gap-6 md:grid-cols-4 md:gap-4 border-l md:border-l-0 md:border-t border-gray-300 dark:border-gray-700 pl-6 md:pl-0 md:pt-6">
@@ -58,6 +53,10 @@ const About = () => {
             </li>
           ))}
         </ol>
+
+        <p className="mt-10 font-sans text-gray-600 dark:text-gray-400">
+          React, TypeScript, Tailwind, design tokens and Figma; Node and Python when the feature needs them.
+        </p>
       </div>
     </section>
   );

@@ -1,13 +1,9 @@
 import profileImage from "../assets/profile.png";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
-import { useTypingEffect } from "../hooks/useTypingEffect";
 import { getYearsOfExperience } from "../utils/experience";
 
 const Hero = () => {
-  const name = "SAIKAT BISHAL";
-  const typedName = useTypingEffect(name, 100, 500);
-
   const handleScrollToProjects = () => {
     const element = document.querySelector("#projects");
     element?.scrollIntoView({ behavior: "smooth" });
@@ -25,20 +21,11 @@ const Hero = () => {
              bg-white dark:bg-gray-950 pt-20"
     >
       {/* Minimalist Grid Background */}
-      <div className="absolute inset-0 bg-grid-pattern dark:bg-grid-pattern-dark animate-grid-beat opacity-[0.25] bg-[length:40px_40px]  dark:opacity-[0.1]" />
+      <div className="absolute inset-0 bg-grid-pattern dark:bg-grid-pattern-dark opacity-[0.25] bg-[length:40px_40px]  dark:opacity-[0.1]" />
 
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Side */}
         <div className="text-center lg:text-left animate-fade-in">
-
-          {/* Badge */}
-          <div className="mb-6">
-            <span className="font-mono text-sm px-3 py-1 border border-gray-200 dark:border-gray-800 rounded text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
-              &gt; frontend + design_systems
-            </span>
-          </div>
-
-          {/* Name with Typing Effect */}
           <h1
             className="font-sans text-gray-900 dark:text-white mb-6 tracking-tight"
             style={{
@@ -47,16 +34,10 @@ const Hero = () => {
               lineHeight: 1.1
             }}
           >
-            {typedName}
-            <span className="animate-pulse text-gray-400">_</span>
+            Saikat Bishal
           </h1>
 
           <div className="mb-8 max-w-2xl mx-auto lg:mx-0">
-            <div className="code-block text-left text-sm md:text-base text-gray-600 dark:text-gray-300 mb-4">
-              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">role</span> = <span className="text-gray-500">"Frontend engineer · Design systems"</span>;</p>
-              <p className="mb-2"><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">builds</span> = <span className="text-gray-500">["component libraries", "design tokens", "product UI"]</span>;</p>
-              <p><span className="text-gray-400">const</span> <span className="text-gray-900 dark:text-white">location</span> = <span className="text-gray-500">"Kolkata, India"</span>;</p>
-            </div>
             <p className="text-base md:text-lg font-sans text-gray-800 dark:text-gray-200 mb-3">
               I build component libraries and token pipelines that keep product UIs consistent, from Figma to production.
             </p>
@@ -106,13 +87,6 @@ const Hero = () => {
             <div className="absolute -top-4 -right-4 w-24 h-24 border border-gray-200 dark:border-gray-800 -z-10 transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2" />
             <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gray-100 dark:bg-gray-800 -z-10 transition-transform duration-500 group-hover:-translate-x-2 group-hover:translate-y-2" />
           </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border border-gray-400 dark:border-gray-600 rounded-full flex justify-center">
-          <div className="w-1 h-2 bg-gray-400 dark:bg-gray-600 rounded-full mt-2" />
         </div>
       </div>
     </section>

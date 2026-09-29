@@ -12,22 +12,8 @@ const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const { isDarkMode } = useTheme();
-  const desktopNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const mobileNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const moreMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const filteredDesktopRefs = desktopNavRefs.current.filter((ref) => ref != null);
-    gsap.set(filteredDesktopRefs, { y: -20, opacity: 0 });
-    gsap.to(filteredDesktopRefs, {
-      y: 0,
-      opacity: 1,
-      delay: 0.2,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "power3.out"
-    });
-  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -65,11 +51,7 @@ const Navigation: React.FC = () => {
   const location = useLocation();
 
   const navItems = [
-    { label: "Home", href: "/", type: "route" },
     { label: "Work", href: "#projects", type: "scroll" },
-    // Proxied at the edge (vercel.json) to a separate app — a real page load,
-    // not a client-side route, so this renders as a plain <a> that opens in a new tab.
-    { label: "Platform", href: "/platform", type: "external" },
     { label: "Experience", href: "#experience", type: "scroll" },
     { label: "Education", href: "#education", type: "scroll" },
     { label: "Contact", href: "#contact", type: "scroll" },
@@ -112,22 +94,20 @@ const Navigation: React.FC = () => {
         {/* NAV CONTENT */}
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-10">
           {/* LOGO */}
-          <div className="group cursor-pointer">
+          <NavLink to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <span className="text-xl font-bold font-mono text-gray-900 dark:text-white">
               saikat_bishal
             </span>
-          </div>
+          </NavLink>
 
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex items-center space-x-6">
-              {visibleNavItems.map((item, index) => (
+              {visibleNavItems.map((item) => (
                 item.type === "route" ? (
                   <NavLink
                     key={item.label}
                     to={item.href}
-                    ref={(el) => (desktopNavRefs.current[index] = el)}
-                    style={{ opacity: 0 }}
                     className={({ isActive }) =>
                       `text-sm font-mono transition-colors duration-300
                       ${isActive ? "text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`
@@ -141,8 +121,6 @@ const Navigation: React.FC = () => {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    ref={(el) => (desktopNavRefs.current[index] = el)}
-                    style={{ opacity: 0 }}
                     className="text-sm font-mono transition-colors duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                   >
                     {item.label}
@@ -152,8 +130,6 @@ const Navigation: React.FC = () => {
                 ) : (
                   <button
                     key={item.label}
-                    ref={(el) => (desktopNavRefs.current[index] = el as any)}
-                    style={{ opacity: 0 }}
                     onClick={() => handleNavClick(item.href, item.type)}
                     className={`text-sm font-mono transition-colors duration-300 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white`}
                   >

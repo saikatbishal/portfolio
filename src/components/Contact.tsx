@@ -47,8 +47,6 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      console.log("Sending email with form data:", formData);
-
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -60,7 +58,7 @@ const Contact: React.FC = () => {
       // Initialize EmailJS
       emailjs.init(publicKey);
 
-      const result = await emailjs.send(
+      await emailjs.send(
         serviceId,
         templateId,
         {
@@ -73,7 +71,6 @@ const Contact: React.FC = () => {
         publicKey
       );
 
-      console.log("Email sent successfully:", result);
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
@@ -101,15 +98,11 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-20 relative min-h-screen bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900"
+      className="py-20 relative bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // communication_channel
-          </span>
-
           <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight mb-6">
             Send a Signal
           </h2>
@@ -133,10 +126,6 @@ const Contact: React.FC = () => {
           {/* FORM */}
           <div className="max-w-2xl mx-auto w-full">
             <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8">
-              <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white font-mono">
-                Transmit Data
-              </h3>
-
               {/* FORM FIELDS */}
               <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                 {/* Name + Email */}

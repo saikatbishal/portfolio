@@ -31,7 +31,6 @@
     "motion": "^12.23.24",
     "neko-ts": "^0.0.6",
     "react": "^19.0.0",
-    "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "react-redux": "^9.2.0",

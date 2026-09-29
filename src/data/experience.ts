@@ -60,8 +60,7 @@ export const experiences: ExperienceItem[] = [
       'Developed a large-scale, production-grade ChatBot application utilizing React, NestJS, and Tailwind CSS, with robust state management via Redux and Redux Saga.',
       'Integrated Keycloak for authentication and authorization, and implemented dynamic data fetching and rendering through RESTful API integrations.',
       'Led the development of a complex bot configuration and management interface, optimizing for user experience and maintainability.',
-      'Conducted code reviews to ensure adherence to best practices and maintain high code quality standards.',
-      'Created a highly complex and intuitive bot Configuration and Management application with great User Experience.'
+      'Conducted code reviews to ensure adherence to best practices and maintain high code quality standards.'
     ],
     technologies: ['React', 'NestJS', 'Tailwind CSS', 'Redux', 'Redux Saga', 'Keycloak'],
     type: 'work'

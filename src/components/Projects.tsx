@@ -1,8 +1,6 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { useGSAPAnimations } from "../hooks/useGSAPAnimations";
 
@@ -13,11 +11,9 @@ interface Project {
   image: string;
   attribution: string;
   photographerUrl?: string;
-  technologies: string[];
   category: string;
   liveUrl?: string;
   githubUrl?: string;
-  videoUrl?: string;
   /** Short, scannable facts shown as chips instead of more description. */
   highlights?: string[];
   /** Slug of the post in src/blog/ that tells this project's story. */
@@ -28,8 +24,7 @@ interface Project {
 const ProjectCard = React.memo<{
   project: Project;
   index: number;
-  onVideoClick: (videoUrl: string) => void;
-}>(({ project, index, onVideoClick }) => {
+}>(({ project, index }) => {
   const navigate = useNavigate();
   const blogPath = project.blogSlug ? `/blogs/${project.blogSlug}` : undefined;
 
@@ -37,7 +32,7 @@ const ProjectCard = React.memo<{
     if (blogPath) navigate(blogPath);
   };
 
-  // The overlay buttons (live, code, video) keep their own behaviour and must
+  // The overlay links (live, code) keep their own behaviour and must
   // not also open the blog post.
   const stop = (e: React.SyntheticEvent) => e.stopPropagation();
 
@@ -63,21 +58,12 @@ const ProjectCard = React.memo<{
         <img
           src={project.image}
           alt={`${project.title} - ${project.attribution}`}
-          className="w-full h-56 object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+          className="w-full h-56 object-cover group-hover:scale-105 transition-all duration-500"
           loading="lazy"
         />
 
         {/* Overlay with Links - Centered for modern look */}
         <div className="absolute inset-0 bg-gray-900/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
-          {project.videoUrl && (
-            <button
-              onClick={(e) => { e.stopPropagation(); onVideoClick(project.videoUrl!); }}
-              className="p-2 bg-white text-gray-900 hover:bg-gray-200 transition-all hover:scale-110 duration-200"
-              title="Watch Demo"
-            >
-              <PlayCircleOutlineIcon style={{ fontSize: "1.5rem" }} />
-            </button>
-          )}
           {project.liveUrl && (
           <a
             href={project.liveUrl}
@@ -118,7 +104,7 @@ const ProjectCard = React.memo<{
           </span>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2 font-sans">
+        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 font-sans">
           {project.description}
         </p>
 
@@ -140,18 +126,6 @@ const ProjectCard = React.memo<{
             Read the story →
           </span>
         )}
-
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {project.technologies.map((tech) => (
-            <span
-              key={tech}
-              className="text-xs font-mono px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
-            >
-              #{tech}
-            </span>
-          ))}
-        </div>
       </div>
     </div>
   );
@@ -161,8 +135,6 @@ ProjectCard.displayName = "ProjectCard";
 
 const Projects: React.FC = () => {
   useGSAPAnimations();
-  const [videoModalUrl, setVideoModalUrl] = useState<string | null>(null);
-
   // Move projects data outside component or memoize to prevent recreation on every render
   const projects: Project[] = useMemo(
     () => [
@@ -174,7 +146,6 @@ const Projects: React.FC = () => {
         highlights: ["13 typed components", "21 guideline pages", "15 product decisions"],
         image: "/project-platform.png",
         attribution: "Platform rail journey map",
-        technologies: ["Design System", "Design Tokens", "React", "TypeScript", "Tailwind", "SVG"],
         category: "Product + DS",
         liveUrl: "https://www.saikatbishal.com/platform",
         githubUrl: "https://github.com/saikatbishal/platform",
@@ -190,7 +161,6 @@ const Projects: React.FC = () => {
           "/image.png",
         attribution: "Saikat Bishal",
         photographerUrl: "/perfmonitor.png",
-        technologies: ["React", "TypeScript", "NPM", "Performance"],
         category: "Web App",
         liveUrl: "https://www.npmjs.com/package/@saikat786/react-perf-dashboard",
         githubUrl: "https://github.com/saikatbishal/react-perf-dashboard",
@@ -200,19 +170,10 @@ const Projects: React.FC = () => {
     []
   );
 
-  // Video modal handlers
-  const handleVideoClick = useCallback((videoUrl: string) => {
-    setVideoModalUrl(videoUrl);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setVideoModalUrl(null);
-  }, []);
-
   return (
     <section
       id="projects"
-      className="py-20 relative min-h-screen bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900"
+      className="py-20 relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900"
     >
       {/* Minimalist Background */}
       <div className="absolute inset-0 bg-grid-pattern dark:bg-grid-pattern-dark bg-[length:40px_40px] opacity-[0.03] dark:opacity-[0.05]" />
@@ -220,10 +181,6 @@ const Projects: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // selected_work
-          </span>
-
           <h2
             className="font-sans text-gray-900 dark:text-white mb-6 tracking-tight"
             style={{
@@ -234,14 +191,6 @@ const Projects: React.FC = () => {
             Selected Work
           </h2>
 
-          <p
-            className="font-sans text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-            style={{
-              fontSize: "1.125rem",
-            }}
-          >
-            Products and tools I designed and built, and the systems underneath them.
-          </p>
         </div>
 
         {/* Projects Grid */}
@@ -251,44 +200,11 @@ const Projects: React.FC = () => {
               key={project.id}
               project={project}
               index={index}
-              onVideoClick={handleVideoClick}
             />
           ))}
         </div>
       </div>
 
-      {/* Video Modal */}
-      {videoModalUrl && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-          onClick={handleCloseModal}
-        >
-          <div
-            className="relative w-full max-w-4xl mx-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={handleCloseModal}
-              className="absolute -top-12 right-0 p-2 text-white hover:text-gray-300 transition-colors"
-              aria-label="Close video"
-            >
-              <CloseIcon style={{ fontSize: "2rem" }} />
-            </button>
-            <div
-              className="relative w-full bg-black rounded-lg overflow-hidden border border-gray-800"
-              style={{ paddingBottom: "56.25%" }}
-            >
-              <iframe
-                className="absolute top-0 left-0 w-full h-full"
-                src={videoModalUrl}
-                title="Project video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
