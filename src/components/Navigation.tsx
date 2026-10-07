@@ -3,7 +3,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ThemeToggle from "./ThemeToggle";
-import { useTheme } from "../contexts/ThemeContext";
+// import { useTheme } from "../contexts/ThemeContext";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import gsap from "gsap";
 
@@ -11,7 +11,6 @@ const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
-  const { isDarkMode } = useTheme();
   const desktopNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const mobileNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const moreMenuRef = useRef<HTMLDivElement>(null);
@@ -69,7 +68,7 @@ const Navigation: React.FC = () => {
     { label: "Work", href: "#projects", type: "scroll" },
     // Proxied at the edge (vercel.json) to a separate app — a real page load,
     // not a client-side route, so this renders as a plain <a> that opens in a new tab.
-    { label: "Platform", href: "/platform", type: "external" },
+    { label: "Platform", href: "/platform/", type: "external" },
     { label: "Experience", href: "#experience", type: "scroll" },
     { label: "Education", href: "#education", type: "scroll" },
     { label: "Contact", href: "#contact", type: "scroll" },
