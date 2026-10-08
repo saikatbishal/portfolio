@@ -53,7 +53,7 @@ export const experiences: ExperienceItem[] = [
     id: 3,
     company: 'Rezolve.ai',
     position: 'Full Stack Developer',
-    duration: 'May 2023 – Jan 2024',
+    duration: 'May 2023 – Nov 2023',
     location: 'Bengaluru, India',
     highlights: ['Production chatbot platform', 'Bot configuration UI', 'Keycloak auth'],
     description: [
