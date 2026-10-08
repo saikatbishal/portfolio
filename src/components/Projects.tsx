@@ -61,13 +61,13 @@ const projects: Project[] = [
     title: "CSS to Tailwind",
     description:
       "A browser tool that parses CSS into a syntax tree and maps each declaration to a Tailwind class, with a live preview and the tree alongside.",
-    outcome: "Paste CSS and get the Tailwind classes back as you type.",
+    outcome: "Paste CSS and get the Tailwind classes back as you type, matched to Tailwind's own scales and colours.",
     highlights: ["AST-based (css-tree)", "Live preview", "Runs in the browser"],
     // Output is what compileCssToTailwind actually returns for this input.
     codePreview: {
       input:
-        ".card {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  padding: 24px;\n  border-radius: 8px;\n  background-color: #2563eb;\n}",
-      output: "flex items-center gap-4 p-6 rounded-md bg-[#2563eb]",
+        ".button {\n  display: inline-flex;\n  padding: 8px 16px;\n  border: 1px solid #e5e7eb;\n  border-radius: 6px;\n  color: #2563eb;\n}",
+      output: "inline-flex py-2 px-4 border border-solid border-gray-200 rounded-md text-blue-600",
     },
     wide: true,
     category: "Developer tool",

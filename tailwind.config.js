@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  // The transpiler only emits class names as text, so scanning it would just add unused CSS.
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "!./src/transpiler/**"],
   darkMode: "class",
   theme: {
     extend: {
