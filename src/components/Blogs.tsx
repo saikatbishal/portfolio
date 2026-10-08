@@ -15,16 +15,16 @@ const Blogs: React.FC = () => {
   return (
     <section className="py-20 min-h-screen">
       <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-12 text-gray-900 dark:text-white border-b-4 border-blue-500 inline-block pb-2">
-          Blog Posts
-        </h2>
+        <h1 className="text-3xl md:text-4xl font-bold font-sans tracking-tight mb-12 text-gray-900 dark:text-white">
+          Writing
+        </h1>
 
         <div className="grid gap-8">
           {blogs.map((blog) => (
             <Link
               to={`/blogs/${blog.slug}`}
               key={blog.slug}
-              className="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1"
+              className="group block p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 transition-colors duration-200"
             >
               {blog.image && (
                 <div className="mb-4 overflow-hidden rounded-lg h-48 w-full">
@@ -36,10 +36,10 @@ const Blogs: React.FC = () => {
                 </div>
               )}
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:underline underline-offset-4">
                   {blog.title}
                 </h3>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-mono mt-2 md:mt-0">
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-sans mt-2 md:mt-0">
                   {blog.date}
                 </span>
               </div>
@@ -52,7 +52,7 @@ const Blogs: React.FC = () => {
                 {blog.tags.map(tag => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs font-medium rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300"
+                    className="px-2 py-0.5 text-xs font-sans border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400"
                   >
                     #{tag}
                   </span>

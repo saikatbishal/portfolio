@@ -66,15 +66,15 @@ const simplifyAst = (node: any): any => {
 
 const NodeLabel = ({ label, type, isArray, isEmpty }: any) => (
   <div className="flex items-center gap-2">
-    {label && <span className="text-slate-400 font-medium">{label}:</span>}
+    {label && <span className="text-gray-400 font-medium">{label}:</span>}
     {type && <span className="text-purple-400 font-bold">{type}</span>}
-    {isArray && <span className="text-slate-500 text-xs">[{isEmpty ? '0' : ''}]</span>}
+    {isArray && <span className="text-gray-500 text-xs">[{isEmpty ? '0' : ''}]</span>}
   </div>
 );
 
 const PrimitiveNode = ({ label, value }: any) => (
   <div className="flex items-center gap-2 py-0.5">
-    {label && <span className="text-slate-400">{label}:</span>}
+    {label && <span className="text-gray-400">{label}:</span>}
     <span className="text-green-400 font-mono break-all">{String(value)}</span>
   </div>
 );
@@ -107,15 +107,15 @@ const TreeNode = ({ data, label, defaultOpen = false }: { data: any, label?: str
   return (
     <div className="ml-4 py-0.5">
       <div 
-        className="cursor-pointer hover:bg-slate-800/50 inline-flex items-center gap-1 rounded px-1 -ml-1 select-none transition-colors"
+        className="cursor-pointer hover:bg-gray-800/50 inline-flex items-center gap-1 rounded px-1 -ml-1 select-none transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="text-slate-500 text-[10px] w-3">{isOpen ? '▼' : '▶'}</span>
+        <span className="text-gray-500 text-[10px] w-3">{isOpen ? '▼' : '▶'}</span>
         <NodeLabel label={label} type={type} isArray={isArray} />
       </div>
 
       {isOpen && (
-        <div className="border-l border-slate-700/50 pl-2 ml-1.5">
+        <div className="border-l border-gray-700/50 pl-2 ml-1.5">
           {isArray ? (
             data.map((item: any, i: number) => (
               <TreeNode key={i} data={item} /> // No label for array items

@@ -23,9 +23,6 @@ const Experience: React.FC = () => {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="font-mono text-sm text-gray-500 dark:text-gray-400 mb-4 inline-block">
-            // memory_logs
-          </span>
           <h2 className="text-3xl md:text-4xl font-bold font-sans text-gray-900 dark:text-white tracking-tight">
             Experience
           </h2>
@@ -50,11 +47,11 @@ const Experience: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-4 gap-y-1">
                   <h3 className="text-xl font-bold font-sans text-gray-900 dark:text-white">
                     {exp.company}
-                    <span className="font-mono font-normal text-base text-gray-500 dark:text-gray-400">
+                    <span className="font-sans font-normal text-base text-gray-500 dark:text-gray-400">
                       {" "}· {exp.position}
                     </span>
                   </h3>
-                  <span className="shrink-0 font-mono text-xs text-gray-500 dark:text-gray-400">
+                  <span className="shrink-0 font-sans text-xs text-gray-500 dark:text-gray-400">
                     {exp.duration} · {exp.location}
                   </span>
                 </div>
@@ -76,7 +73,7 @@ const Experience: React.FC = () => {
                   onClick={() => setOpenId(isOpen ? null : exp.id)}
                   aria-expanded={isOpen}
                   aria-controls={detailsId}
-                  className="mt-3 inline-flex items-center gap-1 font-mono text-xs text-gray-500 dark:text-gray-400 hover:text-[#16a34a] dark:hover:text-[#39ff14] transition-colors"
+                  className="mt-3 inline-flex items-center gap-1 font-sans text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
                   {isOpen ? "Hide details" : `Show details (${exp.description.length})`}
                   <ExpandMoreIcon
@@ -87,10 +84,10 @@ const Experience: React.FC = () => {
 
                 {isOpen && (
                   <div id={detailsId} className="mt-3">
-                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 font-sans">
+                    <ul className="space-y-2 text-base text-gray-600 dark:text-gray-400 font-sans">
                       {exp.description.map((item, idx) => (
                         <li key={idx} className="flex items-start gap-3">
-                          <span className="mt-1 text-xs text-gray-400 dark:text-gray-600 font-mono">&gt;</span>
+                          <span className="mt-1 text-xs text-gray-400 dark:text-gray-600 font-sans">&gt;</span>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -99,7 +96,7 @@ const Experience: React.FC = () => {
                       {exp.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2 py-0.5 text-xs font-mono text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                          className="px-2 py-0.5 text-xs font-sans text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
                         >
                           {tech}
                         </span>

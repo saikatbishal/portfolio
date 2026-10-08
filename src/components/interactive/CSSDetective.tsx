@@ -73,9 +73,9 @@ const CSSDetective: React.FC<CSSDetectiveProps> = ({ onClose }) => {
             <div className="w-full max-w-4xl bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-[80vh] md:h-[600px]">
                 
                 {/* Left Panel: Preview */}
-                <div className="w-full md:w-1/2 bg-gray-50 dark:bg-black p-6 flex flex-col border-r border-gray-200 dark:border-gray-800">
+                <div className="w-full md:w-1/2 bg-gray-50 dark:bg-gray-950 p-6 flex flex-col border-r border-gray-200 dark:border-gray-800">
                     <div className="flex justify-between items-center mb-4">
-                        <h3 className="font-mono text-sm text-gray-500 uppercase tracking-wider">Live Preview</h3>
+                        <h3 className="font-sans text-sm text-gray-500 uppercase tracking-wider">Live Preview</h3>
                         <div className="flex gap-2">
                             <div className="w-3 h-3 rounded-full bg-red-500"></div>
                             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>

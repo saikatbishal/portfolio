@@ -3,9 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 // Define the shape of your context
 interface ThemeContextType {
   isDarkMode: boolean;
-  isAnimating: boolean;
   toggleTheme: () => void;
-  handleAnimationComplete: () => void;
 }
 
 // Create the context with a default value (optional)
@@ -24,28 +22,12 @@ export const ThemeProvider = ({
     }
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
-
   const toggleTheme = () => {
-    setIsAnimating(true);
-
-    // Start the animation and change theme after a slight delay
-    setTimeout(() => {
-      setIsDarkMode((prev) => {
-        const newValue = !prev;
-        localStorage.setItem('theme', newValue ? 'dark' : 'light');
-        if (newValue) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-        return newValue;
-      });
-    }, 500); // Change theme halfway through animation
-  };
-
-  const handleAnimationComplete = () => {
-    setIsAnimating(false);
+    setIsDarkMode((prev) => {
+      const newValue = !prev;
+      localStorage.setItem('theme', newValue ? 'dark' : 'light');
+      return newValue;
+    });
   };
 
   // Initialize theme on mount
@@ -58,7 +40,7 @@ export const ThemeProvider = ({
   }, [isDarkMode]);
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, isAnimating, toggleTheme, handleAnimationComplete }}>
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

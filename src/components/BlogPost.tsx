@@ -33,10 +33,10 @@ const BlogPost: React.FC = () => {
       <div className="max-w-3xl mx-auto px-6">
         <Link
           to="/blogs"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-500 mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-8 transition-colors"
         >
           <ArrowBackIcon fontSize="small" />
-          Back to Blogs
+          All writing
         </Link>
 
         <header className="mb-10">
@@ -50,28 +50,28 @@ const BlogPost: React.FC = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
             {post.title}
           </h1>
-          <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400 font-mono text-sm">
+          <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400 font-sans text-sm">
             <time>{post.date}</time>
             <span>•</span>
             <div className="flex gap-2">
               {post.tags.map(tag => (
-                <span key={tag} className="text-blue-500">#{tag}</span>
+                <span key={tag} className="font-sans text-gray-500 dark:text-gray-400">{tag}</span>
               ))}
             </div>
           </div>
         </header>
 
-        <div className="prose prose-lg dark:prose-invert max-w-none markdown-content">
+        <div className="markdown-content max-w-[68ch]">
           <ReactMarkdown
             components={{
               h1: ({ node: _node, ...props }) => <h1 className="text-3xl font-bold mt-8 mb-4 text-gray-900 dark:text-white" {...props} />,
               h2: ({ node, ...props }) => <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white" {...props} />,
               h3: ({ node, ...props }) => <h3 className="text-xl font-bold mt-6 mb-3 text-gray-900 dark:text-white" {...props} />,
               p: ({ node, ...props }) => <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300" {...props} />,
-              ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 text-gray-700 dark:text-gray-300" {...props} />,
-              ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-4 text-gray-700 dark:text-gray-300" {...props} />,
+              ul: ({ node, ...props }) => <ul className="list-disc list-outside pl-5 mb-4 text-gray-700 dark:text-gray-300" {...props} />,
+              ol: ({ node, ...props }) => <ol className="list-decimal list-outside pl-5 mb-4 text-gray-700 dark:text-gray-300" {...props} />,
               li: ({ node, ...props }) => <li className="mb-2" {...props} />,
-              blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-600 dark:text-gray-400" {...props} />,
+              blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-gray-300 dark:border-gray-600 pl-4 italic my-4 text-gray-600 dark:text-gray-400" {...props} />,
               pre: ({ node, children, ...props }: any) => {
                 const child = Array.isArray(children) ? children[0] : children;
                 const isSnippet =
@@ -84,7 +84,7 @@ const BlogPost: React.FC = () => {
                 if (isSnippet) {
                   return (
                     <code
-                      className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded text-sm font-mono text-blue-600 dark:text-blue-400 inline-flex items-center align-middle whitespace-pre border border-gray-200 dark:border-gray-700 max-w-max"
+                      className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded text-sm font-mono text-gray-800 dark:text-gray-200 inline-flex items-center align-middle whitespace-pre border border-gray-200 dark:border-gray-700 max-w-max"
                     >
                       {child.props.children}
                     </code>
@@ -104,7 +104,7 @@ const BlogPost: React.FC = () => {
                 if (inline) {
                   return (
                     <code
-                      className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-blue-600 dark:text-blue-400 inline-flex items-center align-middle max-w-max whitespace-pre"
+                      className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800 dark:text-gray-200 inline-flex items-center align-middle max-w-max whitespace-pre"
                       {...props}
                     >
                       {children}
@@ -118,7 +118,7 @@ const BlogPost: React.FC = () => {
                   </code>
                 );
               },
-              a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} />,
+              a: ({ node, ...props }) => <a className="text-gray-900 dark:text-white underline underline-offset-4 decoration-gray-400 hover:decoration-gray-900 dark:hover:decoration-white" {...props} />,
               img: ({ node, ...props }) => <img className="rounded-lg shadow-md my-6 max-w-full" {...props} />,
             }}
           >
