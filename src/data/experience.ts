@@ -27,7 +27,7 @@ export const experiences: ExperienceItem[] = [
       'Built the AI call/chat auditing system (React, Python, PostgreSQL, ClickHouse), cutting QA manual review effort by 90%.',
       'Shipped CRM screens: history-stack breadcrumbs and a deal pipeline table with risk indicators and inline call status.',
       'Wrote REST API specs for backend teams; got transcript utterance merging moved to a backend semantic-grouping service.',
-      'Set up a Figma MCP workflow with reusable agent skill files, standardising AI-assisted refactors in the monorepo.'
+      'Set up an AI-assisted Figma-to-code workflow with reusable agent skill files, standardising refactors across the monorepo.'
     ],
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Python', 'PostgreSQL', 'ClickHouse', 'Figma MCP'],
     type: 'work'
@@ -37,7 +37,7 @@ export const experiences: ExperienceItem[] = [
     company: 'Ramco Systems',
     position: 'Software Developer',
     duration: 'Feb 2024 – Sep 2025',
-    location: 'India',
+    location: 'Chennai, India',
     highlights: ['Nebula component library', 'ML API proxy · Docker, RabbitMQ', 'ELK observability'],
     description: [
       'Developed and maintained a reusable Component Library for Ramco\'s Nebula systems, enabling rapid development of frontend applications across the organization.',
@@ -54,7 +54,7 @@ export const experiences: ExperienceItem[] = [
     company: 'Rezolve.ai',
     position: 'Full Stack Developer',
     duration: 'May 2023 – Jan 2024',
-    location: 'India',
+    location: 'Bengaluru, India',
     highlights: ['Production chatbot platform', 'Bot configuration UI', 'Keycloak auth'],
     description: [
       'Developed a large-scale, production-grade ChatBot application utilizing React, NestJS, and Tailwind CSS, with robust state management via Redux and Redux Saga.',
@@ -70,7 +70,7 @@ export const experiences: ExperienceItem[] = [
     company: 'LTIMindtree',
     position: 'Software Engineer',
     duration: 'Jul 2021 – May 2023',
-    location: 'India',
+    location: 'Bengaluru, India',
     highlights: ['−25% server response time', 'Serverless on AWS', 'End-to-end app delivery'],
     description: [
       'Designed and implemented scalable backend architectures using Node.js and Express, significantly reducing server response times by 25%.',

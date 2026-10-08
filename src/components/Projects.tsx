@@ -31,7 +31,7 @@ const projects: Project[] = [
     image: "/project-platform.png",
     imageAlt: "Platform: a map of India with train journeys drawn as coloured lines",
     category: "Personal product · In progress",
-    liveUrl: "https://www.saikatbishal.com/platform",
+    liveUrl: "https://platform.saikatbishal.com",
     githubUrl: "https://github.com/saikatbishal/platform",
     blogSlug: "platform",
   },

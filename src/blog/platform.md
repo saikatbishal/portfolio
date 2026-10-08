@@ -5,13 +5,13 @@ description: "How I designed and built Platform, a map of every train journey I'
 tags: ["product", "design-systems", "design-tokens", "react", "case-study"]
 image: "/project-platform.png"
 ---
-*Status: in active development · last updated Sep 2026 · [live](https://www.saikatbishal.com/platform) · [code](https://github.com/saikatbishal/platform)*
+*Status: in active development · last updated Sep 2026 · [live](https://platform.saikatbishal.com) · [code](https://github.com/saikatbishal/platform)*
 
 I travel long distances by train. Some of those journeys matter. Going to Vellore for a checkup, with my mother coming to meet me there, is not the same kind of event as a commute. Yet both leave exactly the same trace: a PDF in my inbox and a PNR number I will never look at again.
 
 IRCTC has my booking history. It is a table. It knows I bought a ticket; it has no idea I went somewhere.
 
-**Platform** is my answer to that. It is a record of every train journey I've taken across India, drawn as a map that fills in as I travel. You can [open it here](https://www.saikatbishal.com/platform), and the code, design system and decision log are [on GitHub](https://github.com/saikatbishal/platform).
+**Platform** is my answer to that. It is a record of every train journey I've taken across India, drawn as a map that fills in as I travel. You can [open it here](https://platform.saikatbishal.com), and the code, design system and decision log are [on GitHub](https://github.com/saikatbishal/platform).
 
 This post covers what I decided, what I reversed, and the system that keeps the whole thing looking like one product.
 
@@ -134,4 +134,4 @@ The fifteen-second rule is the first metric: median time to log a journey. After
 
 ---
 
-If you want to go deeper, the [decision log, the design system and the routing notes are all in the repo](https://github.com/saikatbishal/platform). Or just [open Platform](https://www.saikatbishal.com/platform) and log a journey. It should take you less than fifteen seconds. If it doesn't, that's a bug, and I'd like to hear about it.
+If you want to go deeper, the [decision log, the design system and the routing notes are all in the repo](https://github.com/saikatbishal/platform). Or just [open Platform](https://platform.saikatbishal.com) and log a journey. It should take you less than fifteen seconds. If it doesn't, that's a bug, and I'd like to hear about it.
