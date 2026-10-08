@@ -66,9 +66,13 @@ const Navigation: React.FC = () => {
   const navItems = [
     { label: "Home", href: "/", type: "route" },
     { label: "Work", href: "#projects", type: "scroll" },
-    // Proxied at the edge (vercel.json) to a separate app — a real page load,
-    // not a client-side route, so this renders as a plain <a> that opens in a new tab.
-    { label: "Platform", href: "/platform/", type: "external" },
+    // Separate app — a real page load, not a client-side route, so this renders as a
+    // plain <a> that opens in a new tab. Prod uses its subdomain; dev keeps the local path.
+    {
+      label: "Platform",
+      href: import.meta.env.PROD ? "https://platform.saikatbishal.com" : "/platform/",
+      type: "external",
+    },
     { label: "Experience", href: "#experience", type: "scroll" },
     { label: "Education", href: "#education", type: "scroll" },
     { label: "Contact", href: "#contact", type: "scroll" },
