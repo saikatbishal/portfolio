@@ -7,11 +7,17 @@ interface Project {
   description: string;
   /** One plain sentence on what it achieves, for readers who don't read code. */
   outcome: string;
-  image: string;
-  imageAlt: string;
+  image?: string;
+  imageAlt?: string;
   /** object-position for the thumbnail crop */
   imagePosition?: string;
+  /** Shown in place of an image: a real input/output pair from the tool. */
+  codePreview?: { input: string; output: string };
+  /** Spans both grid columns, with the media beside the text on md+. */
+  wide?: boolean;
   category: string;
+  /** In-site route to the working tool. */
+  appPath?: string;
   liveUrl?: string;
   githubUrl?: string;
   /** Short, scannable facts shown as chips instead of more description. */
@@ -50,19 +56,58 @@ const projects: Project[] = [
     githubUrl: "https://github.com/saikatbishal/react-perf-dashboard",
     blogSlug: "perf-monitor",
   },
+  {
+    id: 3,
+    title: "CSS to Tailwind",
+    description:
+      "A browser tool that parses CSS into a syntax tree and maps each declaration to a Tailwind class, with a live preview and the tree alongside.",
+    outcome: "Paste CSS and get the Tailwind classes back as you type, matched to Tailwind's own scales and colours.",
+    highlights: ["AST-based (css-tree)", "Live preview", "Runs in the browser"],
+    // Output is what compileCssToTailwind actually returns for this input.
+    codePreview: {
+      input:
+        ".button {\n  display: inline-flex;\n  padding: 8px 16px;\n  border: 1px solid #e5e7eb;\n  border-radius: 6px;\n  color: #2563eb;\n}",
+      output: "inline-flex py-2 px-4 border border-solid border-gray-200 rounded-md text-blue-600",
+    },
+    wide: true,
+    category: "Developer tool",
+    appPath: "/ast-transpiler",
+    githubUrl: "https://github.com/saikatbishal/portfolio/tree/main/src/transpiler",
+  },
 ];
 
 const textLink =
   "font-sans text-sm font-medium text-gray-900 dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-600 hover:decoration-gray-900 dark:hover:decoration-white";
 
+const codeLabel = "block font-sans text-xs text-gray-500 dark:text-gray-400 mb-2";
+
+const CodePreview: React.FC<{ input: string; output: string }> = ({ input, output }) => (
+  <div className="h-full p-5 bg-gray-50 dark:bg-gray-950 font-mono text-sm leading-relaxed">
+    <span className={codeLabel}>CSS</span>
+    <pre className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{input}</pre>
+    <span className={`${codeLabel} mt-4`}>Tailwind</span>
+    <pre className="text-gray-900 dark:text-white whitespace-pre-wrap">{output}</pre>
+  </div>
+);
+
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const blogPath = project.blogSlug ? `/blogs/${project.blogSlug}` : undefined;
 
   return (
-    <article className="project-card flex flex-col h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 transition-colors duration-200">
+    <article
+      className={`project-card flex flex-col h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 transition-colors duration-200 ${
+        project.wide ? "md:col-span-2 md:flex-row" : ""
+      }`}
+    >
       {/* The image is a shortcut to the case study; the text links below are the accessible path. */}
-      <div className="overflow-hidden border-b border-gray-200 dark:border-gray-800">
-        {blogPath ? (
+      <div
+        className={`overflow-hidden border-b border-gray-200 dark:border-gray-800 ${
+          project.wide ? "md:w-1/2 md:shrink-0 md:border-b-0 md:border-r" : ""
+        }`}
+      >
+        {project.codePreview ? (
+          <CodePreview {...project.codePreview} />
+        ) : blogPath ? (
           <Link to={blogPath} tabIndex={-1} aria-hidden="true">
             <img
               src={project.image}
@@ -119,6 +164,11 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           {blogPath && (
             <Link to={blogPath} className={textLink}>
               Read the case study →
+            </Link>
+          )}
+          {project.appPath && (
+            <Link to={project.appPath} className={textLink}>
+              Try it →
             </Link>
           )}
           {project.liveUrl && (
