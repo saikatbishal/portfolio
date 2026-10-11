@@ -1,7 +1,7 @@
 // src/transpiler/compiler.ts
 import * as csstree from "css-tree";
-import { CSS_TO_TAILWIND } from "./mappings";
-import { DYNAMIC_CSS_TO_TW } from "./dynamicRules";
+import { PROPERTY_HANDLERS } from "./properties";
+import { arbitrary } from "./values";
 
 interface CompilerResult {
   ast: object | null;
@@ -9,8 +9,18 @@ interface CompilerResult {
   error: string | null;
 }
 
+/** Classes for one declaration. Unmapped properties become a Tailwind arbitrary property: [prop:value]. */
+const declarationToClasses = (property: string, value: string): string[] => {
+  const prop = property.toLowerCase();
+  // Custom properties keep their case; vendor-prefixed ones use the standard handler when there's no specific one.
+  const handler = prop.startsWith("--")
+    ? undefined
+    : PROPERTY_HANDLERS[prop] ?? PROPERTY_HANDLERS[prop.replace(/^-(webkit|moz|ms|o)-/, "")];
+  return handler?.(value) ?? [`[${property}:${arbitrary(value)}]`];
+};
+
 export const compileCssToTailwind = (cssInput: string): CompilerResult => {
-  const tailwindClasses: string[] = [];
+  const tailwindClasses = new Set<string>();
   let ast = null;
 
   try {
@@ -23,48 +33,25 @@ export const compileCssToTailwind = (cssInput: string): CompilerResult => {
     // 2. TRAVERSE (WALK): Recursive algorithm to find nodes
     csstree.walk(ast, (node) => {
       // We only care about CSS Declarations (e.g., "color: red")
-      if (node.type === "Declaration") {
-        const property = node.property; // e.g., "text-align"
+      if (node.type !== "Declaration") return;
 
-        // Handle the 'value' node which is usually a specific type
-        let value = "";
-        if (node.value.type === "Raw") {
-          value = node.value.value.trim();
-        } else if (node.value.type === "Value") {
-          // Use csstree.generate to reconstruct the full value string
-          value = csstree.generate(node.value).trim();
-        }
+      const value =
+        node.value.type === "Raw" ? node.value.value.trim() : csstree.generate(node.value).trim();
+      if (!value) return;
 
-        // 3. TRANSFORM: Check against our Dictionary
-        const propertyMap = CSS_TO_TAILWIND[property];
-        if (propertyMap && propertyMap[value]) {
-          tailwindClasses.push(propertyMap[value]);
-        } else {
-          // 4. DYNAMIC RULES: Regex-based matching
-          const declarationStr = `${property}: ${value}`;
-
-          for (const rule of DYNAMIC_CSS_TO_TW) {
-            const match = rule.pattern.exec(declarationStr);
-            if (match) {
-              // @ts-expect-error - dynamicRules transform expects spread arguments from regex match
-              const result = rule.transform(...match);
-              if (result) {
-                tailwindClasses.push(result);
-                break; // Stop after first match
-              }
-            }
-          }
-        }
+      // 3. TRANSFORM: property handlers (see properties.ts), with "!" for !important
+      for (const cls of declarationToClasses(node.property, value)) {
+        tailwindClasses.add(node.important ? `!${cls}` : cls);
       }
     });
 
-    return { ast, tailwindClasses, error: null };
-  } catch (err: any) {
+    return { ast, tailwindClasses: [...tailwindClasses], error: null };
+  } catch (err: unknown) {
     // Graceful error handling
     return {
       ast: null,
       tailwindClasses: [],
-      error: err.message || "Syntax Error",
+      error: err instanceof Error ? err.message : "Syntax Error",
     };
   }
 };

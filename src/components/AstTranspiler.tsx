@@ -60,7 +60,9 @@ class ErrorBoundary extends React.Component<
 const AstTranspilerContent: React.FC = () => {
   const { isDarkMode } = useTheme();
 
-  const [inputCode, setInputCode] = useState<string>('.my-class {\n  text-align: center;\n  color: red;\n}');
+  const [inputCode, setInputCode] = useState<string>(
+    '.button {\n  display: inline-flex;\n  padding: 8px 16px;\n  border: 1px solid #e5e7eb;\n  border-radius: 6px;\n  font-weight: 600;\n  color: #2563eb;\n  transition: color 150ms ease-in-out;\n}'
+  );
   const [ast, setAst] = useState<object | null>(null);
   const [outputClasses, setOutputClasses] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -89,6 +91,11 @@ const AstTranspilerContent: React.FC = () => {
         <p className="text-gray-600 dark:text-gray-400">
           This tool parses raw CSS into an <span className="font-sans text-purple-600 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/30 px-1 rounded">Abstract Syntax Tree</span> 
           in the browser, traverses the nodes, and generates Tailwind utility classes.
+        </p>
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          Values are matched to Tailwind v3's default scales and colours. Off-scale values become arbitrary values
+          like <code className="font-mono">w-[300px]</code>, and properties with no utility become arbitrary
+          properties like <code className="font-mono">[mask-type:luminance]</code>, so nothing is dropped.
         </p>
       </div>
 
