@@ -15,7 +15,7 @@ export default defineConfig({
     // that file, so /platform needs its own proxy rule locally.
     proxy: {
       '/platform': {
-        target: 'https://platform-pi-eight-48.vercel.app',
+        target: 'https://platform.saikatbishal.com',
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/platform/, '') || '/',
       },

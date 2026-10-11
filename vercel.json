@@ -1,6 +1,9 @@
 {
+  "redirects": [
+    { "source": "/platform", "destination": "/platform/", "permanent": false }
+  ],
   "rewrites": [
-    { "source": "/platform", "destination": "https://platform.saikatbishal.com/" },
+    { "source": "/platform/", "destination": "https://platform.saikatbishal.com/" },
     { "source": "/platform/:path*", "destination": "https://platform.saikatbishal.com/:path*" },
     { "source": "/(.*)", "destination": "/" }
   ]
